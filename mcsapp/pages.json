@@ -16,6 +16,34 @@
 				"navigationStyle": "custom" ,
 				"navigationBarTextStyle": "white"
 			}
+		},
+		{
+			"path": "pages/diagnosis/index",
+			"style": {
+				"navigationStyle": "custom" ,
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/dispense/index",
+			"style": {
+				"navigationStyle": "custom" ,
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/record/index",
+			"style": {
+				"navigationStyle": "custom" ,
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/prescription/index",
+			"style": {
+				"navigationStyle": "custom" ,
+				"navigationBarTextStyle": "white"
+			}
 		}
 	],
 	"globalStyle": {

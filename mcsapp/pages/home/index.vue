@@ -11,27 +11,27 @@
 		</u-navbar>
 		<!-- 主页 -->
 		<view class="content">
+			<!-- 轮播图 -->
 			<view class="swiper">
 				<u-swiper :height="350" :list="list" :title="true" :effect3d="true"
-				indicator-pos="bottomCenter" mode="dot" :interval="4000" bg-color="white"></u-swiper>
+				indicator-pos="none" mode="dot" :interval="4000" bg-color="white"></u-swiper>
 			</view>
-			
+			<!-- 菜单 -->
 			<view class="menu">
 				<block v-for="item in menuList" :key="item.id">
-					<view class="menu-item" @click="toClassifyPage(item.id)">
-						<image class="menu-img" :src="item.src"/>
+					<view class="menu-item">
+						<image class="menu-img" :src="item.src" @click="Tab(item.url)"/>
 						<text class="menu-text">{{item.text}}</text>
 					</view>
 				</block>
 			</view>
-			
-			<!-- 我的提问和回复 -->
+			<!-- 健康资讯 -->
 			<view class="title">
 				<text class="text1">健康资讯</text>
 				<text class="text2">更多</text>
 				<u-icon class="into" name="arrow-right" size="30"></u-icon>
 			</view>
-			<!-- 提问列表 -->
+			<!-- 资讯列表 -->
 			<view>
 				<scroll-view class="answer" :scroll-y="true">
 					<view class="answer-item" v-for="item in answerList" :key="item.id" >
@@ -64,10 +64,10 @@
 					}
 				],
 				menuList:[
-					{id:1,src:"../../static/home/menu1.png",text:"初诊记录"},
-					{id:2,src:"../../static/home/menu2.png",text:"复诊配药"},
-					{id:3,src:"../../static/home/menu3.png",text:"配药记录"},
-					{id:4,src:"../../static/home/menu4.png",text:"电子处方"}
+					{id:1,src:"../../static/home/menu1.png",text:"初诊记录",url:"../diagnosis/index"},
+					{id:2,src:"../../static/home/menu2.png",text:"复诊配药",url:"../dispense/index"},
+					{id:3,src:"../../static/home/menu3.png",text:"配药记录",url:"../record/index"},
+					{id:4,src:"../../static/home/menu4.png",text:"电子处方",url:"../prescription/index"}
 				],
 				answerList:[
 					{id:1,src:"../../static/touxiang/touxiang1.jpg",text:"知名球员张恩华48岁心梗去世，运动员都难逃其手，还以为猝死离你很远吗？"},
@@ -89,7 +89,7 @@
 					// backgroundSize: 'cover',
 					
 					// 渐变色
-					backgroundImage: 'linear-gradient(45deg, rgb(28, 187, 180), rgb(141, 198, 63))'
+					backgroundImage: 'linear-gradient(158deg, rgba(79, 107, 208,0.95), rgb(98, 141, 185)47%, rgb(102, 175, 161)80%, rgb(92, 210, 133))'
 				}
 			}
 		},
@@ -97,7 +97,11 @@
 
 		},
 		methods: {
-
+			Tab:function(taburl) {
+				uni.navigateTo({
+					url: taburl
+				})
+			}
 		}
 	}
 </script>
@@ -127,7 +131,7 @@
 	.menu-item {
 		display: flex;
 		width: 150rpx;
-		height: 185rpx;;
+		height: 100%;
 		flex-direction: column;
 		align-items: center;
 	}
@@ -149,18 +153,21 @@
 	}
 	.text1{
 		margin-left: 40rpx;
+		margin-top: 40rpx;
 		margin-bottom: 20rpx;
 		width: 640rpx;
 		font-size: 33rpx;
 	}
 	.text2{
 		width: 60rpx;
+		margin-top: 40rpx;
 		margin-bottom: 20rpx;
 		font-size: 22rpx;
 		color: #909399;
 	}
 	.into{
-		margin-right: 25rpx;
+		margin-right: 26rpx;
+		margin-top: 40rpx;
 		margin-bottom: 20rpx;
 	}
 	.answer{

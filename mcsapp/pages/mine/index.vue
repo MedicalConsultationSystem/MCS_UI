@@ -1,49 +1,32 @@
 <template>
-	<view>
-		<!-- 自定义导航栏 -->
-		<u-navbar :is-back="false" :background="background" height="40">
-			<view class="slot-wrap">
-				<view class="camera">
-					<u-icon name="camera-fill" color="#000000" size="52"></u-icon>
+	<view class="content">
+		<view class="userboard">
+			<u-card class="user">
+				<view class="head" slot="head">
+					<u-image width="95rpx" height="95rpx" :src="user.src" shape="circle"></u-image>
+					<text>{{user.name}}</text>
+					<text>{{user.sex}}|{{user.age}}岁</text>
+					<u-icon name="more-dot-fill" color="black" size="35"></u-icon>
 				</view>
-			</view>
-		</u-navbar>
-		
-		<view class="u-flex user-box u-p-l-30 u-p-r-20 u-p-b-30">
-			<view class="u-m-r-10">
-				<u-avatar :src="pic" size="140"></u-avatar>
-			</view>
-			<view class="u-flex-1">
-				<view class="u-font-18 u-p-b-20">uView ui</view>
-				<view class="u-font-14 u-tips-color">微信号:helang_uView</view>
-			</view>
-			<view class="u-m-l-10 u-p-10">
-				<u-icon name="scan" color="#969799" size="28"></u-icon>
-			</view>
-			<view class="u-m-l-10 u-p-10">
-				<u-icon name="arrow-right" color="#969799" size="28"></u-icon>
-			</view>
+				<view class="foot" slot="foot">
+					<text>就诊卡号：{{user.id}}</text>
+					<u-icon name="bell"></u-icon>
+				</view>
+			</u-card>
 		</view>
-		
-		<view class="u-m-t-20">
-			<u-cell-group>
-				<u-cell-item icon="rmb-circle" title="支付"></u-cell-item>
-			</u-cell-group>
-		</view>
-		
-		<view class="u-m-t-20">
-			<u-cell-group>
-				<u-cell-item icon="star" title="收藏"></u-cell-item>
-				<u-cell-item icon="photo" title="相册"></u-cell-item>
-				<u-cell-item icon="coupon" title="卡券"></u-cell-item>
-				<u-cell-item icon="heart" title="关注"></u-cell-item>
-			</u-cell-group>
-		</view>
-		
-		<view class="u-m-t-20">
-			<u-cell-group>
-				<u-cell-item icon="setting" title="设置"></u-cell-item>
-			</u-cell-group>
+		<view class="serviceboard">
+			<u-card class="service">
+				<view class="head" slot="head">
+					<text>我的服务</text>
+				</view>
+				<view class="body" slot="body">
+					<block v-for="item in serviceList" :key="item.id">
+						<u-image></u-image>
+						<text>{{item.text}}</text>
+						<u-icon name="arrow-right" size="40"></u-icon>
+					</block>
+				</view>
+			</u-card>
 		</view>
 	</view>
 </template>
@@ -52,19 +35,18 @@
 	export default {
 		data() {
 			return {
-				pic:'https://uviewui.com/common/logo.png',
-				show:true,
-				background: {
-					// backgroundColor: ''，
-					
-					// 导航栏背景图
-					// background: 'url(https://cdn.uviewui.com/uview/swiper/1.jpg) no-repeat',
-					// 还可以设置背景图size属性
-					// backgroundSize: 'cover',
-					
-					// 渐变色
-					backgroundImage: 'linear-gradient(45deg, rgb(28, 187, 180), rgb(141, 198, 63))'
-				}
+				user: {
+					id: "A4231123",
+					name: "弹代码的吉他",
+					sex: "男",
+					age: "21",
+					src: "../../static/mine/user_male.png"
+				},
+				serviceList:[
+					{id:1,src:"../../static/mine",text:"我的报告",url:"../diagnosis/index"},
+					{id:2,src:"../../static/home/menu2.png",text:"我的药物",url:""},
+					{id:3,src:"../../static/home/menu3.png",text:"我的邦卡",url:""}
+				]
 			}
 		},
 		onLoad() {
@@ -77,16 +59,20 @@
 </script>
 
 <style lang="scss">
-	.slot-wrap{
+	.content{
 		display: flex;
-		flex-direction: row-reverse;
-		align-items: center;
-		/* 如果您想让slot内容占满整个导航栏的宽度 */
-		flex: 1;
-		/* 如果您想让slot内容与导航栏左右有空隙 */
-		padding: 0 25rpx;
+		flex-direction: column;
+		width: 100%;
+		height: 1215rpx;
+		background: linear-gradient(165deg, rgba(79, 107, 208,0.95), rgb(98, 141, 185)33%, rgb(102, 175, 161)43%,rgba(92, 210, 133,0.3)73%,white 90%);
 	}
-	.user-box{
-		background-color: #fff;
+	.user{
+		background: rgba($color: #ffffff, $alpha: 0.4);
+	}
+	.head{
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
 	}
 </style>

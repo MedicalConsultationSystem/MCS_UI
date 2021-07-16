@@ -148,7 +148,7 @@ name: "index",
 .status_text{
   margin-left: 249rpx;
   font-size: 18rpx;
-  color: #909399;
+  color: #ff9900;
   padding: 20rpx;
 }
 

@@ -58,12 +58,13 @@
     "@dcloudio/uni-quickapp-webview": "^2.0.0-31920210709003",
     "@dcloudio/uni-stat": "^2.0.0-31920210709003",
     "@vue/shared": "^3.0.0",
-    "core-js": "^3.6.5",
+    "core-js": "^3.15.2",
     "flyio": "^0.6.2",
     "regenerator-runtime": "^0.12.1",
     "vue": "^2.6.11",
     "vuex": "^3.2.0",
-    "uview-ui": "^1.8.4"
+    "uview-ui": "^1.8.4",
+    "node-sass": "^4.14.1"
   },
   "devDependencies": {
     "@babel/runtime": "~7.12.0",
@@ -82,6 +83,7 @@
     "babel-plugin-import": "^1.11.0",
     "cross-env": "^7.0.2",
     "jest": "^25.4.0",
+    "sass-loader": "^8.0.2",
     "mini-types": "*",
     "miniprogram-api-typings": "*",
     "postcss-comment": "^2.0.0",

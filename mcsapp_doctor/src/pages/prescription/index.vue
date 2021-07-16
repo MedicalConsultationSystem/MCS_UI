@@ -9,10 +9,18 @@
           <u-tabs-swiper ref="uTabs" :list="list" :current="current" @change="tabsChange" :is-scroll="false"
                          swiperWidth="750"></u-tabs-swiper>
         </view>
-        <swiper :current="swiperCurrent" @transition="transition" @animationfinish="animationfinish">
+        <swiper :current="swiperCurrent" style="height: 1170rpx;width: 100%;"@transition="transition" @animationfinish="animationfinish">
           <swiper-item class="swiper-item">
-            <scroll-view scroll-y style="height: 800rpx;width: 100%;" @scrolltolower="onreachBottom">
-              ...
+            <scroll-view scroll-y style="height: 1170rpx;width: 100%;" @scrolltolower="onreachBottom">
+              <view style="height: 40px">
+                <u-alert-tips type="warning"  :description="description" :show-icon="false"></u-alert-tips>
+              </view>
+              <view>
+                <u-row class="btn">
+                  <u-button type="primary" u-icon="plus">新增处方</u-button>
+                  <u-button type="success">提交处方</u-button>
+                </u-row>
+              </view>
             </scroll-view>
           </swiper-item>
           <swiper-item class="swiper-item">
@@ -30,6 +38,7 @@ export default {
 name: "prescription",
   data() {
     return {
+      description:`患者所需药品`,
       title: "电子处方",
       list: [{
         name: '待提交'
@@ -66,4 +75,7 @@ name: "prescription",
 </script>
 
 <style scoped lang="scss">
+.btn{
+  margin-top: 1080rpx;
+}
 </style>

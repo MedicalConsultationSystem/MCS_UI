@@ -37,6 +37,13 @@
 				"navigationStyle": "custom" ,
 				"navigationBarTextStyle": "white"
 			}
+		},
+		{
+			"path": "pages/drugSetting/index",
+			"style": {
+				"navigationStyle": "custom" ,
+				"navigationBarTextStyle": "white"
+			}
 		}
 	],
 	"globalStyle": {

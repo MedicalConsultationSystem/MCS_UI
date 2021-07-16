@@ -30,6 +30,13 @@
 				"navigationStyle": "custom" ,
 				"navigationBarTextStyle": "white"
 			}
+		},
+		{
+			"path": "pages/prescription/index",
+			"style": {
+				"navigationStyle": "custom" ,
+				"navigationBarTextStyle": "white"
+			}
 		}
 	],
 	"globalStyle": {

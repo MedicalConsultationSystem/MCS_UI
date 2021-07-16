@@ -42,7 +42,7 @@
 
 <script>
 export default {
-name: "index",
+name: "referral",
   data(){
   return{
     title: "复诊配药",

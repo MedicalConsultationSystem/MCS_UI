@@ -83,7 +83,7 @@
 
 <script>
 export default {
-name: "index",
+name: "patientInfo",
   data(){
   return{
     title: "患者详情",

@@ -23,6 +23,13 @@
 				"navigationStyle": "custom" ,
 				"navigationBarTextStyle": "white"
 			}
+		},
+		{
+			"path": "pages/patientInfo/index",
+			"style": {
+				"navigationStyle": "custom" ,
+				"navigationBarTextStyle": "white"
+			}
 		}
 	],
 	"globalStyle": {

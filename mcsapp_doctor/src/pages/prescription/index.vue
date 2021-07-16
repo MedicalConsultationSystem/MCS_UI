@@ -76,6 +76,6 @@ name: "prescription",
 
 <style scoped lang="scss">
 .btn{
-  margin-top: 1080rpx;
+  margin-top: 1000rpx;
 }
 </style>

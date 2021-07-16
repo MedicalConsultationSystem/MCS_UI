@@ -9,6 +9,20 @@
 				"navigationStyle": "custom" ,
 				"navigationBarTextStyle": "white"
 			}
+		},
+		{
+			"path": "pages/mine/index",
+			"style": {
+				"navigationStyle": "custom" ,
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/referral/index",
+			"style": {
+				"navigationStyle": "custom" ,
+				"navigationBarTextStyle": "white"
+			}
 		}
 	],
 	"globalStyle": {

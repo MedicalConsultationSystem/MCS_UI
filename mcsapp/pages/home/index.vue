@@ -172,7 +172,7 @@
 	}
 	.answer{
 		width: 750rpx;
-		height: 480rpx;
+		height: 601rpx;
 		display: flex;
 		flex-direction: column;
 	}

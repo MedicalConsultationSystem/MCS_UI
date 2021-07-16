@@ -104,11 +104,11 @@
 		onPageScroll({
 		  scrollTop
 		}) {
-		  if (scrollTop >= 50) {
+		  if (scrollTop >= 23) {
 		    this.navShow1 = false;
 		    this.navShow2 = true;
 		  }
-		  if (scrollTop < 50) {
+		  if (scrollTop < 23) {
 		    this.navShow1 = true;
 		    this.navShow2 = false;
 		  }
@@ -120,19 +120,22 @@
 </script>
 
 <style lang="scss" scoped>
+	.content{
+		
+	}
 	// 导航栏样式切换
 	.nav1{
-		height: 350rpx;
+		height: 390rpx;
 		width: 100%;
-		background: linear-gradient(156deg, rgba(79, 107, 208,1), rgb(98, 141, 185)45%, rgba(102, 175, 161,0.93)85%);
+		background: linear-gradient(156deg, rgb(79, 107, 208), rgb(98, 141, 185)45%, rgb(102, 175, 161)85%);
 		border-radius: 0 0 45rpx 45rpx;
 		position: fixed;
 		top: 0;
 	}
 	.nav2{
-		height: 110rpx;
+		height: 150rpx;
 		width: 100%;
-		background: linear-gradient(156deg, rgba(79, 107, 208,1), rgb(98, 141, 185)45%, rgba(102, 175, 161,0.93)85%);
+		background: linear-gradient(156deg, rgb(79, 107, 208), rgb(98, 141, 185)70%, rgb(102, 175, 161)110%);
 		position: fixed;
 		top: 0;
 		z-index: 999;

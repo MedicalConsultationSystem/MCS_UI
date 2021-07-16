@@ -21,8 +21,8 @@
         "checkSiteMap": true,
         "uploadWithSourceMap": true,
         "compileHotReLoad": false,
-        "useMultiFrameRuntime": false,
-        "useApiHook": false,
+        "useMultiFrameRuntime": true,
+        "useApiHook": true,
         "useApiHostProcess": false,
         "babelSetting": {
             "ignore": [],
@@ -40,7 +40,7 @@
     },
     "compileType": "miniprogram",
     "libVersion": "",
-    "appid": "touristappid",
+    "appid": "wxf1e8fb62195b59d3",
     "projectname": "mcsapp",
     "condition": {
         "search": {

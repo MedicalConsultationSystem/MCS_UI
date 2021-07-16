@@ -72,8 +72,8 @@
       </u-card>
       <view>
         <u-row>
-          <u-button type="primary">处方</u-button>
-          <u-button type="success">完成接诊</u-button>
+          <u-button type="primary" @click="Tab('../prescription/index')">处方</u-button>
+          <u-button type="success" @click="Tab('../referral/index')">完成接诊</u-button>
         </u-row>
 
       </view>

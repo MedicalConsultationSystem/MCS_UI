@@ -16,7 +16,7 @@
             </spn>
           </u-row>
         </view>
-        <view class="patient_body" slot="body">
+        <view class="patient_body" slot="body" @click="Tab('../patientInfo/index')">
           <u-image width="90rpx" height="90rpx" :src="patient.src" shape="circle"></u-image>
           <view class="name_text">
             <u-row>
@@ -62,7 +62,14 @@ name: "index",
         drugs:"lalalal"}
   }
 
-}
+},
+  methods:{
+    Tab:function(taburl) {
+      uni.navigateTo({
+        url: taburl
+      })
+    }
+  }
 }
 </script>
 

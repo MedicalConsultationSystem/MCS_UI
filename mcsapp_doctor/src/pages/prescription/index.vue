@@ -17,7 +17,7 @@
               </view>
               <view>
                 <u-row class="btn">
-                  <u-button type="primary" u-icon="plus">新增处方</u-button>
+                  <u-button type="primary" u-icon="plus" @click="Tab('../drugSetting/index')">新增处方</u-button>
                   <u-button type="success">提交处方</u-button>
                 </u-row>
               </view>
@@ -68,6 +68,11 @@ name: "prescription",
     },
     onreachBottom() {
 
+    },
+    Tab:function(taburl) {
+      uni.navigateTo({
+        url: taburl
+      })
     }
   }
 

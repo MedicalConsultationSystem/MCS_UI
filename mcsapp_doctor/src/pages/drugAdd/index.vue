@@ -1,4 +1,5 @@
 <template>
+
   <view>
     <view>
       <!-- 自定义导航栏 -->
@@ -7,26 +8,14 @@
     <view >
       <u-search placeholder="搜索药品" v-model="keyword"></u-search>
     </view>
-    <view class="">
-      <u-card :title="title" :show-head="false" :show-foot="false">
-        <view class="" slot="body">
-            <view>
-              <text class="apply_text">{{drugInfo.drug_name}}</text>
-            </view>
-        </view>
-      </u-card>
-    </view>
   </view>
 </template>
-
 <script>
 export default {
 name: "drugAdd",
 data(){
   return{
     title:"新增药品",
-    keyword:"",
-    list:[1,2,3],
     background: {
       backgroundImage: 'linear-gradient(156deg, rgba(79, 107, 208,0.95), rgb(98, 141, 185)45%, rgba(102, 175, 161,0.93)85%)'
     },
@@ -41,7 +30,10 @@ data(){
       }
     ]
   }
-}
+},
+  methods:{
+
+  }
 }
 </script>
 

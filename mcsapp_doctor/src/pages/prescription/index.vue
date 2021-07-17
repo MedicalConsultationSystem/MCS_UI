@@ -55,9 +55,30 @@
                   </view>
                 </u-card>
               </view>
+              <view v-for="(card,index) in cards" :key="index">
+                <view class="prescriptionBoard">
+                  <u-card class="prescription" box-shadow="2px 3px 8px #888888">
+                    <view class="prescription_head" slot="head">
+                      <u-row class="head_row">
+                      <span gutter="3">
+                          <text class="xi_text">西药方</text>
+                      </span>
+                        <span gutter="3">
+                        <view class="add" @click="Tab('../drugAdd/index')">
+                          <u-icon name="plus" size="15"></u-icon>
+                          <text class="add_text">新增药品</text>
+                        </view>
+                      </span>
+                      </u-row>
+                    </view>
+                    <view class="prescription_body" slot="body">
+                    </view>
+                  </u-card>
+                </view>
+              </view>
               <view>
                 <u-row class="btn">
-                  <u-button type="primary" u-icon="plus" @click="Tab('../drugSetting/index')">新增处方</u-button>
+                  <u-button type="primary" u-icon="plus" @click="addInner">新增处方</u-button>
                   <u-button type="success">提交处方</u-button>
                 </u-row>
               </view>
@@ -80,6 +101,9 @@ name: "prescription",
     return {
       description:`患者所需药品`,
       title: "电子处方",
+      index:0,
+      cards:[],
+      proName: ['手机号', '邮箱', '微信', 'QQ'],
       drugInfo:[
         {
           drug_name:"阿莫西林胶囊",
@@ -110,6 +134,15 @@ name: "prescription",
     transition(e) {
       let dx = e.detail.dx;
       this.$refs.uTabs.setDx(dx);
+    },
+    addInner(e) {
+      this.index += 1;
+      this.cards.push({
+        id: this.index,
+        value: ``,
+        pro: `${this.proName[e]}`
+      });
+      console.log(this.cards);
     },
     animationfinish(e) {
       let current = e.detail.current;

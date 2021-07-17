@@ -32,7 +32,7 @@
     <view>
       <u-row class="btn">
         <u-button type="primary" u-icon="plus" >取消</u-button>
-        <u-button type="success">确定</u-button>
+        <u-button type="success" @click="Tab('../prescription/index')">确定</u-button>
       </u-row>
     </view>
   </view>
@@ -90,6 +90,11 @@ name: "drugSetting",
   }
   },
   methods:{
+    Tab:function(taburl) {
+      uni.navigateTo({
+        url: taburl
+      })
+    },
     showFrequency() {
       this.showF = true;
     },

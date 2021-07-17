@@ -176,6 +176,13 @@
   margin-bottom: 20rpx;
   margin-top: 20rpx;
 }
+.patient_input.data-v-27c6e659 {
+  width: 180rpx;
+}
+.patient_input input.data-v-27c6e659 {
+  font-size: 11px;
+  color: #909399;
+}
 .text1.data-v-27c6e659 {
   font-size: 27rpx;
 }

@@ -16,7 +16,7 @@
 						<text class="name_text1">方洪全</text>
 						<text class="name_text2">主任医师</text>
 					</view>
-					<view class="change">
+					<view class="change" >
 						<text class="change_text">更换医生</text>
 						<u-icon class="change_icon" name="arrow-right" size="30"></u-icon>
 					</view>
@@ -30,15 +30,15 @@
 		<view class="patient_board">
 			<view class="patient_item">
 				<text class="text1">问诊人</text>
-				<view class="text2">
+				<view class="text2" >
 					<text >请填写问诊人信息</text>
 					<u-icon class="change_icon" name="arrow-right" size="27"></u-icon>
 				</view>
 			</view>
 			<view class="patient_item">
 				<text class="text1">确诊诊断</text>
-				<view>
-					<u-input placeholder="请填写病情诊断" v-model="patient.illness" style="width: 190rpx; text-align: right;"/>
+				<view class="patient_input">
+					<input placeholder="请填写病情诊断" placeholder-style='text-align:right'  style="text-align:right" v-model="patient.illness"/>
 				</view>
 			</view>
 			<view class="patient_item2">
@@ -82,6 +82,7 @@
 	export default {
 		data() {
 			return {
+				
 				navShow1: true,
 				navShow2: false,
 				show: false,
@@ -224,6 +225,13 @@
 		margin-bottom: 20rpx;
 		margin-top: 20rpx;
 	}
+	.patient_input{
+		width: 180rpx;
+	}
+	.patient_input input{
+		font-size: 11px;
+		color: #909399;
+	}
 	.text1{
 		font-size: 27rpx;
 	}
@@ -231,6 +239,7 @@
 		font-size: 27rpx;
 		color: #909399;
 	}
+	
 	/* 病情描述 */
 	.description{
 		display: flex;

@@ -1,5 +1,6 @@
 .DS_Store
 node_modules/
+<<<<<<< HEAD
 unpackage/
 dist/
 
@@ -14,10 +15,24 @@ yarn-error.log*
 
 # Editor directories and files
 .project
+=======
+/dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+/test/unit/coverage/
+/test/e2e/reports/
+selenium-debug.log
+
+# Editor directories and files
+>>>>>>> master
 .idea
 .vscode
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
+<<<<<<< HEAD
 *.sw*
+=======
+>>>>>>> master

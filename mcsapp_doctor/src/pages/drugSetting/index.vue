@@ -6,8 +6,14 @@
     </view>
     <view>
       <u-form :model="form" ref="uForm">
-        <u-form-item label="药品"><u-input v-model="form.sex" type="select" /></u-form-item>
-        <u-form-item label="剂量"><u-number-box v-model="form.dose" class="nb"></u-number-box></u-form-item>
+        <view class="">
+          <u-field @click="Tab('../drugAdd/index')" v-model="form.drug_name"
+                   :disabled="true" label="药品" placeholder="请选择药品"
+                   right-icon="arrow-down-fill"
+          >
+          </u-field>
+          <u-action-sheet @click="clickFrequency" :list="frequency_nameList" v-model="showF"></u-action-sheet>
+        </view>        <u-form-item label="剂量"><u-number-box v-model="form.dose" class="nb"></u-number-box></u-form-item>
         <view class="">
           <u-field @click="showFrequency" v-model="form.frequency_name"
                    :disabled="true" label="频次" placeholder="请选择频次"
@@ -43,6 +49,7 @@ export default {
 name: "drugSetting",
   data(){
   return{
+    title:"药品设置",
     usage_name: '',
     usageList:[
       {
@@ -75,6 +82,7 @@ name: "drugSetting",
     showU: false,
     showF: false,
     form: {
+      drug_name: "",
       dose:"",
       frequency_name:"",
       usage_name:"",
@@ -89,7 +97,13 @@ name: "drugSetting",
     }
   }
   },
+  onLoad(options){
+    this.form.drug_name=JSON.parse(options.name)
+    console.log(data)
+  },
   methods:{
+  jumpToPrescription(){
+  },
     Tab:function(taburl) {
       uni.navigateTo({
         url: taburl

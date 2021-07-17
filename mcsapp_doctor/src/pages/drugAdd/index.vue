@@ -10,7 +10,7 @@
     </view>
     <view class="u-m-t-20">
       <u-cell-group>
-        <u-cell-item title="吉西他滨针" @click="Tab('../drugSetting/index')">lala</u-cell-item>
+        <u-cell-item :title="drugInfo[0].drug_name" @click="jumpToSet">lala</u-cell-item>
       </u-cell-group>
     </view>
   </view>
@@ -21,8 +21,12 @@ name: "drugAdd",
 data(){
   return{
     title:"新增药品",
+
     background: {
       backgroundImage: 'linear-gradient(156deg, rgba(79, 107, 208,0.95), rgb(98, 141, 185)45%, rgba(102, 175, 161,0.93)85%)'
+    },
+    formData:{
+      drug_name:""
     },
     drugInfo:[
       {
@@ -41,8 +45,17 @@ data(){
       uni.navigateTo({
         url: taburl
       })
+    },
+    jumpToSet(url){
+      this.formData=this.drugInfo[0].drug_name;
+      let navData=JSON.stringify(this.formData);
+      console.log(navData);
+      uni.navigateTo({
+        url:'../drugSetting/index?name='+navData
+      })
     }
-  }
+  },
+
 }
 </script>
 

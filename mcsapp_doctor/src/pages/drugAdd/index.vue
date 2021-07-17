@@ -10,7 +10,7 @@
     </view>
     <view class="u-m-t-20">
       <u-cell-group>
-        <u-cell-item :title="drugInfo[0].drug_name" @click="jumpToSet">lala</u-cell-item>
+        <u-cell-item  v-for="{item,index} in drugInfo" :key="index" :title="lal" @click="jumpToSet">lala</u-cell-item>
       </u-cell-group>
     </view>
   </view>
@@ -29,6 +29,22 @@ data(){
       drug_name:""
     },
     drugInfo:[
+      {
+        drug_name:"吉西他滨针",
+        type:"医5",
+        type1:"甲",
+        dose:"0.2",
+        dose_unit:"g",
+        factory_name:"哈药集团制药"
+      },
+      {
+        drug_name:"吉西他滨针",
+        type:"医5",
+        type1:"甲",
+        dose:"0.2",
+        dose_unit:"g",
+        factory_name:"哈药集团制药"
+      },
       {
         drug_name:"吉西他滨针",
         type:"医5",

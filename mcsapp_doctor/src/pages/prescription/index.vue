@@ -127,7 +127,12 @@ name: "prescription",
       }
     }
   },
+  onLoad(options){
+    let res=JSON.parse(options.form);
+    console.log(res);
+  },
   methods:{
+
     tabsChange(index) {
       this.swiperCurrent = index;
     },

@@ -90,6 +90,7 @@ name: "drugSetting",
       quantity:"",
       sex: '',
       remark:"",
+      showFoot: true
     },
     value: 0,
     background: {

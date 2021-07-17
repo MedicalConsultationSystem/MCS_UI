@@ -8,6 +8,11 @@
     <view >
       <u-search placeholder="搜索药品" v-model="keyword"></u-search>
     </view>
+    <view class="u-m-t-20">
+      <u-cell-group>
+        <u-cell-item title="吉西他滨针" @click="Tab('../drugSetting/index')">lala</u-cell-item>
+      </u-cell-group>
+    </view>
   </view>
 </template>
 <script>
@@ -32,7 +37,11 @@ data(){
   }
 },
   methods:{
-
+    Tab:function(taburl) {
+      uni.navigateTo({
+        url: taburl
+      })
+    }
   }
 }
 </script>

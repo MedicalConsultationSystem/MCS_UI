@@ -38,7 +38,7 @@
     <view>
       <u-row class="btn">
         <u-button type="primary" u-icon="plus" @click="Tab('../drugAdd/index')">取消</u-button>
-        <u-button type="success" @click="Tab('../prescription/index')">确定</u-button>
+        <u-button type="success" @click="jumpToPrescription">确定</u-button>
       </u-row>
     </view>
   </view>
@@ -103,6 +103,11 @@ name: "drugSetting",
   },
   methods:{
   jumpToPrescription(){
+    console.log(this.form)
+    let navData=JSON.stringify(this.form);
+    uni.navigateTo({
+      url:'../prescription/index?form='+navData
+    })
   },
     Tab:function(taburl) {
       uni.navigateTo({

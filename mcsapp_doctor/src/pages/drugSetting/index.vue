@@ -31,7 +31,7 @@
     </view>
     <view>
       <u-row class="btn">
-        <u-button type="primary" u-icon="plus" >取消</u-button>
+        <u-button type="primary" u-icon="plus" @click="Tab('../drugAdd/index')">取消</u-button>
         <u-button type="success" @click="Tab('../prescription/index')">确定</u-button>
       </u-row>
     </view>

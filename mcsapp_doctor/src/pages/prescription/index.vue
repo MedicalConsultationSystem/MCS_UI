@@ -15,6 +15,46 @@
               <view style="height: 40px">
                 <u-alert-tips type="warning"  :description="description" :show-icon="false"></u-alert-tips>
               </view>
+              <view class="prescriptionBoard">
+                <u-card class="prescription" box-shadow="2px 3px 8px #888888">
+                  <view class="prescription_head" slot="head">
+                    <u-row class="head_row">
+                      <span gutter="3">
+                          <text class="xi_text">西药方</text>
+                      </span>
+                      <span gutter="3">
+                        <view class="add" @click="Tab('../drugAdd/index')">
+                          <u-icon name="plus" size="15"></u-icon>
+                          <text class="add_text">新增药品</text>
+                        </view>
+                      </span>
+                    </u-row>
+                  </view>
+                  <view class="prescription_body" slot="body">
+                    <u-row class="head_row">
+                      <span gutter="3">
+                          <text class="name_text">{{drugInfo[0].drug_name}}({{drugInfo[0].nickname}})({{drugInfo[0].type}})</text>
+                      </span>
+                      <span gutter="3">
+                        <view class="pack">
+                          <text class="pack_text">{{drugInfo[0].pack}}{{drugInfo[0].pack_unit}}</text>
+                        </view>
+                      </span>
+                      <span gutter="3">
+                        <view class="trash">
+                          <u-icon name="trash" ></u-icon>
+                        </view>
+                      </span>
+                    </u-row>
+                    <view>
+                      <text class="xi_text">{{drugInfo[0].specification}}</text>
+                    </view>
+                    <view>
+                      <text class="xi_text">{{drugInfo[0].usage}}</text>
+                    </view>
+                  </view>
+                </u-card>
+              </view>
               <view>
                 <u-row class="btn">
                   <u-button type="primary" u-icon="plus" @click="Tab('../drugSetting/index')">新增处方</u-button>
@@ -40,6 +80,17 @@ name: "prescription",
     return {
       description:`患者所需药品`,
       title: "电子处方",
+      drugInfo:[
+        {
+          drug_name:"阿莫西林胶囊",
+          nickname:"阿莫仙",
+          type:"医,农",
+          specification:"10g*9袋",
+          usage:"bid(口服)",
+          pack:1,
+          pack_unit:"盒"
+        }
+      ],
       list: [{
         name: '待提交'
       }, {
@@ -81,6 +132,42 @@ name: "prescription",
 
 <style scoped lang="scss">
 .btn{
-  margin-top: 1000rpx;
+  margin-top: 700rpx;
+}
+.prescription{
+  display: flex;
+  flex-direction: column;
+}
+.prescriptionBoard{
+  margin-top: 40rpx;
+}
+.xi_text{
+  font-size: 20rpx;
+  color: #323233;
+}
+.name_text{
+  font-size: 20rpx;
+  color: #323233;
+}
+.add_text{
+  font-size: 20rpx;
+}
+.icon_size{
+  size: 10;
+}
+.prescription_head{
+  height: 20rpx;
+}
+.add{
+  margin-left: 440rpx;
+}
+.pack{
+  margin-left: 240rpx;
+}
+.trash{
+  margin-left: 45rpx;
+}
+.pack_text{
+  font-size: 20rpx;
 }
 </style>

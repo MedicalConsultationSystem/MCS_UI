@@ -40,6 +40,41 @@
 
         </u-card>
       </view>
+      <view class="patientBoard" v-for="{item,index} in list" :key="index">
+        <u-card class="patient" :head-border-bottom="false" :foot-border-top="false">
+          <view class="patient_head" slot="head">
+            <u-row class="head_row">
+            <span gutter="3">
+            <text class="apply_text">申请时间：{{item.apply_time}}</text>
+          </span>
+              <spn gutter="6">
+                <text class="status_text">{{item.status}}</text>
+              </spn>
+            </u-row>
+          </view>
+          <view class="patient_body" slot="body" @click="Tab('../patientInfo/index')">
+            <u-image width="90rpx" height="90rpx" :src="patient.src" shape="circle"></u-image>
+            <view class="name_text">
+              <u-row>
+                <text class="name_text">{{item.name}}</text>
+                <text class="sex_text">{{item.sex}}</text>
+                <text class="age_text">{{item.age}}岁</text>
+              </u-row>
+              <u-row>
+                <text class="name_text">药品需求：</text>
+                <text class="need_text">{{item.drugs}}</text>
+              </u-row>
+            </view>
+            <view class="change">
+              <u-icon class="change_icon" name="arrow-right" size="30"></u-icon>
+            </view>
+          </view>
+          <view class="patient_foot" slot="foot">
+            <u-button size="mini">完成接诊</u-button>
+          </view>
+
+        </u-card>
+      </view>
     </view>
 
   </view>
@@ -70,8 +105,27 @@ name: "referral",
         name:"王大虎",
         sex:"男",
         age:18,
-        drugs:"lalalal"}
+        drugs:"lalalal"},
+    list:[
+      {
+        apply_time:"2021-7-16 15:41:31",
+        status:"待完成",
+        avatar:"../../static/touxiang/touxiang6.jpg",
+        name:"王大虎",
+        sex:"男",
+        age:18,
+        drugs:"lalalal"},
+      {
+        apply_time:"2021-7-16 15:41:31",
+        status:"待完成",
+        avatar:"../../static/touxiang/touxiang6.jpg",
+        name:"王大虎",
+        sex:"男",
+        age:18,
+        drugs:"lalalal"},
+    ],
   }
+
 
 },
   methods:{

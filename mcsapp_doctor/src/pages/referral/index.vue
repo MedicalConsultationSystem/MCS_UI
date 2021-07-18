@@ -4,51 +4,51 @@
       <!-- 自定义导航栏 -->
       <u-navbar :is-back="true" back-icon-color="white" :title="title" title-color="white" :background="background" height="45"></u-navbar>
     </view>
-    <view >
-      <view class="patientBoard" >
-        <u-card class="patient" :head-border-bottom="false" :foot-border-top="false">
-          <view class="patient_head" slot="head">
-            <u-row class="head_row">
-            <span gutter="3">
-            <text class="apply_text">申请时间：{{applyData.apply_time}}</text>
-          </span>
-              <spn gutter="6">
-                <text class="status_text">{{applyData.status}}</text>
-              </spn>
-            </u-row>
-          </view>
-          <view class="patient_body" slot="body" @click="Tab('../patientInfo/index')">
-            <u-image width="90rpx" height="90rpx" :src="patient.src" shape="circle"></u-image>
-            <view class="name_text">
-              <u-row>
-                <text class="name_text">{{applyData.name}}</text>
-                <text class="sex_text">{{applyData.sex}}</text>
-                <text class="age_text">{{applyData.age}}岁</text>
-              </u-row>
-              <u-row>
-                <text class="name_text">药品需求：</text>
-                <text class="need_text">{{applyData.drugs}}</text>
-              </u-row>
-            </view>
-            <view class="change">
-              <u-icon class="change_icon" name="arrow-right" size="30"></u-icon>
-            </view>
-          </view>
-          <view class="patient_foot" slot="foot">
-            <u-button size="mini">完成接诊</u-button>
-          </view>
+    <view v-if="list.length>1">
+<!--      <view class="patientBoard" v-for="{item,index} in list" :key="index" >-->
+<!--        <u-card class="patient" :head-border-bottom="false" :foot-border-top="false">-->
+<!--          <view class="patient_head" slot="head">-->
+<!--            <u-row class="head_row">-->
+<!--            <span gutter="3">-->
+<!--            <text class="apply_text" :v-if="item.apply_time">申请时间：{{item.apply_time}}</text>-->
+<!--          </span>-->
+<!--              <spn gutter="6">-->
+<!--                <text class="status_text">{{item.status}}</text>-->
+<!--              </spn>-->
+<!--            </u-row>-->
+<!--          </view>-->
+<!--          <view class="patient_body" slot="body" @click="Tab('../patientInfo/index')">-->
+<!--            <u-image width="90rpx" height="90rpx" :src="patient.src" shape="circle"></u-image>-->
+<!--            <view class="name_text">-->
+<!--              <u-row>-->
+<!--                <text class="name_text">{{item.name}}</text>-->
+<!--                <text class="sex_text">{{item.sex}}</text>-->
+<!--                <text class="age_text">{{item.age}}岁</text>-->
+<!--              </u-row>-->
+<!--              <u-row>-->
+<!--                <text class="name_text">药品需求：</text>-->
+<!--                <text class="need_text">{{item.drugs}}</text>-->
+<!--              </u-row>-->
+<!--            </view>-->
+<!--            <view class="change">-->
+<!--              <u-icon class="change_icon" name="arrow-right" size="30"></u-icon>-->
+<!--            </view>-->
+<!--          </view>-->
+<!--          <view class="patient_foot" slot="foot">-->
+<!--            <u-button size="mini">完成接诊</u-button>-->
+<!--          </view>-->
 
-        </u-card>
-      </view>
-      <view class="patientBoard" v-for="{item,index} in list" :key="index">
+<!--        </u-card>-->
+<!--      </view>-->
+      <view class="patientBoard">
         <u-card class="patient" :head-border-bottom="false" :foot-border-top="false">
           <view class="patient_head" slot="head">
             <u-row class="head_row">
             <span gutter="3">
-            <text class="apply_text">申请时间：{{item.apply_time}}</text>
+            <text class="apply_text" :v-if="list[0].apply_time">申请时间：{{list[0].apply_time}}</text>
           </span>
               <spn gutter="6">
-                <text class="status_text">{{item.status}}</text>
+                <text class="status_text">{{list[0].status}}</text>
               </spn>
             </u-row>
           </view>
@@ -56,13 +56,13 @@
             <u-image width="90rpx" height="90rpx" :src="patient.src" shape="circle"></u-image>
             <view class="name_text">
               <u-row>
-                <text class="name_text">{{item.name}}</text>
-                <text class="sex_text">{{item.sex}}</text>
-                <text class="age_text">{{item.age}}岁</text>
+                <text class="name_text">{{list[0].name}}</text>
+                <text class="sex_text">{{list[0].sex}}</text>
+                <text class="age_text">{{list[0].age}}岁</text>
               </u-row>
               <u-row>
                 <text class="name_text">药品需求：</text>
-                <text class="need_text">{{item.drugs}}</text>
+                <text class="need_text">{{list[0].drugs}}</text>
               </u-row>
             </view>
             <view class="change">
@@ -99,13 +99,13 @@ name: "referral",
       src:"../../static/touxiang/touxiang6.jpg"
     },
     applyData: {
-        apply_time:"2021-7-16 15:41:31",
-        status:"待完成",
-        avatar:"../../static/touxiang/touxiang6.jpg",
-        name:"王大虎",
-        sex:"男",
-        age:18,
-        drugs:"lalalal"},
+        apply_time:"",
+        status:"",
+        avatar:"",
+        name:"",
+        sex:"",
+        age:null,
+        drugs:""},
     list:[
       {
         apply_time:"2021-7-16 15:41:31",

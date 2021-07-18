@@ -1,7 +1,7 @@
 <template>
   <view class="content">
     <view class="userboard">
-      <u-card class="user">
+      <u-card class="user" :head-border-bottom="false" :foot-border-top="false">
         <view class="head" slot="head">
           <u-image width="95rpx" height="95rpx" :src="user.src" shape="circle"></u-image>
           <text>{{user.name}}</text>

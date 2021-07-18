@@ -10,7 +10,7 @@
     </view>
     <view class="u-m-t-20">
       <u-cell-group>
-        <u-cell-item  v-for="{item,index} in drugInfo" :key="index" :title="lal" @click="jumpToSet">lala</u-cell-item>
+        <u-cell-item  :title="lal" @click="jumpToSet">lala</u-cell-item>
       </u-cell-group>
     </view>
   </view>
@@ -21,7 +21,6 @@ name: "drugAdd",
 data(){
   return{
     title:"新增药品",
-
     background: {
       backgroundImage: 'linear-gradient(156deg, rgba(79, 107, 208,0.95), rgb(98, 141, 185)45%, rgba(102, 175, 161,0.93)85%)'
     },

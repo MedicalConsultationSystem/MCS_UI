@@ -1,41 +1,47 @@
 <template>
-  <view>
+  <view class="back_color">
     <view>
       <!-- 自定义导航栏 -->
       <u-navbar :is-back="true" back-icon-color="white" :title="title" title-color="white" :background="background" height="45"></u-navbar>
     </view>
-    <view class="patientboard" >
-      <u-card class="patient" box-shadow="2px 3px 8px #888888">
-        <view class="patient_head" slot="head">
-          <u-row class="head_row">
+    <view >
+      <view class="patientBoard" >
+        <u-card class="patient" :head-border-bottom="false" :foot-border-top="false">
+          <view class="patient_head" slot="head">
+            <u-row class="head_row">
             <span gutter="3">
             <text class="apply_text">申请时间：{{applyData.apply_time}}</text>
           </span>
-            <spn gutter="6">
-              <text class="status_text">{{applyData.status}}</text>
-            </spn>
-          </u-row>
-        </view>
-        <view class="patient_body" slot="body" @click="Tab('../patientInfo/index')">
-          <u-image width="90rpx" height="90rpx" :src="patient.src" shape="circle"></u-image>
-          <view class="name_text">
-            <u-row>
-              <text class="name_text1">{{applyData.name}}</text>
-              <text class="name_text1">{{applyData.sex}}</text>
-              <text class="name_text1">{{applyData.age}}岁</text>
+              <spn gutter="6">
+                <text class="status_text">{{applyData.status}}</text>
+              </spn>
             </u-row>
-            <text class="name_text1">药品需求：{{applyData.drugs}}</text>
           </view>
-          <view class="change">
-            <u-icon class="change_icon" name="arrow-right" size="30"></u-icon>
+          <view class="patient_body" slot="body" @click="Tab('../patientInfo/index')">
+            <u-image width="90rpx" height="90rpx" :src="patient.src" shape="circle"></u-image>
+            <view class="name_text">
+              <u-row>
+                <text class="name_text">{{applyData.name}}</text>
+                <text class="sex_text">{{applyData.sex}}</text>
+                <text class="age_text">{{applyData.age}}岁</text>
+              </u-row>
+              <u-row>
+                <text class="name_text">药品需求：</text>
+                <text class="need_text">{{applyData.drugs}}</text>
+              </u-row>
+            </view>
+            <view class="change">
+              <u-icon class="change_icon" name="arrow-right" size="30"></u-icon>
+            </view>
           </view>
-        </view>
-        <view class="patient_foot" slot="foot">
-          <u-button size="default" >完成接诊</u-button>
-        </view>
+          <view class="patient_foot" slot="foot">
+            <u-button size="mini">完成接诊</u-button>
+          </view>
 
-      </u-card>
+        </u-card>
+      </view>
     </view>
+
   </view>
 
 </template>
@@ -43,9 +49,14 @@
 <script>
 export default {
 name: "referral",
+  onLoad(){
+    this.screenHeight=uni.getSystemInfoSync().windowHeight;
+    console.log(this.screenHeight)
+  },
   data(){
   return{
     title: "复诊配药",
+    screenHeight:null,
     background: {
       backgroundImage: 'linear-gradient(156deg, rgba(79, 107, 208,0.95), rgb(98, 141, 185)45%, rgba(102, 175, 161,0.93)85%)'
     },
@@ -74,8 +85,16 @@ name: "referral",
 </script>
 
 <style lang="scss" scoped>
-
-.patientboard{
+.btn{
+  marginTop: 20rpx;
+  color:'red';
+  height: 15rpx;
+}
+.back_color{
+  background-color: #F5F5F5;
+  height: 1667rpx;
+}
+.patientBoard{
   margin-top: 40rpx;
 }
 .patient{
@@ -85,21 +104,33 @@ name: "referral",
 .patient_head{
 
 }
-.name_text{
-  display: flex;
-  flex-direction: column;
-  align-content: space-between;
-  margin-left: 40rpx;
-  font-size: 35rpx;
-}
 .name_text text{
-  margin-top: 8rpx;
-  margin-bottom: 8rpx;
+  margin-top: 10rpx;
+  margin-bottom: 12rpx;
 }
-.name_text1{
-  margin-left: 5rpx;
+.name_text{
+  margin-left: 20rpx;
   font-weight: bold;
-  font-size: 16rpx;
+  font-size: 21rpx;
+  color: #909399;
+}
+.sex_text{
+  margin-left: 30rpx;
+  font-weight: bold;
+  font-size: 18rpx;
+  color: #909399;
+}
+.age_text{
+  margin-left: 30rpx;
+  font-weight: bold;
+  font-size: 18rpx;
+  color: #909399;
+}
+.need_text{
+  margin-left: 20rpx;
+  font-weight: bold;
+  font-size: 18rpx;
+  color: #323233;
 }
 .name_text2{
   border: 1rpx solid #ff9900;
@@ -117,9 +148,10 @@ name: "referral",
   margin-left: 260rpx;
 }
 .apply_text{
+  position: absolute;
   margin-left: 15rpx;
-  font-size: 20rpx;
-  width: 90rpx;
+  font-size: 24rpx;
+  width: 360rpx;
   color: #909399;
 }
 .change_text{
@@ -134,6 +166,7 @@ name: "referral",
 .patient_body{
   display: flex;
   flex-direction: row;
+  height: 120rpx;
   justify-content: left;
   align-items: center;
 }
@@ -141,15 +174,16 @@ name: "referral",
   width: 640rpx;
 }
 .patient_foot{
+  height: 28rpx;
   margin-left:520rpx;
   font-size: 20rpx;
   color: #4cd964;
 }
 .status_text{
-  margin-left: 249rpx;
-  font-size: 18rpx;
-  color: #ff9900;
-  padding: 20rpx;
+  position:fixed;
+  margin-left: 540rpx;
+  font-size: 23rpx;
+  color: #FFD700;
 }
 
 </style>

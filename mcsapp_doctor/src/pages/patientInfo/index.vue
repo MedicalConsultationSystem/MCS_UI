@@ -83,20 +83,10 @@
         <view class="box">
           <label>病情图片</label>
         </view>
-        <view class="u-input" @click="Tab('../referral/index')">
-        </view>
       </view>
-      <u-row>
-        <view class="apply">
-          <view class="toapply1" >
-            处方
-          </view>
-        </view>
-        <view class="apply">
-          <view class="toapply2" @click="Tab('../prescription/index')">
-            完成接诊
-          </view>
-        </view>
+      <u-row class="btn">
+        <u-button type="primary" u-icon="plus" @click="Tab('../prescription/index')" class="btn_cancel">处方</u-button>
+        <u-button type="success" @click="Tab('../referral/index')" class="btn_confirm">完成接诊</u-button>
       </u-row>
     </view>
   </view>
@@ -221,6 +211,10 @@ name: "patientInfo",
 
   }
 }
+.btn{
+  position: fixed;
+  margin-top: 30rpx;
+}
 .header_illnessInfo {
   width: 100%;
   height: 280rpx;
@@ -269,7 +263,12 @@ name: "patientInfo",
 
   }
 }
-
+.btn_confirm{
+  margin-left: 320rpx;
+}
+.btn_cancel{
+  margin-left: 80rpx;
+}
 .apply {
   position: absolute;
   width: 50%;
@@ -289,6 +288,7 @@ name: "patientInfo",
     font-weight: 400;
     color: #FFFFFF;
   }
+
   .toapply2 {
     width: 100%;
     height: 100%;

@@ -8,7 +8,7 @@
     <view >
       <u-search placeholder="搜索药品" v-model="keyword"></u-search>
     </view>
-    <block v-for="(item,index) in drugInfo" :key="item.id" class="back_color">
+    <block v-for="(item,index) in drugInfo" :key="index" class="back_color">
       <view class="drug-information">
         <view class="factory_name">
           <text>{{item.drug_name}}</text>
@@ -17,7 +17,7 @@
         <view >
           <text class="specification">{{item.specification}}</text>
         </view>
-        <view class="icon" @click="jumpToSet(item.id)">
+        <view class="icon" @click="jumpToSet(index)">
           <u-icon name="plus"></u-icon>
         </view>
       </view>
@@ -34,9 +34,7 @@ data(){
     background: {
       backgroundImage: 'linear-gradient(156deg, rgba(79, 107, 208,0.95), rgb(98, 141, 185)45%, rgba(102, 175, 161,0.93)85%)'
     },
-    formData:{
-      drug_name:""
-    },
+    formData:null,
     drugInfo:[
       {
         id:1,

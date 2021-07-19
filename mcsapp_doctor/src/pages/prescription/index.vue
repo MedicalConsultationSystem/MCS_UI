@@ -15,9 +15,9 @@
               <view style="height: 40px">
                 <u-alert-tips type="warning"  :description="description" :show-icon="false"></u-alert-tips>
               </view>
-              <view v-for="card in cards" :key="drugInfo.id">
+              <view v-for="card in cards" :key="card.id">
                 <view class="prescriptionBoard">
-                  <u-card class="prescription" box-shadow="2px 3px 8px #888888" :show-foot=drugInfo.footShow :show-head="false">
+                  <u-card class="prescription" box-shadow="2px 3px 8px #888888" :show-foot=card.footShow :show-head="false">
                     <view class="prescription_head" slot="body">
                       <u-row class="head_row">
                       <span gutter="3">
@@ -34,7 +34,7 @@
                     <view class="prescription_body" slot="foot">
                       <u-row class="head_row">
                       <span gutter="3">
-                          <text class="name_text">{{drugInfo.drug_name}}</text>
+                          <text class="name_text" v-if="card.drug_name">{{card.drug_name}}</text>
                       </span>
                         <span gutter="3">
                         <view class="pack">
@@ -48,10 +48,10 @@
                       </span>
                       </u-row>
                       <view>
-                        <text class="xi_text">{{drugInfo.specification}}</text>
+                        <text class="xi_text">{{card.specification}}</text>
                       </view>
                       <view>
-                        <text class="xi_text">{{drugInfo.usage_name}}</text>
+                        <text class="xi_text">{{card.usage_name}}</text>
                       </view>
                     </view>
                   </u-card>
@@ -83,7 +83,9 @@ name: "prescription",
       description:`患者所需药品`,
       title: "电子处方",
       index:0,
+      rev:null,
       cards:[],
+      footShow:false,
       drugInfo: {
           id:null,
           drug_name:"",
@@ -106,8 +108,10 @@ name: "prescription",
     }
   },
   onLoad(options){
-    this.drugInfo=JSON.parse(options.form);
-    console.log(this.drugInfo);
+    this.rev=JSON.parse(options.form);
+    console.log(this.rev);
+    this.cards.unshift(this.rev)
+    console.log(this.cards)
   },
   methods:{
 

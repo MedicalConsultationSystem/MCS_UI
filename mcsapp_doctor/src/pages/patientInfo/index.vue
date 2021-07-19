@@ -4,79 +4,100 @@
       <!-- 自定义导航栏 -->
       <u-navbar :is-back="true" back-icon-color="white" :title="title" title-color="white" :background="background" height="45"></u-navbar>
     </view>
-    <view>
-      <u-card :title="title" :show-head="false" :show-foot="false">
-        <view class="" slot="body">
-          <u-row class="head_row">
-            <span gutter="3">
-            <text class="apply_text">申请时间：{{applyData.apply_time}}</text>
-          </span>
-            <spn gutter="6">
-              <text class="status_text">{{applyData.status}}</text>
-            </spn>
-          </u-row>
+    <view class="container">
+      <view class="header ">
+        <view class="box">
+          <label>申请时间</label>
+          <text class="color">*</text>
         </view>
-      </u-card>
-      <u-card :title="title" :show-head="false" :show-foot="false">
-        <view class="" slot="body">
-          <u-row class="head_row">
-            <span gutter="3">
-            <text class="apply_text">问诊人</text>
-          </span>
-            <spn gutter="6">
-              <text class="name_text">{{applyData.name}}</text>
-              <text class="sex_text">{{applyData.sex}}</text>
-              <text class="age_text">{{applyData.age}}岁</text>
-            </spn>
-          </u-row>
+        <view class="u-input">
+          <text class="common_text">{{applyData.apply_time}}</text>
         </view>
-      </u-card>
-      <u-card :title="title" :show-head="false">
-        <view class="" slot="body">
-          <u-row class="head_row">
-            <text class="apply_text">所需药品</text>
-          </u-row>
-        </view>
-        <view class="" slot="foot">
-            <text class="drug_text2">感冒颗粒</text>
-        </view>
-      </u-card>
-      <u-card :title="title" :show-head="false">
-        <view class="" slot="body">
-          <u-row class="head_row">
-            <span gutter="3">
-            <text class="apply_text">历史诊断</text>
-          </span>
-            <spn gutter="6">
-              <text class="name_text">{{applyData.historicalDiagnosis}}</text>
-            </spn>
-          </u-row>
-        </view>
-        <view class="" slot="foot">
-          <view>
-            <text class="apply_text">病情描述:</text>
-          </view>
-          <view>
-            <text class="illnessInfo_text">{{applyData.illnessInfo}}</text>
-          </view>
-        </view>
-      </u-card>
-      <u-card :title="title" :show-head="false" :show-foot="false">
-        <view class="" slot="body">
-        <view>
-          <text class="apply_text">病情图片:</text>
-        </view>
-        <view>
-        </view>
-        </view>
-      </u-card>
-      <view>
-        <u-row>
-          <u-button type="primary" @click="Tab('../prescription/index')">处方</u-button>
-          <u-button type="success" @click="Tab('../referral/index')">完成接诊</u-button>
-        </u-row>
-
       </view>
+      <view class="header ">
+        <view class="box">
+          <label>申请状态</label>
+          <text class="color">*</text>
+        </view>
+        <view class="u-input">
+          <text class="common_text">{{applyData.status}}</text>
+        </view>
+      </view>
+      <view class="header ">
+        <view class="box">
+          <label>问诊人</label>
+          <text class="color">*</text>
+        </view>
+        <view class="u-input">
+          <text class="common_text">{{applyData.name}}</text>
+        </view>
+      </view>
+
+      <view class="header ">
+        <view class="box">
+          <label>年龄</label>
+          <text class="color">*</text>
+        </view>
+        <view class="u-input">
+          <text class="common_text">{{applyData.age}}</text>
+        </view>
+      </view>
+      <view class="header ">
+        <view class="box">
+          <label>性别</label>
+          <text class="color">*</text>
+        </view>
+        <view class="u-input">
+          <text class="common_text">{{applyData.sex}}</text>
+        </view>
+      </view>
+      <view class="header ">
+        <view class="box">
+          <label>所需药品</label>
+          <text class="color">*</text>
+        </view>
+        <view class="u-input">
+          <text class="drug_text">感冒颗粒</text>
+          <text class="drug_text">感冒颗粒</text>
+        </view>
+      </view>
+      <view class="header ">
+        <view class="box">
+          <label>历史诊断</label>
+          <text class="color">*</text>
+        </view>
+        <view class="u-input">
+          <text class="common_text">{{applyData.historicalDiagnosis}}</text>
+        </view>
+      </view>
+      <view class="header_illnessInfo">
+        <view class="box">
+          <label>病情描述</label>
+          <text class="color">*</text>
+        </view>
+        <view class="u-input">
+          <text class="common_text">{{applyData.illnessInfo}}</text>
+        </view>
+      </view>
+      <view class="header_illnessInfo">
+        <view class="box">
+          <label>病情图片</label>
+        </view>
+        <view class="u-input" @click="Tab('../referral/index')">
+        </view>
+      </view>
+      <u-row>
+        <view class="apply">
+          <view class="toapply1" >
+            处方
+          </view>
+        </view>
+        <view class="apply">
+          <view class="toapply2" @click="Tab('../prescription/index')">
+            完成接诊
+          </view>
+        </view>
+      </u-row>
     </view>
   </view>
 </template>
@@ -90,6 +111,30 @@ name: "patientInfo",
     background: {
       backgroundImage: 'linear-gradient(156deg, rgba(79, 107, 208,0.95), rgb(98, 141, 185)45%, rgba(102, 175, 161,0.93)85%)'
     },
+    list:[
+      {
+        apply_time:"2021-7-16 15:41:31",
+        status:"待完成",
+        avatar:"../../static/touxiang/touxiang6.jpg",
+        name:"王大虎",
+        sex:"男",
+        age:18,
+        drugs:"lalalal",
+        historicalDiagnosis:"感冒",
+        illnessInfo:"从昨天晚上开始腹泻，头晕眼花，伴有呕吐症状，体温39摄氏度"
+      },
+      {
+        apply_time:"2021-7-16 15:41:31",
+        status:"待完成",
+        avatar:"../../static/touxiang/touxiang6.jpg",
+        name:"王大虎",
+        sex:"男",
+        age:18,
+        drugs:"lalalal",
+        historicalDiagnosis:"感冒",
+        illnessInfo:"从昨天晚上开始腹泻，头晕眼花，伴有呕吐症状，体温39摄氏度"
+      }
+    ],
     applyData: {
       apply_time:"2021-7-16 15:41:31",
       status:"待完成",
@@ -115,50 +160,7 @@ name: "patientInfo",
 </script>
 
 <style lang="scss" scoped>
-.u-card-wrap {
-  background-color: #999999;
-  padding: 1px;
-}
-.list-cell {
-  display: flex;
-  box-sizing: border-box;
-  width: 100%;
-  padding: 10px 24rpx;
-  overflow: hidden;
-  color: #323233;
-  font-size: 14px;
-  line-height: 24px;
-  background-color: #fff;
-}
-.status_text{
-  margin-left: 220rpx;
-  font-size: 18rpx;
-  color: #4cd964;
-  padding: 20rpx;
-}
-
-.name_text{
-  margin-left: 280rpx;
-  font-size: 18rpx;
-  color: #323233;
-  padding: 20rpx;
-}
-.illnessInfo_text{
-  font-size: 18rpx;
-  color: #323233;
-  padding: 20rpx;
-}
-.sex_text{
-  font-size: 18rpx;
-  color: #323233;
-  padding: 20rpx;
-}
-.age_text{
-  font-size: 18rpx;
-  color: #323233;
-  padding: 20rpx;
-}
-.drug_text2{
+.drug_text{
   border: 1rpx solid #4cd964;
   border-radius: 30rpx;
   font-size: 15rpx;
@@ -167,10 +169,137 @@ name: "patientInfo",
   padding-right: 10rpx;
   padding-bottom: 4rpx;
 }
-.apply_text{
-  margin-left: 15rpx;
-  font-size: 20rpx;
-  width: 90rpx;
+
+.common_text{
   color: #909399;
+}
+.header {
+  width: 100%;
+  height: 120rpx;
+  padding: 0 32rpx;
+  display: flex;
+  flex-direction: row;
+
+  .row {
+    position: relative;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 24rpx;
+    height: 24rpx;
+    font-size: 0;
+  }
+
+  .box {
+    width: 180rpx;
+    height: 100%;
+    border-bottom: 1rpx solid #E4E4E4;
+    line-height: 120rpx;
+
+    label {
+      font-size: 30rpx;
+      font-weight: 400;
+      color: #333333;
+      line-height: 42px;
+    }
+
+    .color {
+      color: #FC5C56;
+    }
+  }
+  .u-input {
+    border-bottom: 1rpx solid #E4E4E4;
+    color: #333333;
+    flex: 1;
+    line-height: 120rpx;
+    text-align: right;
+
+    input {
+      width: 100%;
+      height: 100%;
+    }
+
+  }
+}
+.header_illnessInfo {
+  width: 100%;
+  height: 280rpx;
+  padding: 0 32rpx;
+  display: flex;
+  flex-direction: row;
+
+  .row {
+    position: relative;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 24rpx;
+    height: 24rpx;
+    font-size: 0;
+  }
+
+  .box {
+    width: 180rpx;
+    height: 100%;
+    border-bottom: 1rpx solid #E4E4E4;
+    line-height: 120rpx;
+
+    label {
+      font-size: 30rpx;
+      font-weight: 400;
+      color: #333333;
+      line-height: 42px;
+    }
+
+    .color {
+      color: #FC5C56;
+    }
+  }
+  .u-input {
+    border-bottom: 1rpx solid #E4E4E4;
+    color: #333333;
+    flex: 1;
+    line-height: 120rpx;
+    text-align: right;
+
+    input {
+      width: 100%;
+      height: 100%;
+    }
+
+  }
+}
+
+.apply {
+  position: absolute;
+  width: 50%;
+  margin-top: 180rpx;
+  height: 90rpx;
+  padding: 0 33rpx;
+  text-align: center;
+
+  .toapply1 {
+    width: 100%;
+    height: 100%;
+    background-color: green;
+    line-height: 90rpx;
+    background-color: #337DFF;
+    font-size: 36prx;
+    border-radius: 45rpx;
+    font-weight: 400;
+    color: #FFFFFF;
+  }
+  .toapply2 {
+    width: 100%;
+    height: 100%;
+    background-color: green;
+    line-height: 90rpx;
+    background-color: #ff9900;
+    font-size: 36prx;
+    border-radius: 45rpx;
+    font-weight: 400;
+    color: #FFFFFF;
+    margin-left: 360rpx;
+  }
 }
 </style>

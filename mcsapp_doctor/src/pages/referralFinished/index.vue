@@ -17,7 +17,7 @@
                     </spn>
                   </u-row>
                 </view>
-                <view class="patient_body" slot="body" @click="Tab('../patientInfo/index')">
+                <view class="patient_body" slot="body">
                   <u-image width="90rpx" height="90rpx" :src="patient.src" shape="circle"></u-image>
                   <view class="name_text">
                     <u-row>
@@ -212,5 +212,4 @@ export default {
   font-size: 23rpx;
   color: #FFD700;
 }
-
 </style>

@@ -15,47 +15,7 @@
               <view style="height: 40px">
                 <u-alert-tips type="warning"  :description="description" :show-icon="false"></u-alert-tips>
               </view>
-<!--              <view class="prescriptionBoard">-->
-<!--                <u-card class="prescription" box-shadow="2px 3px 8px #888888">-->
-<!--                  <view class="prescription_head" slot="head">-->
-<!--                    <u-row class="head_row">-->
-<!--                      <span gutter="3">-->
-<!--                          <text class="xi_text">西药方</text>-->
-<!--                      </span>-->
-<!--                      <span gutter="3">-->
-<!--                        <view class="add" @click="Tab('../drugAdd/index')">-->
-<!--                          <u-icon name="plus" size="15"></u-icon>-->
-<!--                          <text class="add_text">新增药品</text>-->
-<!--                        </view>-->
-<!--                      </span>-->
-<!--                    </u-row>-->
-<!--                  </view>-->
-<!--                  <view class="prescription_body" slot="body">-->
-<!--                    <u-row class="head_row">-->
-<!--                      <span gutter="3">-->
-<!--                          <text class="name_text">{{drugInfo[0].drug_name}}({{drugInfo[0].nickname}})({{drugInfo[0].type}})</text>-->
-<!--                      </span>-->
-<!--                      <span gutter="3">-->
-<!--                        <view class="pack">-->
-<!--                          <text class="pack_text">{{drugInfo[0].pack}}{{drugInfo[0].pack_unit}}</text>-->
-<!--                        </view>-->
-<!--                      </span>-->
-<!--                      <span gutter="3">-->
-<!--                        <view class="trash">-->
-<!--                          <u-icon name="trash" ></u-icon>-->
-<!--                        </view>-->
-<!--                      </span>-->
-<!--                    </u-row>-->
-<!--                    <view>-->
-<!--                      <text class="xi_text">{{drugInfo[0].specification}}</text>-->
-<!--                    </view>-->
-<!--                    <view>-->
-<!--                      <text class="xi_text">{{drugInfo[0].usage}}</text>-->
-<!--                    </view>-->
-<!--                  </view>-->
-<!--                </u-card>-->
-<!--              </view>-->
-              <view v-for="(card,index) in cards" :key="index">
+              <view v-for="card in cards" :key="drugInfo.id">
                 <view class="prescriptionBoard">
                   <u-card class="prescription" box-shadow="2px 3px 8px #888888" :show-foot=drugInfo.footShow :show-head="false">
                     <view class="prescription_head" slot="body">
@@ -125,6 +85,7 @@ name: "prescription",
       index:0,
       cards:[],
       drugInfo: {
+          id:null,
           drug_name:"",
           specification:"10g*9袋",
           usage_name:"",
@@ -162,6 +123,7 @@ name: "prescription",
       this.cards.push({
         id: this.index,
       });
+      this.drugInfo.footShow=false
       console.log(this.cards);
     },
     animationfinish(e) {

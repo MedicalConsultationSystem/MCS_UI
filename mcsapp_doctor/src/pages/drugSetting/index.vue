@@ -13,7 +13,7 @@
           >
           </u-field>
           <u-action-sheet @click="clickFrequency" :list="frequency_nameList" v-model="showF"></u-action-sheet>
-        </view>        <u-form-item label="剂量"><u-number-box v-model="form.dose" class="nb"></u-number-box></u-form-item>
+        </view>        <u-form-item label="剂量" class="item_margin"><u-number-box v-model="form.dose" class="nb"></u-number-box></u-form-item>
         <view class="">
           <u-field @click="showFrequency" v-model="form.frequency_name"
                    :disabled="true" label="频次" placeholder="请选择频次"
@@ -30,15 +30,15 @@
           </u-field>
           <u-action-sheet @click="clickUsage" :list="usageList" v-model="showU"></u-action-sheet>
         </view>
-        <u-form-item label="用药天数(天)"><u-number-box v-model="form.take_days" class="nb"></u-number-box></u-form-item>
-        <u-form-item label="总量(盒)"><u-number-box v-model="form.quantity" class="nb"></u-number-box></u-form-item>
+        <u-form-item label="用药天数(天)" class="item_margin"><u-number-box v-model="form.take_days" class="nb"></u-number-box></u-form-item>
+        <u-form-item class="item_margin" label="总量(盒)"><u-number-box v-model="form.quantity" class="nb"></u-number-box></u-form-item>
         <u-input placeholder="请输入备注(选填)" v-model="form.remark" :type="type" :border="true" class="remark_input" :auto-height=true />
       </u-form>
     </view>
     <view>
       <u-row class="btn">
-        <u-button type="primary" u-icon="plus" @click="Tab('../drugAdd/index')">取消</u-button>
-        <u-button type="success" @click="jumpToPrescription">确定</u-button>
+        <u-button type="primary" u-icon="plus" @click="Tab('../drugAdd/index')" class="btn_cancel">取消</u-button>
+        <u-button type="success" @click="jumpToPrescription" class="btn_confirm">确定</u-button>
       </u-row>
     </view>
   </view>
@@ -82,15 +82,17 @@ name: "drugSetting",
     showU: false,
     showF: false,
     form: {
+      id:2,
       drug_name: "",
       dose:"",
       frequency_name:"",
+      specification:"10g*9袋",
       usage_name:"",
       take_days:"",
       quantity:"",
       sex: '',
       remark:"",
-      showFoot: true
+      footShow: true
     },
     value: 0,
     background: {
@@ -115,6 +117,7 @@ name: "drugSetting",
         url: taburl
       })
     },
+
     showFrequency() {
       this.showF = true;
     },
@@ -134,12 +137,22 @@ name: "drugSetting",
 
 <style lang="scss" scoped>
 .nb{
-  margin-left: 440rpx;
+  margin-left: 400rpx;
+}
+.btn_cancel{
+  margin-left: 80rpx;
+}
+.btn_confirm{
+  margin-left: 320rpx;
+}
+.item_margin{
+  margin-left: 30rpx;
 }
 .remark_input{
   height: 120rpx;
 }
 .btn{
+  position: fixed;
   margin-top: 230rpx;
 }
 </style>

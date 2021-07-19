@@ -6,7 +6,7 @@
     </view>
     <view>
       <view class="patientBoard" v-for="item in list" :key="item.id" >
-        <u-card class="patient" :head-border-bottom="false" :foot-border-top="false">
+        <u-card class="patient" >
           <view class="patient_head" slot="head">
             <u-row class="head_row">
             <span gutter="3">

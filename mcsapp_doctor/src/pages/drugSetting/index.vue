@@ -81,6 +81,7 @@ name: "drugSetting",
     ],
     showU: false,
     showF: false,
+    receive:null,
     form: {
       id:2,
       drug_name: "",
@@ -101,8 +102,10 @@ name: "drugSetting",
   }
   },
   onLoad(options){
-    this.form.drug_name=JSON.parse(options.name)
-    console.log(data)
+    this.receive=JSON.parse(options.info)
+    console.log(this.receive)
+    this.form.drug_name=this.receive.drug_name
+    this.form.specification=this.receive.specification
   },
   methods:{
   jumpToPrescription(){

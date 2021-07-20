@@ -164,7 +164,7 @@ var _default =
     return {
       title: "电子处方",
       background: {
-        backgroundImage: 'linear-gradient(156deg, rgba(79, 107, 208,0.95), rgb(98, 141, 185)45%, rgba(102, 175, 161,0.93)85%)' } };
+        backgroundImage: 'linear-gradient(156deg, rgb(79, 107, 208), rgb(98, 141, 185)70%, rgb(102, 175, 161)110%);' } };
 
 
   },

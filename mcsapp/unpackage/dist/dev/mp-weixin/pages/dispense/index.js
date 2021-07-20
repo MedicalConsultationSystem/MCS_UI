@@ -101,20 +101,32 @@ try {
     uCard: function() {
       return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-card/u-card */ "node-modules/uview-ui/components/u-card/u-card").then(__webpack_require__.bind(null, /*! uview-ui/components/u-card/u-card.vue */ 110))
     },
-    uImage: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-image/u-image */ "node-modules/uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! uview-ui/components/u-image/u-image.vue */ 117))
-    },
     uIcon: function() {
       return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */ "node-modules/uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 103))
     },
+    uTag: function() {
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-tag/u-tag */ "node-modules/uview-ui/components/u-tag/u-tag").then(__webpack_require__.bind(null, /*! uview-ui/components/u-tag/u-tag.vue */ 124))
+    },
     uGap: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-gap/u-gap */ "node-modules/uview-ui/components/u-gap/u-gap").then(__webpack_require__.bind(null, /*! uview-ui/components/u-gap/u-gap.vue */ 132))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-gap/u-gap */ "node-modules/uview-ui/components/u-gap/u-gap").then(__webpack_require__.bind(null, /*! uview-ui/components/u-gap/u-gap.vue */ 131))
     },
     uInput: function() {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-input/u-input.vue */ 124))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-input/u-input.vue */ 138))
     },
     uUpload: function() {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-upload/u-upload */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-upload/u-upload")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-upload/u-upload.vue */ 139))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-upload/u-upload */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-upload/u-upload")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-upload/u-upload.vue */ 146))
+    },
+    uPopup: function() {
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */ "node-modules/uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 153))
+    },
+    uForm: function() {
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-form/u-form */ "node-modules/uview-ui/components/u-form/u-form").then(__webpack_require__.bind(null, /*! uview-ui/components/u-form/u-form.vue */ 160))
+    },
+    uFormItem: function() {
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-form-item/u-form-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-form-item/u-form-item")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-form-item/u-form-item.vue */ 167))
+    },
+    uActionSheet: function() {
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-action-sheet/u-action-sheet */ "node-modules/uview-ui/components/u-action-sheet/u-action-sheet").then(__webpack_require__.bind(null, /*! uview-ui/components/u-action-sheet/u-action-sheet.vue */ 226))
     }
   }
 } catch (e) {
@@ -138,6 +150,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  if (!_vm._isMounted) {
+    _vm.e0 = function($event) {
+      _vm.patientinfo_show = true
+    }
+
+    _vm.e1 = function($event) {
+      _vm.actionSheetShow = true
+    }
+
+    _vm.e2 = function($event) {
+      _vm.actionSheetShow = true
+    }
+  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -171,7 +196,43 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -255,11 +316,12 @@ var _default =
 {
   data: function data() {
     return {
-
       navShow1: true,
       navShow2: false,
-      show: false,
+      patientinfo_show: false,
       title: "复诊配药",
+      doctorUrl: "../dispense/doctorList",
+      drugUrl: "../dispense/drugList",
       background: {
         backgroundImage: 'rgba(#ffffff,0)' },
 
@@ -267,6 +329,11 @@ var _default =
         src: "../../static/touxiang/touxiang6.jpg" },
 
       patient: {
+        name: "",
+        identify: "",
+        sex: "",
+        birthday: "",
+        phonenumber: "",
         illness: "",
         description: "" } };
 
@@ -287,7 +354,18 @@ var _default =
       this.navShow2 = false;
     }
   },
-  methods: {} };exports.default = _default;
+  methods: {
+    changeDoctor: function changeDoctor(taburl) {
+      uni.navigateTo({
+        url: taburl });
+
+    },
+    chooseDrug: function chooseDrug(taburl) {
+      uni.navigateTo({
+        url: taburl });
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

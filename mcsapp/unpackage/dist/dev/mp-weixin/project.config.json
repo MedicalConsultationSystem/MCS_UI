@@ -39,7 +39,7 @@
         "minifyWXSS": true
     },
     "compileType": "miniprogram",
-    "libVersion": "",
+    "libVersion": "2.18.0",
     "appid": "wxf1e8fb62195b59d3",
     "projectname": "mcsapp",
     "condition": {

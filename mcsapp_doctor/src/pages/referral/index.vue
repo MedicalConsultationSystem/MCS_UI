@@ -8,36 +8,33 @@
       <view class="patientBoard" v-for="item in list" :key="item.id" >
         <u-card class="patient" >
           <view class="patient_head" slot="head">
-            <u-row class="head_row">
-            <span gutter="3">
-            <text class="apply_text" :v-if="item.apply_time">申请时间：{{item.apply_time}}</text>
-          </span>
-              <spn gutter="6">
-                <text class="status_text">{{item.status}}</text>
-              </spn>
-            </u-row>
+            <view class="head_row">
+              <text class="apply_text">申请时间：{{item.apply_time}}</text>
+              <text class="status_text">{{item.status}}</text>
+            </view>
           </view>
           <view class="patient_body" slot="body" @click="Tab('../patientInfo/index')">
-            <u-image width="90rpx" height="90rpx" :src="patient.src" shape="circle"></u-image>
-            <view class="name_text">
-              <u-row>
-                <text class="name_text">{{item.name}}</text>
-                <text class="sex_text">{{item.sex}}</text>
-                <text class="age_text">{{item.age}}岁</text>
-              </u-row>
-              <u-row>
-                <text class="name_text">药品需求：</text>
-                <text class="need_text">{{item.drugs}}</text>
-              </u-row>
-            </view>
-            <view class="change">
-              <u-icon class="change_icon" name="arrow-right" size="30"></u-icon>
+            <view class="bodySet">
+              <image :src="patient.src" class="imgSet"></image>
+              <view class="divide">
+                <view class="name">
+                  <text class="name_text">{{item.name}}</text>
+                  <text class="sex_text">{{item.sex}}</text>
+                  <text class="age_text">{{item.age}}岁</text>
+                </view>
+                <view class="need">
+                  <text class="name_text">药品需求：</text>
+                  <text class="need_text">{{item.drugs}}</text>
+                </view>
+              </view>
+              <view class="arrow">
+                <u-icon class="change_icon" name="arrow-right" size="30"></u-icon>
+              </view>
             </view>
           </view>
           <view class="patient_foot" slot="foot">
-            <u-button size="mini">完成接诊</u-button>
+            <u-button type="success" size="mini" :plain="true" shape="circle">完成接诊</u-button>
           </view>
-
         </u-card>
       </view>
     </view>
@@ -106,13 +103,8 @@ name: "referral",
 </script>
 
 <style lang="scss" scoped>
-.btn{
-  marginTop: 20rpx;
-  color:'red';
-  height: 15rpx;
-}
 .back_color{
-  background-color: #F5F5F5;
+  background-color: #f3f4f6;
   height: 1667rpx;
 }
 .patientBoard{
@@ -122,46 +114,57 @@ name: "referral",
   display: flex;
   flex-direction: column;
 }
-.patient_head{
 
+.name{
+  display: flex;
+  flex-direction: row;
+  margin-left: 20rpx;
+  margin-bottom: 30rpx;
+  align-items: center;
 }
-.name_text text{
-  margin-top: 10rpx;
-  margin-bottom: 12rpx;
+.bodySet{
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+}
+.divide{
+  display: flex;
+  flex-direction: column;
+  align-items: left;
 }
 .name_text{
+  display: flex;
+  flex-direction: row;
   margin-left: 20rpx;
   font-weight: bold;
-  font-size: 21rpx;
+  font-size: 25rpx;
   color: #909399;
+}
+.need{
+  display: flex;
+  flex-direction: column;
+  margin-left: 20rpx;
 }
 .sex_text{
   margin-left: 30rpx;
   font-weight: bold;
-  font-size: 18rpx;
+  font-size: 25rpx;
   color: #909399;
 }
 .age_text{
   margin-left: 30rpx;
   font-weight: bold;
-  font-size: 18rpx;
+  font-size: 25rpx;
   color: #909399;
 }
 .need_text{
+  margin-top: 10rpx;
   margin-left: 20rpx;
   font-weight: bold;
-  font-size: 18rpx;
-  color: #323233;
+  font-size: 24rpx;
+  color: #303133;
 }
-.name_text2{
-  border: 1rpx solid #ff9900;
-  border-radius: 30rpx;
-  font-size: 25rpx;
-  color: #ff9900;
-  padding-left: 10rpx;
-  padding-right: 10rpx;
-  padding-bottom: 4rpx;
-}
+
 .change{
   display: flex;
   flex-direction: row;
@@ -169,10 +172,8 @@ name: "referral",
   margin-left: 260rpx;
 }
 .apply_text{
-  position: absolute;
   margin-left: 15rpx;
   font-size: 24rpx;
-  width: 360rpx;
   color: #909399;
 }
 .change_text{
@@ -180,9 +181,9 @@ name: "referral",
   font-size: 29rpx;
   color: #909399;
 }
-.change_icon{
-  margin-left: 20rpx;
-  color: #909399;
+.arrow{
+  position: absolute;
+  margin-left: 600rpx;
 }
 .patient_body{
   display: flex;
@@ -192,19 +193,23 @@ name: "referral",
   align-items: center;
 }
 .head_row{
-  width: 640rpx;
+  display: flex;
+  flex-direction: row;
 }
 .patient_foot{
-  height: 28rpx;
   margin-left:520rpx;
   font-size: 20rpx;
   color: #4cd964;
 }
 .status_text{
-  position:fixed;
-  margin-left: 540rpx;
+  margin-left: 240rpx;
   font-size: 23rpx;
-  color: #FFD700;
+  color: #ff9900;
 }
-
+.imgSet{
+  align-items: center;
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 75rpx;
+}
 </style>

@@ -17,7 +17,7 @@
               </view>
               <view v-for="card in cards" :key="card.id">
                 <view class="prescriptionBoard">
-                  <u-card class="prescription" box-shadow="2px 3px 8px #888888" :show-foot=card.footShow :show-head="false">
+                  <u-card class="prescription" :show-foot=card.footShow :show-head="false" :head-border-bottom="false" :foot-border-bottom="false">
                     <view class="prescription_head" slot="body">
                       <u-row class="head_row">
                       <span gutter="3">
@@ -117,6 +117,9 @@ name: "prescription",
 
     tabsChange(index) {
       this.swiperCurrent = index;
+
+      3
+
     },
     transition(e) {
       let dx = e.detail.dx;

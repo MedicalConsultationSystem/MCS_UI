@@ -35,7 +35,7 @@
                   </view>
                 </view>
                 <view class="patient_foot" slot="foot">
-                  <u-button size="mini">查看处方</u-button>
+                  <u-button type="success" size="mini" :plain="true" shape="circle">查看处方</u-button>
                 </view>
 
               </u-card>

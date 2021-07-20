@@ -184,6 +184,7 @@ name: "referral",
 .arrow{
   position: absolute;
   margin-left: 600rpx;
+  margin-top: 60rpx;
 }
 .patient_body{
   display: flex;

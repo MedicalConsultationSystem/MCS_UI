@@ -49,10 +49,14 @@
                 </view>
               </view>
               <view>
-                <u-row class="btn">
-                  <u-button type="primary" u-icon="plus" @click="addInner">新增处方</u-button>
-                  <u-button type="success">提交处方</u-button>
-                </u-row>
+                <view class="btn">
+                  <view class="add_btn">
+                    <u-button type="primary" u-icon="plus" @click="addInner">新增处方</u-button>
+                  </view>
+                  <view class="submit_btn">
+                    <u-button type="success">提交处方</u-button>
+                  </view>
+                </view>
               </view>
             </scroll-view>
           </swiper-item>
@@ -152,6 +156,13 @@ name: "prescription",
   font-size: 27rpx;
   color: #303133;
 }
+.add_btn{
+  color: #2979ff;
+  margin-left: 100rpx;
+}
+.submit_btn{
+  margin-left: 150rpx;
+}
 .specification{
   font-size: 24rpx;
   color: #303133;
@@ -163,7 +174,11 @@ name: "prescription",
   margin-top: 20rpx;
 }
 .btn{
+  display: flex;
+  flex-direction: row;
   margin-top: 700rpx;
+  position: fixed;
+  bottom: 0rpx;
 }
 .trash_icon{
   position: absolute;

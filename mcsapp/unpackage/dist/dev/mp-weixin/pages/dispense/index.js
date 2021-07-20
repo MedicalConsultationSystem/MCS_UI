@@ -311,6 +311,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 var _default =
 {
   data: function data() {
@@ -325,6 +326,14 @@ var _default =
       title: "复诊配药",
       doctorUrl: "../dispense/doctorList",
       drugUrl: "../dispense/drugList",
+      drugList: [
+      { id: "1", name: "肠炎宁片", specification: "0.42g*48片", price: "29", pack_unit: "盒", show: true },
+      { id: "2", name: "连花清瘟胶囊", specification: "0.35g*36粒", price: "29", pack_unit: "支", show: true },
+      { id: "3", name: "连花清瘟胶囊", specification: "0.35g*36粒", price: "29", pack_unit: "支", show: true },
+      { id: "4", name: "连花清瘟胶囊", specification: "0.35g*36粒", price: "29", pack_unit: "支", show: true },
+      { id: "5", name: "连花清瘟胶囊", specification: "0.35g*36粒", price: "29", pack_unit: "支", show: true },
+      { id: "6", name: "连花清瘟胶囊", specification: "0.35g*36粒", price: "29", pack_unit: "支", show: true }],
+
       params: {
         year: true,
         month: true,
@@ -425,6 +434,10 @@ var _default =
     saveInfo: function saveInfo() {
       this.patientinfo_show = false;
       this.saveList = this.patient.name + " " + this.patient.sex + " " + this.patient.age;
+    },
+    tagClose: function tagClose(index) {
+      console.log(index);
+      this.drugList[index - 1].show = false;
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

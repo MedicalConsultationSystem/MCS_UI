@@ -180,6 +180,7 @@
   color: #909399;
 }
 .drug_tag.data-v-27c6e659 {
+  height: auto;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -187,12 +188,12 @@
   -webkit-box-direction: normal;
   -webkit-flex-direction: row;
           flex-direction: row;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-          justify-content: space-between;
   -webkit-flex-wrap: wrap;
           flex-wrap: wrap;
-  margin-bottom: 20rpx;
+  margin-bottom: 5rpx;
+}
+.tag.data-v-27c6e659 {
+  margin-right: 15rpx;
 }
 .text1.data-v-27c6e659 {
   font-size: 27rpx;

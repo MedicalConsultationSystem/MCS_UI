@@ -4,7 +4,9 @@
 			<!-- 自定义导航栏 -->
 			<u-navbar :is-back="true" back-icon-color="white" :title="title" title-color="white" :background="background" height="45"></u-navbar>
 		</view>
-		
+		<view>
+			<u-tabs :list="list" :is-scroll="false" :current="current" @change="change"></u-tabs>
+		</view>
 	</view>
 </template>
 
@@ -15,14 +17,22 @@
 				title: "问诊处方",
 				background: {
 					backgroundImage: 'linear-gradient(156deg, rgb(79, 107, 208), rgb(98, 141, 185)70%, rgb(102, 175, 161)110%);'
-				}
+				},
+				list: [
+					{name: '处方一'},
+					{name: '处方二'}, 
+					{name: '处方三'},
+				],
+				current: 0
 			}
 		},
 		onLoad() {
 	
 		},
 		methods: {
-			
+			change(index) {
+				this.current = index;
+			}
 		},
 	}
 </script>

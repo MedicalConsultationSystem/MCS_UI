@@ -47,10 +47,11 @@
 					<text >添加药品</text>
 					<u-icon class="change_icon" name="arrow-right" size="27"></u-icon>
 				</view>
-				
 			</view>
 			<view class="drug_tag">
-				<u-tag text="岑参" closeable :show="true" shape="circle" @close="tagClick" />
+				<view v-for="item in drugList" :key="item.id">
+					<u-tag class="tag" :text=item.name closeable :show=item.show shape="circle" @close="tagClose(item.id)" />
+				</view>
 			</view>
 		</view>
 		<view class="illness_description">
@@ -118,7 +119,7 @@
 		data() {
 			return {
 				saveList: "请填写问诊人信息",
-				sexList :['男','女'],
+				sexList:['男','女'],
 				showSex: false,
 				showBirth: false,
 				navShow1: true,
@@ -127,6 +128,14 @@
 				title: "复诊配药",
 				doctorUrl: "../dispense/doctorList",
 				drugUrl: "../dispense/drugList",
+				drugList:[
+					{id:"1",name:"肠炎宁片",specification:"0.42g*48片",price:"29",pack_unit:"盒",show:true},
+					{id:"2",name:"连花清瘟胶囊",specification:"0.35g*36粒",price:"29",pack_unit:"支",show:true},
+					{id:"3",name:"连花清瘟胶囊",specification:"0.35g*36粒",price:"29",pack_unit:"支",show:true},
+					{id:"4",name:"连花清瘟胶囊",specification:"0.35g*36粒",price:"29",pack_unit:"支",show:true},
+					{id:"5",name:"连花清瘟胶囊",specification:"0.35g*36粒",price:"29",pack_unit:"支",show:true},
+					{id:"6",name:"连花清瘟胶囊",specification:"0.35g*36粒",price:"29",pack_unit:"支",show:true}
+				],
 				params: {
 					year: true,
 					month: true,
@@ -227,6 +236,10 @@
 			saveInfo(){
 				this.patientinfo_show=false;
 				this.saveList=this.patient.name+" "+this.patient.sex+" "+this.patient.age;
+			},
+			tagClose(index) {
+				console.log(index);
+				this.drugList[index-1].show=false;
 			}
 		}
 	}
@@ -343,11 +356,14 @@
 		color: #909399;
 	}
 	.drug_tag{
+		height: auto;
 		display: flex;
 		flex-direction: row;
-		justify-content: space-between;
 		flex-wrap: wrap;
-		margin-bottom: 20rpx;
+		margin-bottom: 5rpx;
+	}
+	.tag{
+		margin-right: 15rpx;
 	}
 	.text1{
 		font-size: 27rpx;

@@ -96,13 +96,13 @@ var components
 try {
   components = {
     uCard: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-card/u-card */ "node-modules/uview-ui/components/u-card/u-card").then(__webpack_require__.bind(null, /*! uview-ui/components/u-card/u-card.vue */ 110))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-card/u-card */ "node-modules/uview-ui/components/u-card/u-card").then(__webpack_require__.bind(null, /*! uview-ui/components/u-card/u-card.vue */ 130))
     },
     uImage: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-image/u-image */ "node-modules/uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! uview-ui/components/u-image/u-image.vue */ 117))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-image/u-image */ "node-modules/uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! uview-ui/components/u-image/u-image.vue */ 137))
     },
     uIcon: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */ "node-modules/uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 103))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */ "node-modules/uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 123))
     }
   }
 } catch (e) {

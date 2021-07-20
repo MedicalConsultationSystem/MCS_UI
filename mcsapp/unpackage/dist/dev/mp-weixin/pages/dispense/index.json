@@ -12,6 +12,6 @@
     "u-popup": "/node-modules/uview-ui/components/u-popup/u-popup",
     "u-form": "/node-modules/uview-ui/components/u-form/u-form",
     "u-form-item": "/node-modules/uview-ui/components/u-form-item/u-form-item",
-    "u-action-sheet": "/node-modules/uview-ui/components/u-action-sheet/u-action-sheet"
+    "u-picker": "/node-modules/uview-ui/components/u-picker/u-picker"
   }
 }

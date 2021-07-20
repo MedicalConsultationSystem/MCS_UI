@@ -96,37 +96,37 @@ var components
 try {
   components = {
     uNavbar: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-navbar/u-navbar */ "node-modules/uview-ui/components/u-navbar/u-navbar").then(__webpack_require__.bind(null, /*! uview-ui/components/u-navbar/u-navbar.vue */ 82))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-navbar/u-navbar */ "node-modules/uview-ui/components/u-navbar/u-navbar").then(__webpack_require__.bind(null, /*! uview-ui/components/u-navbar/u-navbar.vue */ 102))
     },
     uCard: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-card/u-card */ "node-modules/uview-ui/components/u-card/u-card").then(__webpack_require__.bind(null, /*! uview-ui/components/u-card/u-card.vue */ 110))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-card/u-card */ "node-modules/uview-ui/components/u-card/u-card").then(__webpack_require__.bind(null, /*! uview-ui/components/u-card/u-card.vue */ 130))
     },
     uIcon: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */ "node-modules/uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 103))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */ "node-modules/uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 123))
     },
     uTag: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-tag/u-tag */ "node-modules/uview-ui/components/u-tag/u-tag").then(__webpack_require__.bind(null, /*! uview-ui/components/u-tag/u-tag.vue */ 124))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-tag/u-tag */ "node-modules/uview-ui/components/u-tag/u-tag").then(__webpack_require__.bind(null, /*! uview-ui/components/u-tag/u-tag.vue */ 144))
     },
     uGap: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-gap/u-gap */ "node-modules/uview-ui/components/u-gap/u-gap").then(__webpack_require__.bind(null, /*! uview-ui/components/u-gap/u-gap.vue */ 131))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-gap/u-gap */ "node-modules/uview-ui/components/u-gap/u-gap").then(__webpack_require__.bind(null, /*! uview-ui/components/u-gap/u-gap.vue */ 151))
     },
     uInput: function() {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-input/u-input.vue */ 138))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-input/u-input.vue */ 158))
     },
     uUpload: function() {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-upload/u-upload */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-upload/u-upload")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-upload/u-upload.vue */ 146))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-upload/u-upload */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-upload/u-upload")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-upload/u-upload.vue */ 166))
     },
     uPopup: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */ "node-modules/uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 153))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */ "node-modules/uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 173))
     },
     uForm: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-form/u-form */ "node-modules/uview-ui/components/u-form/u-form").then(__webpack_require__.bind(null, /*! uview-ui/components/u-form/u-form.vue */ 160))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-form/u-form */ "node-modules/uview-ui/components/u-form/u-form").then(__webpack_require__.bind(null, /*! uview-ui/components/u-form/u-form.vue */ 180))
     },
     uFormItem: function() {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-form-item/u-form-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-form-item/u-form-item")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-form-item/u-form-item.vue */ 167))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-form-item/u-form-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-form-item/u-form-item")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-form-item/u-form-item.vue */ 187))
     },
-    uActionSheet: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-action-sheet/u-action-sheet */ "node-modules/uview-ui/components/u-action-sheet/u-action-sheet").then(__webpack_require__.bind(null, /*! uview-ui/components/u-action-sheet/u-action-sheet.vue */ 226))
+    uPicker: function() {
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-picker/u-picker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-picker/u-picker")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-picker/u-picker.vue */ 236))
     }
   }
 } catch (e) {
@@ -156,11 +156,11 @@ var render = function() {
     }
 
     _vm.e1 = function($event) {
-      _vm.actionSheetShow = true
+      _vm.showSex = true
     }
 
     _vm.e2 = function($event) {
-      _vm.actionSheetShow = true
+      _vm.showBirth = true
     }
   }
 }
@@ -311,21 +311,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 var _default =
 {
   data: function data() {
     return {
+      saveList: "请填写问诊人信息",
+      sexList: ['男', '女'],
+      showSex: false,
+      showBirth: false,
       navShow1: true,
       navShow2: false,
       patientinfo_show: false,
       title: "复诊配药",
       doctorUrl: "../dispense/doctorList",
       drugUrl: "../dispense/drugList",
+      params: {
+        year: true,
+        month: true,
+        day: true,
+        hour: false,
+        minute: false,
+        second: false },
+
       background: {
         backgroundImage: 'rgba(#ffffff,0)' },
 
       doctor: {
+        name: "方洪全",
+        level: "主任医师",
+        department: "呼吸内科",
         src: "../../static/touxiang/touxiang6.jpg" },
 
       patient: {
@@ -333,9 +347,35 @@ var _default =
         identify: "",
         sex: "",
         birthday: "",
+        age: "",
         phonenumber: "",
         illness: "",
-        description: "" } };
+        description: "" },
+
+      msg: {
+        "consult_status": 0,
+        "create_user_id": "string",
+        "dept_id": 0,
+        "dept_name": "string",
+        "diagnosis": "string",
+        "doctor_id": "string",
+        "doctor_level_code": "string",
+        "doctor_level_name": "string",
+        "doctor_name": "string",
+        "drug_ids": "string",
+        "drug_names": "string",
+        "org_id": 0,
+        "org_name": "string",
+        "person_age": 0,
+        "person_birth_date": "string",
+        "person_card_id": "string",
+        "person_card_type": "string",
+        "person_gender_code": "string",
+        "person_gender_name": "string",
+        "person_name": "string",
+        "person_phone_no": "string",
+        "photo_ids": "string",
+        "question": "string" } };
 
 
   },
@@ -364,6 +404,27 @@ var _default =
       uni.navigateTo({
         url: taburl });
 
+    },
+    sexCallback: function sexCallback(e) {
+      // console.log(e); 回调参数e[0]相当于index
+      this.patient.sex = this.sexList[e[0]];
+    },
+    birthdayCallback: function birthdayCallback(e) {
+      console.log(e);
+      var date = new Date();
+      var year = date.getFullYear();
+      this.patient.age = year - e.year;
+      console.log(this.patient.age);
+      if (this.params.year) this.patient.birthday += e.year;
+      if (this.params.month) this.patient.birthday += '-' + e.month;
+      if (this.params.day) this.patient.birthday += '-' + e.day;
+      if (this.params.hour) this.patient.birthday += ' ' + e.hour;
+      if (this.params.minute) this.patient.birthday += ':' + e.minute;
+      if (this.params.second) this.patient.birthday += ':' + e.second;
+    },
+    saveInfo: function saveInfo() {
+      this.patientinfo_show = false;
+      this.saveList = this.patient.name + " " + this.patient.sex + " " + this.patient.age;
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

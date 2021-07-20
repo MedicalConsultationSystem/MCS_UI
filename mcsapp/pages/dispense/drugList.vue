@@ -12,7 +12,7 @@
 	export default {
 		data() {
 			return {
-				title: "选择药品",
+				title: "搜索药品",
 				background: {
 					backgroundImage: 'linear-gradient(156deg, rgb(79, 107, 208), rgb(98, 141, 185)70%, rgb(102, 175, 161)110%);'
 				}

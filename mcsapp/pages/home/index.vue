@@ -5,7 +5,7 @@
 			<view class="slot-wrap">
 				<view class="search-wrap">
 					<!-- 如果使用u-search组件，必须要给v-model绑定一个变量 -->
-					<u-search v-model="keyword" :show-action="showAction" height="56" placeholder="可搜索配药" :action-style="{color: '#fff'}"></u-search>
+					<u-search v-model="keyword" :disabled="true" bg-color="#ffffff" :show-action="showAction" height="60" placeholder="可搜索药品信息" @click="searchTab(searchUrl)" ></u-search>
 				</view>
 			</view>
 		</u-navbar>
@@ -48,8 +48,9 @@
 	export default {
 		data() {
 			return {
-				showAction: true,
+				showAction: false,
 				keyword: '',
+				searchUrl: "../dispense/drugList",
 				list: [{
 						image: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
 						title: '昨夜星辰昨夜风，画楼西畔桂堂东'
@@ -98,6 +99,11 @@
 		},
 		methods: {
 			Tab:function(taburl) {
+				uni.navigateTo({
+					url: taburl
+				})
+			},
+			searchTab:function(taburl) {
 				uni.navigateTo({
 					url: taburl
 				})

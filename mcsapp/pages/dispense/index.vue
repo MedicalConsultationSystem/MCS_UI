@@ -11,10 +11,10 @@
 		<view class="doctorboard">
 			<u-card class="doctor" box-shadow="2px 3px 8px #888888">
 				<view class="doctor_head" slot="head">
-					<image :src="doctor.src"></u-image>
+					<image :src="doctor.src"></image>
 					<view class="name_text">
-						<text class="name_text1">方洪全</text>
-						<text class="name_text2">主任医师</text>
+						<text class="name_text1">{{doctor.name}}</text>
+						<text class="name_text2">{{doctor.level}}</text>
 					</view>
 					<view class="change" @click="changeDoctor(doctorUrl)">
 						<text class="change_text">更换医生</text>
@@ -22,7 +22,7 @@
 					</view>
 				</view>
 				<view class="doctor_body" slot="body">
-					<text>呼吸内科</text>
+					<text>{{doctor.department}}</text>
 				</view>
 			</u-card>
 		</view>
@@ -31,7 +31,7 @@
 			<view class="patient_item">
 				<text class="text1">问诊人</text>
 				<view class="text2" @click="patientinfo_show=true">
-					<text >请填写问诊人信息</text>
+					<text>{{saveList}}</text>
 					<u-icon class="change_icon" name="arrow-right" size="27"></u-icon>
 				</view>
 			</view>
@@ -92,13 +92,12 @@
 						<u-input :border="true" placeholder="请输入身份证号" v-model="patient.identify" type="number"></u-input>
 					</u-form-item>
 					<u-form-item label="性别" :label-width="130">
-						<u-action-sheet :list="sexList">
-							
-						</u-action-sheet>
-						<u-input :border="true" type="select" :select-open="actionSheetShow" v-model="patient.sex" placeholder="请选择性别" @click="actionSheetShow = true"></u-input>
+						<u-input v-model="patient.sex" type="select" :border="true" :select-open="showSex" placeholder="请选择性别" @click="showSex=true"></u-input>
+						<u-picker v-model="showSex" mode="selector" :default-selector="[0]" :range="sexList" @confirm="sexCallback"></u-picker>
 					</u-form-item>
 					<u-form-item label="出生日期" :label-width="130">
-						<u-input :border="true" type="select" :select-open="actionSheetShow" v-model="patient.birthday" placeholder="请选择出生日期" @click="actionSheetShow = true"></u-input>
+						<u-input v-model="patient.birthday" type="select" :border="true" :select-open="showBirth" placeholder="请选择出生日期" @click="showBirth=true"></u-input>
+						<u-picker v-model="showBirth" mode="time" :params="params" @confirm="birthdayCallback"></u-picker>
 					</u-form-item>
 					<u-form-item label="手机号码" :label-width="130">
 						<u-input :border="true" placeholder="请输入手机号" v-model="patient.phonenumber" type="number"></u-input>
@@ -107,7 +106,7 @@
 				</u-form>
 				<!-- 保存 -->
 				<view >
-					<button class="popbtn">保存</button>
+					<button class="popbtn" @click="saveInfo">保存</button>
 				</view>
 			</view>
 		</u-popup>
@@ -118,16 +117,31 @@
 	export default {
 		data() {
 			return {
+				saveList: "请填写问诊人信息",
+				sexList :['男','女'],
+				showSex: false,
+				showBirth: false,
 				navShow1: true,
 				navShow2: false,
 				patientinfo_show: false,
 				title: "复诊配药",
 				doctorUrl: "../dispense/doctorList",
 				drugUrl: "../dispense/drugList",
+				params: {
+					year: true,
+					month: true,
+					day: true,
+					hour: false,
+					minute: false,
+					second: false
+				},
 				background: {
 					backgroundImage: 'rgba(#ffffff,0)'
 				},
 				doctor: {
+					name:"方洪全",
+					level:"主任医师",
+					department:"呼吸内科",
 					src:"../../static/touxiang/touxiang6.jpg"
 				},
 				patient: {
@@ -135,9 +149,35 @@
 					identify: "",
 					sex: "",
 					birthday: "",
+					age: "",
 					phonenumber: "",
 					illness: "",
 					description: ""
+				},
+				msg :{
+					"consult_status": 0,
+					"create_user_id": "string",
+					"dept_id": 0,
+					"dept_name": "string",
+					"diagnosis": "string",
+					"doctor_id": "string",
+					"doctor_level_code": "string",
+					"doctor_level_name": "string",
+					"doctor_name": "string",
+					"drug_ids": "string",
+					"drug_names": "string",
+					"org_id": 0,
+					"org_name": "string",
+					"person_age": 0,
+					"person_birth_date": "string",
+					"person_card_id": "string",
+					"person_card_type": "string",
+					"person_gender_code": "string",
+					"person_gender_name": "string",
+					"person_name": "string",
+					"person_phone_no": "string",
+					"photo_ids": "string",
+					"question": "string"
 				}
 			}
 		},
@@ -166,8 +206,29 @@
 				uni.navigateTo({
 					url: taburl
 				})
+			},
+			sexCallback(e) {
+				// console.log(e); 回调参数e[0]相当于index
+				this.patient.sex = this.sexList[e[0]];
+			},
+			birthdayCallback(e){
+				console.log(e); 
+				var date = new Date; 
+				var year = date.getFullYear();
+				this.patient.age=year-e.year;
+				console.log(this.patient.age);
+				if (this.params.year) this.patient.birthday += e.year;
+				if (this.params.month) this.patient.birthday += '-' + e.month;
+				if (this.params.day) this.patient.birthday += '-' + e.day;
+				if (this.params.hour) this.patient.birthday += ' ' + e.hour;
+				if (this.params.minute) this.patient.birthday += ':' + e.minute;
+				if (this.params.second) this.patient.birthday += ':' + e.second;
+			},
+			saveInfo(){
+				this.patientinfo_show=false;
+				this.saveList=this.patient.name+" "+this.patient.sex+" "+this.patient.age;
 			}
-		},
+		}
 	}
 </script>
 

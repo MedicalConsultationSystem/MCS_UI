@@ -36,10 +36,14 @@
       </u-form>
     </view>
     <view>
-      <u-row class="btn">
-        <u-button type="primary" u-icon="plus" @click="Tab('../drugAdd/index')" class="btn_cancel">取消</u-button>
-        <u-button type="success" @click="jumpToPrescription" class="btn_confirm">确定</u-button>
-      </u-row>
+      <view class="btn">
+        <view class="add_btn">
+          <u-button type="primary" u-icon="plus">新增处方</u-button>
+        </view>
+        <view class="submit_btn">
+          <u-button type="success">提交处方</u-button>
+        </view>
+      </view>
     </view>
   </view>
 </template>
@@ -139,6 +143,20 @@ name: "drugSetting",
 </script>
 
 <style lang="scss" scoped>
+.btn{
+  display: flex;
+  flex-direction: row;
+  margin-top: 700rpx;
+  position: fixed;
+  bottom: 30rpx;
+  .add_btn{
+    color: #2979ff;
+    margin-left: 100rpx;
+  }
+  .submit_btn{
+    margin-left: 150rpx;
+  }
+}
 .nb{
   margin-left: 400rpx;
 }

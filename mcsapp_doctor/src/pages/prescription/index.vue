@@ -156,13 +156,7 @@ name: "prescription",
   font-size: 27rpx;
   color: #303133;
 }
-.add_btn{
-  color: #2979ff;
-  margin-left: 100rpx;
-}
-.submit_btn{
-  margin-left: 150rpx;
-}
+
 .specification{
   font-size: 24rpx;
   color: #303133;
@@ -179,6 +173,13 @@ name: "prescription",
   margin-top: 700rpx;
   position: fixed;
   bottom: 0rpx;
+  .add_btn{
+    color: #2979ff;
+    margin-left: 100rpx;
+  }
+  .submit_btn{
+    margin-left: 150rpx;
+  }
 }
 .trash_icon{
   position: absolute;

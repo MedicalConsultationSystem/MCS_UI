@@ -1,5 +1,5 @@
 <template>
-    <view>
+    <view class="back_color">
       <view>
         <!-- 自定义导航栏 -->
         <u-navbar :is-back="true" back-icon-color="white" :title="title" title-color="white" :background="background" height="45"></u-navbar>
@@ -18,18 +18,14 @@
               <view v-for="card in cards" :key="card.id">
                 <view class="prescriptionBoard">
                   <u-card class="prescription" :show-foot=card.footShow :show-head="false" :head-border-bottom="false" :foot-border-bottom="false">
-                    <view class="prescription_head" slot="body">
-                      <u-row class="head_row">
-                      <span gutter="3">
-                          <text class="xi_text">西药方</text>
-                      </span>
-                        <span gutter="3">
-                        <view class="add" @click="Tab('../drugAdd/index')">
-                          <u-icon name="plus" size="15"></u-icon>
+                    <view class="prescription_body" slot="body">
+                      <view class="body">
+                        <text class="xi_text">西药方</text>
+                        <view class="add">
+                          <u-icon name="plus" size="20"  class="icon"></u-icon>
                           <text class="add_text">新增药品</text>
                         </view>
-                      </span>
-                      </u-row>
+                      </view>
                     </view>
                     <view class="prescription_body" slot="foot">
                       <u-row class="head_row">
@@ -153,6 +149,10 @@ name: "prescription",
 </script>
 
 <style scoped lang="scss">
+.back_color{
+  background-color: #f3f4f6;
+  height: 1667rpx;
+}
 .btn{
   margin-top: 700rpx;
 }
@@ -163,8 +163,13 @@ name: "prescription",
 .prescriptionBoard{
   margin-top: 40rpx;
 }
+.add{
+  display: flex;
+  flex-direction: row;
+  margin-left: 440rpx;
+}
 .xi_text{
-  font-size: 20rpx;
+  font-size: 25rpx;
   color: #323233;
 }
 .name_text{
@@ -172,16 +177,14 @@ name: "prescription",
   color: #323233;
 }
 .add_text{
-  font-size: 20rpx;
+  font-size: 25rpx;
 }
-.icon_size{
-  size: 10;
+.body{
+  display: flex;
+  flex-direction: row;
 }
-.prescription_head{
+.prescription_body{
   height: 20rpx;
-}
-.add{
-  margin-left: 440rpx;
 }
 .pack{
   margin-left: 240rpx;

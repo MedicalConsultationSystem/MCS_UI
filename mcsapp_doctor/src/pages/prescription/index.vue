@@ -9,9 +9,9 @@
           <u-tabs-swiper ref="uTabs" :list="list" :current="current" @change="tabsChange" :is-scroll="false"
                          swiperWidth="750"></u-tabs-swiper>
         </view>
-        <swiper :current="swiperCurrent" style="height: 1170rpx;width: 100%;"@transition="transition" @animationfinish="animationfinish">
+        <swiper :current="swiperCurrent" style="height: 1470rpx;width: 100%;"@transition="transition" @animationfinish="animationfinish">
           <swiper-item class="swiper-item">
-            <scroll-view scroll-y style="height: 1170rpx;width: 100%;" @scrolltolower="onreachBottom">
+            <scroll-view scroll-y style="height: 1470rpx;width: 100%;" @scrolltolower="onreachBottom">
               <view style="height: 40px">
                 <u-alert-tips type="warning"  :description="description" :show-icon="false"></u-alert-tips>
               </view>
@@ -21,33 +21,28 @@
                     <view class="prescription_body" slot="body">
                       <view class="body">
                         <text class="xi_text">西药方</text>
-                        <view class="add">
-                          <u-icon name="plus" size="20"  class="icon"></u-icon>
+                        <view class="add" @click="Tab('../drugAdd/index')">
+                          <u-icon name="plus" size="20"  class="icon" ></u-icon>
                           <text class="add_text">新增药品</text>
                         </view>
                       </view>
                     </view>
-                    <view class="prescription_body" slot="foot">
-                      <u-row class="head_row">
-                      <span gutter="3">
-                          <text class="name_text" v-if="card.drug_name">{{card.drug_name}}</text>
-                      </span>
-                        <span gutter="3">
-                        <view class="pack">
-                          <text class="pack_text"></text>
-                        </view>
-                      </span>
-                        <span gutter="3">
-                        <view class="trash">
-                          <u-icon name="trash" ></u-icon>
-                        </view>
-                      </span>
-                      </u-row>
-                      <view>
-                        <text class="xi_text">{{card.specification}}</text>
-                      </view>
-                      <view>
-                        <text class="xi_text">{{card.usage_name}}</text>
+                    <view class="prescription_foot" slot="foot">
+                      <view class="foot">
+                          <view class="foot_left">
+                            <text class="drug_name">{{card.drug_name}}</text>
+                            <text class="specification">{{card.specification}}</text>
+                            <text class="frequency_name">{{card.frequency_name}}</text>
+                          </view>
+                          <view class="foot_right">
+                            <view>
+                              <text>{{card.quantity}}</text>
+                              <text>{{card.pack_unit}}</text>
+                            </view>
+                            <view class="trash_icon">
+                              <u-icon name="trash"></u-icon>
+                            </view>
+                          </view>
                       </view>
                     </view>
                   </u-card>
@@ -153,20 +148,59 @@ name: "prescription",
   background-color: #f3f4f6;
   height: 1667rpx;
 }
+.drug_name{
+  font-size: 27rpx;
+  color: #303133;
+}
+.specification{
+  font-size: 24rpx;
+  color: #303133;
+  margin-top: 10rpx;
+}
+.frequency_name{
+  font-size: 22rpx;
+  color: #909399;
+  margin-top: 20rpx;
+}
 .btn{
   margin-top: 700rpx;
+}
+.trash_icon{
+  position: absolute;
+  margin-left: 50rpx;
+}
+.foot{
+  display: flex;
+  flex-direction: row;
+}
+.foot_left{
+  display: flex;
+  flex-direction: column;
+}
+.foot_right{
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  margin-left: 560rpx;
+}
+.icon{
+  color: #2979ff;
+}
+.prescription_foot{
+
 }
 .prescription{
   display: flex;
   flex-direction: column;
 }
+
 .prescriptionBoard{
   margin-top: 40rpx;
 }
 .add{
   display: flex;
   flex-direction: row;
-  margin-left: 440rpx;
+  margin-left: 430rpx;
 }
 .xi_text{
   font-size: 25rpx;
@@ -178,6 +212,7 @@ name: "prescription",
 }
 .add_text{
   font-size: 25rpx;
+  color:#2979ff;
 }
 .body{
   display: flex;
@@ -190,7 +225,7 @@ name: "prescription",
   margin-left: 240rpx;
 }
 .trash{
-  margin-left: 45rpx;
+  margin-left: 10rpx;
 }
 .pack_text{
   font-size: 20rpx;

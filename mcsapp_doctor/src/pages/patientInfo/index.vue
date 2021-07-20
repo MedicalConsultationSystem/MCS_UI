@@ -84,10 +84,15 @@
           <label>病情图片</label>
         </view>
       </view>
-      <u-row class="btn">
-        <u-button type="primary" u-icon="plus" @click="Tab('../prescription/index')" class="btn_cancel">处方</u-button>
-        <u-button type="success" @click="Tab('../referral/index')" class="btn_confirm">完成接诊</u-button>
-      </u-row>
+      <view class="btn">
+        <view class="add_btn">
+          <u-button type="primary" u-icon="plus" @click="Tab('../prescription/index')">开设处方</u-button>
+        </view>
+        <view class="submit_btn">
+          <u-button type="success" @click="Tab('../referral/index')">完成接诊</u-button>
+        </view>
+      </view>
+
     </view>
   </view>
 </template>
@@ -162,6 +167,20 @@ name: "patientInfo",
 
 .common_text{
   color: #909399;
+}
+.btn{
+  display: flex;
+  flex-direction: row;
+  margin-top: 700rpx;
+  position: fixed;
+  bottom: 30rpx;
+  .add_btn{
+    color: #2979ff;
+    margin-left: 100rpx;
+  }
+  .submit_btn{
+    margin-left: 150rpx;
+  }
 }
 .header {
   width: 100%;
@@ -262,12 +281,6 @@ name: "patientInfo",
     }
 
   }
-}
-.btn_confirm{
-  margin-left: 320rpx;
-}
-.btn_cancel{
-  margin-left: 80rpx;
 }
 .apply {
   position: absolute;

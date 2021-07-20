@@ -9,9 +9,9 @@
           <u-tabs-swiper ref="uTabs" :list="list" :current="current" @change="tabsChange" :is-scroll="false"
                          swiperWidth="750"></u-tabs-swiper>
         </view>
-        <swiper :current="swiperCurrent" style="height: 1470rpx;width: 100%;"@transition="transition" @animationfinish="animationfinish">
+        <swiper :current="swiperCurrent" style="height: 1440rpx;width: 100%;"@transition="transition" @animationfinish="animationfinish">
           <swiper-item class="swiper-item">
-            <scroll-view scroll-y style="height: 1470rpx;width: 100%;" @scrolltolower="onreachBottom">
+            <scroll-view scroll-y style="height: 1440rpx;width: 100%;" @scrolltolower="onreachBottom">
               <view style="height: 40px">
                 <u-alert-tips type="warning"  :description="description" :show-icon="false"></u-alert-tips>
               </view>
@@ -172,7 +172,7 @@ name: "prescription",
   flex-direction: row;
   margin-top: 700rpx;
   position: fixed;
-  bottom: 0rpx;
+  bottom: 50rpx;
   .add_btn{
     color: #2979ff;
     margin-left: 100rpx;

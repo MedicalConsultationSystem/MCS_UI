@@ -38,10 +38,10 @@
     <view>
       <view class="btn">
         <view class="add_btn">
-          <u-button type="primary" u-icon="plus">新增处方</u-button>
+          <u-button type="primary" u-icon="plus" @click="Tab('../drugAdd/index')">取消</u-button>
         </view>
         <view class="submit_btn">
-          <u-button type="success">提交处方</u-button>
+          <u-button type="success" @click="jumpToPrescription">确定</u-button>
         </view>
       </view>
     </view>
@@ -151,7 +151,7 @@ name: "drugSetting",
   bottom: 30rpx;
   .add_btn{
     color: #2979ff;
-    margin-left: 100rpx;
+    margin-left: 140rpx;
   }
   .submit_btn{
     margin-left: 150rpx;

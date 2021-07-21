@@ -11,7 +11,7 @@
           <text class="color">*</text>
         </view>
         <view class="u-input">
-          <text class="common_text">{{applyData.apply_time}}</text>
+          <text class="common_text">{{receive.create_time}}</text>
         </view>
       </view>
       <view class="header ">
@@ -29,7 +29,7 @@
           <text class="color">*</text>
         </view>
         <view class="u-input">
-          <text class="common_text">{{applyData.name}}</text>
+          <text class="common_text">{{receive.person_name}}</text>
         </view>
       </view>
 
@@ -39,7 +39,7 @@
           <text class="color">*</text>
         </view>
         <view class="u-input">
-          <text class="common_text">{{applyData.age}}</text>
+          <text class="common_text">{{receive.person_age}}</text>
         </view>
       </view>
       <view class="header ">
@@ -48,7 +48,7 @@
           <text class="color">*</text>
         </view>
         <view class="u-input">
-          <text class="common_text">{{applyData.sex}}</text>
+          <text class="common_text">{{receive.person_gender_name}}</text>
         </view>
       </view>
       <view class="header ">
@@ -57,8 +57,7 @@
           <text class="color">*</text>
         </view>
         <view class="u-input">
-          <text class="drug_text">感冒颗粒</text>
-          <text class="drug_text">感冒颗粒</text>
+          <text class="drug_text">{{receive.drug_names}}</text>
         </view>
       </view>
       <view class="header ">
@@ -67,7 +66,7 @@
           <text class="color">*</text>
         </view>
         <view class="u-input">
-          <text class="common_text">{{applyData.historicalDiagnosis}}</text>
+          <text class="common_text">{{receive.diagnosis}}</text>
         </view>
       </view>
       <view class="header_illnessInfo">
@@ -76,7 +75,7 @@
           <text class="color">*</text>
         </view>
         <view class="u-input">
-          <text class="common_text">{{applyData.illnessInfo}}</text>
+          <text class="common_text">{{receive.question}}</text>
         </view>
       </view>
       <view class="header_illnessInfo">
@@ -103,6 +102,7 @@ name: "patientInfo",
   data(){
   return{
     title: "患者详情",
+    receive:null,
     background: {
       backgroundImage: 'linear-gradient(156deg, rgba(79, 107, 208,0.95), rgb(98, 141, 185)45%, rgba(102, 175, 161,0.93)85%)'
     },
@@ -149,6 +149,10 @@ name: "patientInfo",
         url: taburl
       })
     }
+  },
+  onLoad(options){
+   this.receive=JSON.parse(options.patientInfo)
+    console.log(this.receive)
   }
 
 }

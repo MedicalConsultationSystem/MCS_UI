@@ -5,7 +5,7 @@
       <u-navbar :is-back="true" back-icon-color="white" :title="title" title-color="white" :background="background" height="45"></u-navbar>
     </view>
     <view>
-      <view class="patientBoard" v-for="item in dataList[0]" :key="item.id" >
+      <view class="patientBoard" v-for="(item,index) in dataList[0]" :key="index" >
         <u-card class="patient" >
           <view class="patient_head" slot="head">
             <view class="head_row">
@@ -13,7 +13,7 @@
               <text class="status_text">{{status}}</text>
             </view>
           </view>
-          <view class="patient_body" slot="body" @click="Tab('../patientInfo/index')">
+          <view class="patient_body" slot="body" @click="jumpToPatientInfo(index)">
             <view class="bodySet">
               <image :src="patient.src" class="imgSet"></image>
               <view class="divide">
@@ -125,10 +125,18 @@ name: "referral",
               }
             }
           })
+          .catch(error=>{
+            console.log(error)
+          })
     },
-
+    jumpToPatientInfo(index){
+        console.log(this.dataList[0][index]);
+        let navData=JSON.stringify(this.dataList[0][index]);
+      uni.navigateTo({
+        url:'../patientInfo/index?patientInfo='+navData
+      })
+    },
     Tab:function(taburl) {
-
       uni.navigateTo({
         url: taburl
       })

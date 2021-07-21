@@ -13,9 +13,9 @@
           >
           </u-field>
           <u-action-sheet @click="clickFrequency" :list="frequency_nameList" v-model="showF"></u-action-sheet>
-        </view>        <u-form-item label="剂量" class="item_margin"><u-number-box v-model="form.dose" class="nb"></u-number-box></u-form-item>
+        </view>        <u-form-item label="剂量" class="item_margin"><u-number-box v-model="this.form.dose" class="nb"></u-number-box></u-form-item>
         <view class="">
-          <u-field @click="showFrequency" v-model="form.frequency_name"
+          <u-field @click="showFrequency" v-model="this.form.frequency_name"
                    :disabled="true" label="频次" placeholder="请选择频次"
                    right-icon="arrow-down-fill"
           >
@@ -23,16 +23,16 @@
           <u-action-sheet @click="clickFrequency" :list="frequency_nameList" v-model="showF"></u-action-sheet>
         </view>
         <view class="">
-          <u-field @click="showUsage" v-model="form.usage_name"
+          <u-field @click="showUsage" v-model="this.form.usage_name"
                    :disabled="true" label="用法" placeholder="请选择用法"
                    right-icon="arrow-down-fill"
           >
           </u-field>
           <u-action-sheet @click="clickUsage" :list="usageList" v-model="showU"></u-action-sheet>
         </view>
-        <u-form-item label="用药天数(天)" class="item_margin"><u-number-box v-model="form.take_days" class="nb"></u-number-box></u-form-item>
-        <u-form-item class="item_margin" label="总量(盒)"><u-number-box v-model="form.quantity" class="nb"></u-number-box></u-form-item>
-        <u-input placeholder="请输入备注(选填)" v-model="form.remark" :type="type" :border="true" class="remark_input" :auto-height=true />
+        <u-form-item label="用药天数(天)" class="item_margin"><u-number-box v-model="this.form.take_days" class="nb"></u-number-box></u-form-item>
+        <u-form-item class="item_margin" label="总量(盒)"><u-number-box v-model="this.form.quantity" class="nb"></u-number-box></u-form-item>
+        <u-input placeholder="请输入备注(选填)" v-model="this.form.remark" :type="type" :border="true" class="remark_input" :auto-height=true />
       </u-form>
     </view>
     <view>
@@ -41,7 +41,7 @@
           <u-button type="primary" u-icon="plus" @click="Tab('../drugAdd/index')">取消</u-button>
         </view>
         <view class="submit_btn">
-          <u-button type="success" @click="jumpToPrescription">确定</u-button>
+          <u-button type="success" @click="addDrug">确定</u-button>
         </view>
       </view>
     </view>
@@ -87,12 +87,20 @@ name: "drugSetting",
     showF: false,
     receive:null,
     form: {
+      prescription_id:null,
       id:2,
-      drug_name: "",
-      dose:"",
+      drug_id:null,
+      drug_name: null,
+      dose:null,
+      org_id: 1,
+      dose_unit:null,
       frequency_name:"",
-      specification:"10g*9袋",
+      frequency_code:1,
+      pack_unit: null,
+      specification:null,
       usage_name:"",
+      usage_code:1,
+      group_number:1,
       take_days:"",
       quantity:"",
       sex: '',
@@ -106,10 +114,17 @@ name: "drugSetting",
   }
   },
   onLoad(options){
+  if(options.info){
     this.receive=JSON.parse(options.info)
     console.log(this.receive)
+    this.form.prescription_id=this.receive.prescription_id
+    this.form.drug_id=this.receive.drug_id
     this.form.drug_name=this.receive.drug_name
+    this.form.dose_unit = this.receive.dose_unit
+    this.form.dose=this.receive.dose
+    this.form.pack_unit=this.receive.pack_unit
     this.form.specification=this.receive.specification
+  }
   },
   methods:{
   jumpToPrescription(){
@@ -124,7 +139,17 @@ name: "drugSetting",
         url: taburl
       })
     },
-
+    addDrug(){
+      console.log(this.form.prescription_id)
+      let reqJSON=JSON.stringify(this.form)
+      console.log(reqJSON)
+      this.$axios
+      .post('https://api.zghy.xyz/prescription/addDrug',reqJSON)
+      .then(res=>{
+        console.log(res)
+        this.Tab('../prescription/index')
+      })
+    },
     showFrequency() {
       this.showF = true;
     },

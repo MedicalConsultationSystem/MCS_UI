@@ -35,41 +35,31 @@ data(){
       backgroundImage: 'linear-gradient(156deg, rgba(79, 107, 208,0.95), rgb(98, 141, 185)45%, rgba(102, 175, 161,0.93)85%)'
     },
     formData:null,
-    drugInfo:[
-      {
-        id:1,
-        drug_name:"吉西他滨针",
-        type:"医5",
-        type1:"甲",
-        dose:"0.2",
-        dose_unit:"g",
-        specification:"10g*9袋",
-        factory_name:"哈药集团制药"
-      },
-      {
-        id:2,
-        drug_name:"三九感冒灵",
-        type:"医5",
-        type1:"甲",
-        dose:"0.2",
-        dose_unit:"g",
-        specification:"10g*9袋",
-        factory_name:"哈药集团制药"
-      },
-      {
-        id:3,
-        drug_name:"吉西他滨针",
-        type:"医5",
-        type1:"甲",
-        dose:"0.2",
-        dose_unit:"g",
-        specification:"10g*9袋",
-        factory_name:"哈药集团制药"
-      }
-    ]
+    prescription_id:null,
+    drugInfo:[]
   }
 },
+  onLoad(options){
+  if(options.prescription_id){
+    console.log(options.prescription_id)
+    this.prescription_id=options.prescription_id;
+    console.log(this.prescription_id)
+  }
+  },
+  created() {
+    this.getDrugList()
+  },
   methods:{
+  getDrugList(){
+    this.$axios
+    .get('https://api.zghy.xyz/drug/listAll')
+    .then(res=>{
+      console.log(res)
+      if(res.data.code===0){
+        this.drugInfo=res.data.data
+      }
+    })
+  },
     Tab:function(taburl) {
       uni.navigateTo({
         url: taburl
@@ -78,6 +68,11 @@ data(){
     jumpToSet(key){
       console.log(key);
       this.formData=this.drugInfo[key];
+      console.log(this.formData)
+      let name="prescription_id";
+      let value=parseInt(this.prescription_id)
+      console.log(typeof (value))
+      this.formData[name]=value
       console.log(this.formData)
       let navData=JSON.stringify(this.formData);
       console.log(navData);
@@ -122,7 +117,8 @@ data(){
   color: #909399;
 }
 .icon{
-  margin-left: 420rpx;
+  position: absolute;
+  margin-left: 620rpx;
   color: #007aff;
 }
 .apply_text{

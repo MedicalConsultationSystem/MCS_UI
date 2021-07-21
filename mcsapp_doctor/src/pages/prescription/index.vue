@@ -15,13 +15,13 @@
               <view style="height: 40px">
                 <u-alert-tips type="warning"  :description="description" :show-icon="false"></u-alert-tips>
               </view>
-              <view v-for="(card,index) in cards" :key="index">
+              <view v-for="(card,index) in cards" :key="card.prescription_id">
                 <view class="prescriptionBoard">
                   <u-card class="prescription" :show-foot=card.footShow :show-head="false" :head-border-bottom="false" :foot-border-bottom="false">
                     <view class="prescription_body" slot="body">
                       <view class="body">
                         <text class="xi_text">西药方</text>
-                        <view class="add" @click="Tab('../drugAdd/index')">
+                        <view class="add" @click="jumpToDrugAdd(card.prescription_id)">
                           <u-icon name="plus" size="20"  class="icon" ></u-icon>
                           <text class="add_text">新增药品</text>
                         </view>
@@ -40,7 +40,7 @@
                               <text>{{card.pack_unit}}</text>
                             </view>
                             <view class="trash_icon">
-                              <u-icon name="trash" @click="delPrescription(index)"></u-icon>
+                              <u-icon name="trash" @click="delPrescription(card.prescription_id)"></u-icon>
                             </view>
                           </view>
                       </view>
@@ -82,6 +82,7 @@ name: "prescription",
       receive:null,
       cards:[],
       footShow:false,
+      prescription_id: null,
       getPrescriptionParams :{
         consult_id: null
       },
@@ -135,7 +136,7 @@ name: "prescription",
   },
   methods:{
     delPrescription(index){
-      this.delPrescriptionId.prescription_id=parseInt(this.cards[index].prescription_id)
+      this.delPrescriptionId.prescription_id=parseInt(index)
       let reqJSON=JSON.stringify(this.delPrescriptionId);
       console.log(reqJSON);
       this.$axios
@@ -202,6 +203,14 @@ name: "prescription",
     },
     onreachBottom() {
 
+    },
+    jumpToDrugAdd(params){
+      console.log(params);
+      this.prescription_id=params;
+      let navData=JSON.stringify(this.prescription_id)
+      uni.navigateTo({
+        url:'../drugAdd/index?prescription_id='+navData
+      })
     },
     Tab:function(taburl) {
       uni.navigateTo({

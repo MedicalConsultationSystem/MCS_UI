@@ -5,12 +5,12 @@
       <u-navbar :is-back="true" back-icon-color="white" :title="title" title-color="white" :background="background" height="45"></u-navbar>
     </view>
     <view>
-      <view class="patientBoard" v-for="item in list" :key="item.id" >
+      <view class="patientBoard" v-for="item in dataList[0]" :key="item.id" >
         <u-card class="patient" >
           <view class="patient_head" slot="head">
             <view class="head_row">
-              <text class="apply_text">申请时间：{{item.apply_time}}</text>
-              <text class="status_text">{{item.status}}</text>
+              <text class="apply_text">申请时间：{{item.create_time}}</text>
+              <text class="status_text">{{status}}</text>
             </view>
           </view>
           <view class="patient_body" slot="body" @click="Tab('../patientInfo/index')">
@@ -18,13 +18,13 @@
               <image :src="patient.src" class="imgSet"></image>
               <view class="divide">
                 <view class="name">
-                  <text class="name_text">{{item.name}}</text>
-                  <text class="sex_text">{{item.sex}}</text>
-                  <text class="age_text">{{item.age}}岁</text>
+                  <text class="name_text">{{item.person_name}}</text>
+                  <text class="sex_text">{{item.person_gender_name}}</text>
+                  <text class="age_text">{{item.person_age}}岁</text>
                 </view>
                 <view class="need">
                   <text class="name_text">药品需求：</text>
-                  <text class="need_text">{{item.drugs}}</text>
+                  <text class="need_text">{{item.drug_names}}</text>
                 </view>
               </view>
               <view class="arrow">
@@ -50,16 +50,24 @@ name: "referral",
     this.screenHeight=uni.getSystemInfoSync().windowHeight;
     console.log(this.screenHeight)
   },
+  created() {
+    this.getReferralList();
+  },
   data(){
   return{
     title: "复诊配药",
     screenHeight:null,
+    status: "待接诊",
     background: {
       backgroundImage: 'linear-gradient(156deg, rgba(79, 107, 208,0.95), rgb(98, 141, 185)45%, rgba(102, 175, 161,0.93)85%)'
+    },
+    send_data:{
+      doctor_id:"6",
     },
     patient: {
       src:"../../static/touxiang/touxiang6.jpg"
     },
+    dataList:[],
     applyData: {
         apply_time:"",
         status:"",
@@ -93,11 +101,38 @@ name: "referral",
 
 },
   methods:{
+    getReferralList(){
+      let reqJson=JSON.stringify(this.send_data);
+      console.log(reqJson)
+      this.$axios
+          .post('https://api.zghy.xyz/consult/findByDoctor',reqJson)
+          .then(res=>{
+            console.log(res)
+            if(res.data.code===0){
+              // this.$refs.uToast.show({
+              //   title: '问诊信息获取成功！',
+              //   type: 'success',
+              // })
+              console.log(res.data.data[0].consult_status)
+              for(let item in res.data.data){
+                if(res.data.data[item].consult_status===1){
+                  console.log(typeof(res.data.data[item].create_time))
+                  let date = new Date(res.data.data[item].create_time).toJSON();
+                  res.data.data[item].create_time=new Date(+new Date(date)+8*3600*1000).toISOString().replace(/T/g,' ').replace(/\.[\d]{3}Z/,'');
+                  this.dataList.push(res.data.data)
+                  console.log(this.dataList)
+                }
+              }
+            }
+          })
+    },
+
     Tab:function(taburl) {
+
       uni.navigateTo({
         url: taburl
       })
-    }
+    },
   }
 }
 </script>
@@ -140,6 +175,10 @@ name: "referral",
   font-size: 25rpx;
   color: #909399;
 }
+.apply_time{
+  display: flex;
+  flex-direction: row;
+}
 .need{
   display: flex;
   flex-direction: column;
@@ -175,6 +214,7 @@ name: "referral",
   margin-left: 15rpx;
   font-size: 24rpx;
   color: #909399;
+  width: 480rpx;
 }
 .change_text{
   margin-left: 15rpx;
@@ -206,6 +246,7 @@ name: "referral",
   margin-left: 240rpx;
   font-size: 23rpx;
   color: #ff9900;
+  width: 120rpx;
 }
 .imgSet{
   align-items: center;

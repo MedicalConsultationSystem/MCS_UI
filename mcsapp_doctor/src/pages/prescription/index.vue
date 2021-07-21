@@ -112,9 +112,6 @@ name: "prescription",
 
     tabsChange(index) {
       this.swiperCurrent = index;
-
-      3
-
     },
     transition(e) {
       let dx = e.detail.dx;

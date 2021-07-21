@@ -2,22 +2,25 @@
 	<view class="content">
 		<view class="nav">
 			<!-- 自定义导航栏 -->
-			<u-navbar :is-back="true" back-icon-color="white" :title="title" title-color="white" :background="background" height="45"></u-navbar>
+			<u-navbar :is-back="false" back-icon-color="white" :title="title" title-color="white" :background="background" height="45"></u-navbar>
 		</view>
 		<view class="search-wrap" style="padding: 20rpx 10rpx;">
 			<!-- 如果使用u-search组件，必须要给v-model绑定一个变量 -->
 			<u-search v-model="keyword" height="65" placeholder="可搜索医生姓名" :show-action="showAction" :action-style="{color: '#909399'}"></u-search>
 		</view>
-		<view class="doctorInfo" v-for="item in doctorList" :key="item.id">
+		<view class="doctorInfo" v-for="(item,index) in doctorList" :key="index" @click="chooseDoctor(index)">
 			<view class="doctor">
-				<image :src="item.src"></image>
+				<image :src="item.avatar_url"></image>
 				<view class="name_text">
-					<text class="name_text1">{{item.name}}</text>
-					<text class="name_text2">{{item.level}}</text>
+					<text class="name_text1">{{item.doctor_name}}</text>
+					<view v-if="item.level_name!==''">
+						<text class="name_text2">{{item.level_name}}</text>
+					</view>
+					
 				</view>
 			</view>
 			<view class="department">
-				<text>{{item.department}}</text>
+				<text>{{item.dept_name}}</text>
 			</view>
 		</view>
 	</view>
@@ -33,16 +36,41 @@
 				background: {
 					backgroundImage: 'linear-gradient(156deg, rgb(79, 107, 208), rgb(98, 141, 185)70%, rgb(102, 175, 161)110%);'
 				},
-				doctorList: [
-					{id:"1",name:"方洪全",department:"呼吸内科",level:"主任医师",src:"../../static/touxiang/touxiang6.jpg"},
-					{id:"2",name:"李明",department:"外科",level:"医师",src:"../../static/touxiang/touxiang4.jpg"}
-				]
+				doctorList: [],
+				doctor:{
+					name:"",
+					level:"",
+					department:"",
+					src:"../../static/touxiang/touxiang5.jpg"
+				}
 			}
+		},
+		created() {
+			this.loadDoctor();
 		},
 		onLoad() {
 	
 		},
 		methods: {
+			loadDoctor(){	
+				this.$axios.get('https://api.zghy.xyz/doctor/listAll')
+					.then(res=>{
+						let list=res.data.data;
+						console.log(res);
+						if(res.data.code===0){
+							this.doctorList=res.data.data;
+						}
+					})
+			},
+			chooseDoctor(key){
+				this.doctor.name=this.doctorList[key].doctor_name;
+				this.doctor.level=this.doctorList[key].level_name;
+				this.doctor.department=this.doctorList[key].dept_name;
+				// this.doctor.src=this.doctorList[key].avatar_url;
+				console.log(this.doctor);
+				uni.$emit('doctorData',this.doctor);
+				uni.navigateBack();
+			}
 			
 		},
 	}

@@ -8,10 +8,10 @@
 			<!-- 如果使用u-search组件，必须要给v-model绑定一个变量 -->
 			<u-search v-model="keyword" height="65" placeholder="可搜索药品信息" :show-action="showAction" :action-style="{color: '#909399'}"></u-search>
 		</view>
-		<view class="drugInfo" v-for="item in drugList" :key="item.id">
+		<view class="drugInfo" v-for="(item,index) in drugList" :key="index" @click="chooseDrug(index)">
 			<view class="drug">
 				<view class="name_text">
-					<text class="name_text1">{{item.name}}</text>
+					<text class="name_text1">{{item.drug_name}}</text>
 					<text class="name_text2">{{item.specification}}</text>
 				</view>
 			</view>
@@ -32,17 +32,36 @@
 				background: {
 					backgroundImage: 'linear-gradient(156deg, rgb(79, 107, 208), rgb(98, 141, 185)70%, rgb(102, 175, 161)110%);'
 				},
-				drugList: [
-					{id:"1",name:"肠炎宁片",specification:"0.42g*48片",price:"29",pack_unit:"盒"},
-					{id:"2",name:"连花清瘟胶囊",specification:"0.35g*36粒",price:"29",pack_unit:"支"}
-				]
+				drug:{
+					name:"",
+					show:true
+				},
+				drugList: []
 			}
+		},
+		created() {
+			this.loadDrug();
 		},
 		onLoad() {
 	
 		},
 		methods: {
-			
+			loadDrug(){
+				this.$axios.get('https://api.zghy.xyz/drug/listAll')
+					.then(res=>{
+						let list=res.data.data;
+						// console.log(res);
+						if(res.data.code===0){
+							this.drugList=res.data.data;
+							// console.log(this.drugList[0].drug_name);
+						}
+					})
+			},
+			chooseDrug(key){
+				this.drug.name=this.drugList[key].drug_name;
+				uni.$emit('drugData',this.drug);
+				uni.navigateBack();
+			}
 		},
 	}
 </script>

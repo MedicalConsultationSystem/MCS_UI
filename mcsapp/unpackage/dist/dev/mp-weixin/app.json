@@ -1,42 +1,41 @@
 {
-    "pages": [
-        "pages/home/index",
-        "pages/mine/index",
-        "pages/diagnosis/index",
-        "pages/dispense/index",
-        "pages/dispense/doctorList",
-        "pages/dispense/drugList",
-        "pages/record/index",
-        "pages/prescription/index",
-        "pages/record/check"
-    ],
-    "subPackages": [],
-    "window": {
-        "navigationBarTextStyle": "black",
-        "navigationBarTitleText": "uni-app",
-        "navigationBarBackgroundColor": "#F8F8F8",
-        "backgroundColor": "#F8F8F8"
-    },
-    "tabBar": {
-        "color": "#000000",
-        "selectedColor": "#000000",
-        "borderStyle": "black",
-        "backgroundColor": "#ffffff",
-        "list": [
-            {
-                "pagePath": "pages/home/index",
-                "iconPath": "static/home/home-outline.png",
-                "selectedIconPath": "static/home/home.png",
-                "text": "首页"
-            },
-            {
-                "pagePath": "pages/mine/index",
-                "iconPath": "static/mine/user-outline.png",
-                "selectedIconPath": "static/mine/user.png",
-                "text": "我的"
-            }
-        ]
-    },
-    "usingComponents": {},
-    "sitemapLocation": "sitemap.json"
+  "pages": [
+    "pages/home/index",
+    "pages/mine/index",
+    "pages/diagnosis/index",
+    "pages/dispense/index",
+    "pages/dispense/doctorList",
+    "pages/dispense/drugList",
+    "pages/record/index",
+    "pages/prescription/index",
+    "pages/record/check"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#000000",
+    "selectedColor": "#000000",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "iconPath": "static/home/home-outline.png",
+        "selectedIconPath": "static/home/home.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/mine/index",
+        "iconPath": "static/mine/user-outline.png",
+        "selectedIconPath": "static/mine/user.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {}
 }

@@ -11,18 +11,21 @@
 		<view class="doctorboard">
 			<u-card class="doctor" box-shadow="2px 3px 8px #888888">
 				<view class="doctor_head" slot="head">
-					<image :src="doctor.src"></image>
-					<view class="name_text">
-						<text class="name_text1">{{doctor.name}}</text>
-						<text class="name_text2">{{doctor.level}}</text>
+					<view class="left" v-if="show===true">
+						<image :src="doctorList.src"></image>
+						<view class="name_text">
+							<text class="name_text1">{{doctorList.name}}</text>
+							<text class="name_text2">{{doctorList.level}}</text>
+						</view>
 					</view>
-					<view class="change" @click="changeDoctor(doctorUrl)">
-						<text class="change_text">更换医生</text>
+					<view :class="[show===true?'change':'change2']" @click="changeDoctor(doctorUrl)">
+						<text class="change_text" v-if="show===true">更换医生</text>
+						<text class="change_text2" v-if="show===false">请选择医生</text>
 						<u-icon class="change_icon" name="arrow-right" size="30"></u-icon>
 					</view>
 				</view>
 				<view class="doctor_body" slot="body">
-					<text>{{doctor.department}}</text>
+					<text>{{doctorList.department}}</text>
 				</view>
 			</u-card>
 		</view>
@@ -49,8 +52,8 @@
 				</view>
 			</view>
 			<view class="drug_tag">
-				<view v-for="item in drugList" :key="item.id">
-					<u-tag class="tag" :text=item.name closeable :show=item.show shape="circle" @close="tagClose(item.id)" />
+				<view class="tag" v-for="(item,index) in drugList" v-if="item.show===true" :key="index">
+					<u-tag :text=item.name closeable :show=item.show shape="circle" @close="tagClose(index)" />
 				</view>
 			</view>
 		</view>
@@ -118,6 +121,7 @@
 	export default {
 		data() {
 			return {
+				show: false,
 				saveList: "请填写问诊人信息",
 				sexList:['男','女'],
 				showSex: false,
@@ -128,14 +132,8 @@
 				title: "复诊配药",
 				doctorUrl: "../dispense/doctorList",
 				drugUrl: "../dispense/drugList",
-				drugList:[
-					{id:"1",name:"肠炎宁片",specification:"0.42g*48片",price:"29",pack_unit:"盒",show:true},
-					{id:"2",name:"连花清瘟胶囊",specification:"0.35g*36粒",price:"29",pack_unit:"支",show:true},
-					{id:"3",name:"连花清瘟胶囊",specification:"0.35g*36粒",price:"29",pack_unit:"支",show:true},
-					{id:"4",name:"连花清瘟胶囊",specification:"0.35g*36粒",price:"29",pack_unit:"支",show:true},
-					{id:"5",name:"连花清瘟胶囊",specification:"0.35g*36粒",price:"29",pack_unit:"支",show:true},
-					{id:"6",name:"连花清瘟胶囊",specification:"0.35g*36粒",price:"29",pack_unit:"支",show:true}
-				],
+				drugList:[],
+				doctorList:[],
 				params: {
 					year: true,
 					month: true,
@@ -163,6 +161,7 @@
 					illness: "",
 					description: ""
 				},
+				name:"",
 				msg :{
 					"consult_status": 0,
 					"create_user_id": "string",
@@ -191,7 +190,21 @@
 			}
 		},
 		onLoad() {
-			
+			uni.$on('drugData', e => {
+				console.log(e);
+				this.drugList.push(e);
+				console.log(this.drugList);
+			});
+			uni.$on('doctorData', k => {
+				console.log(k);
+				this.show=true;
+				this.doctorList=k;
+				console.log(this.doctorList);
+			});
+		},
+		onUnload() {
+			uni.$off('drugData');
+			uni.$off('doctorData');
 		},
 		onPageScroll({
 		  scrollTop
@@ -212,9 +225,11 @@
 				})
 			},
 			chooseDrug:function(taburl) {
+				// console.log(this.drugList);
 				uni.navigateTo({
 					url: taburl
 				})
+				// console.log(this.drugList);
 			},
 			sexCallback(e) {
 				// console.log(e); 回调参数e[0]相当于index
@@ -239,7 +254,7 @@
 			},
 			tagClose(index) {
 				console.log(index);
-				this.drugList[index-1].show=false;
+				this.drugList[index].show=false
 			}
 		}
 	}
@@ -270,7 +285,12 @@
 	.doctor_head{
 		display: flex;
 		flex-direction: row;
-		justify-content: left;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.left{
+		display: flex;
+		flex-direction: row;
 		align-items: center;
 	}
 	.doctor_head image{
@@ -284,6 +304,7 @@
 		align-content: space-between;
 		margin-left: 40rpx;
 		font-size: 35rpx;
+		margin-bottom: 10rpx;
 	}
 	.name_text text{
 		margin-top: 8rpx;
@@ -307,14 +328,26 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: space-around;
-		margin-left: 150rpx;
+	}
+	.change2{
+		height: 150rpx;
+		padding-top: 45rpx;
+		padding-left: 230rpx;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
 	}
 	.change_text{
 		margin-left: 15rpx;
 		font-size: 29rpx;
 		color: #909399;
 	}
+	.change_text2{
+		font-size: 37rpx;
+		color: #909399;
+	}
 	.change_icon{
+		padding-top: 5rpx;
 		margin-left: 20rpx;
 		color: #909399;
 	}
@@ -363,7 +396,9 @@
 		margin-bottom: 5rpx;
 	}
 	.tag{
+		height: 60rpx;
 		margin-right: 15rpx;
+		padding-top: 10rpx;
 	}
 	.text1{
 		font-size: 27rpx;

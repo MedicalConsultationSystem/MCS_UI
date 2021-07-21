@@ -82,6 +82,9 @@ name: "prescription",
       receive:null,
       cards:[],
       footShow:false,
+      getPrescriptionParams :{
+        consult_id: null
+      },
       addPrescriptionInfo:{
         consult_id:null,
         doctor_id:"",
@@ -111,6 +114,9 @@ name: "prescription",
       }
     }
   },
+  created() {
+    this.getPrescription();
+  },
   onLoad(options){
     if(options.form){
       this.rev=JSON.parse(options.form);
@@ -139,6 +145,19 @@ name: "prescription",
         console.log(res)
         if(res.data.code===200){
           console.log("处方新增成功！")
+        }
+      })
+    },
+    getPrescription(){
+      this.getPrescriptionParams.consult_id=this.receive.consult_id;
+      let reqJSON=JSON.stringify(this.getPrescriptionParams);
+      console.log(reqJSON)
+      this.$axios
+      .post('https://api.zghy.xyz/prescription/list',reqJSON)
+      .then(res=>{
+        console.log(res)
+        if(res.data.code===200){
+          console.log("处方查询成功！")
         }
       })
     },

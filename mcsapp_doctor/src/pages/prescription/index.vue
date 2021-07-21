@@ -15,13 +15,13 @@
               <view style="height: 40px">
                 <u-alert-tips type="warning"  :description="description" :show-icon="false"></u-alert-tips>
               </view>
-              <view v-for="card in cards" :key="card.id">
+              <view v-for="(card,index) in cards" :key="index">
                 <view class="prescriptionBoard">
                   <u-card class="prescription" :show-foot=card.footShow :show-head="false" :head-border-bottom="false" :foot-border-bottom="false">
                     <view class="prescription_body" slot="body">
                       <view class="body">
                         <text class="xi_text">西药方</text>
-                        <view class="add" @click="addPrescription">
+                        <view class="add" @click="Tab('../drugAdd/index')">
                           <u-icon name="plus" size="20"  class="icon" ></u-icon>
                           <text class="add_text">新增药品</text>
                         </view>
@@ -40,7 +40,7 @@
                               <text>{{card.pack_unit}}</text>
                             </view>
                             <view class="trash_icon">
-                              <u-icon name="trash"></u-icon>
+                              <u-icon name="trash" @click="delPrescription(index)"></u-icon>
                             </view>
                           </view>
                       </view>
@@ -84,6 +84,9 @@ name: "prescription",
       footShow:false,
       getPrescriptionParams :{
         consult_id: null
+      },
+      delPrescriptionId :{
+        prescription_id:null,
       },
       addPrescriptionInfo:{
         consult_id:null,
@@ -131,6 +134,18 @@ name: "prescription",
 
   },
   methods:{
+    delPrescription(index){
+      this.delPrescriptionId.prescription_id=parseInt(this.cards[index].prescription_id)
+      let reqJSON=JSON.stringify(this.delPrescriptionId);
+      console.log(reqJSON);
+      this.$axios
+      .delete('https://api.zghy.xyz/prescription/delPre',{data:reqJSON})
+      .then(res=>{
+        console.log(res);
+        this.getPrescription();
+      })
+
+    },
     addPrescription(){
       this.addPrescriptionInfo.consult_id=this.receive.consult_id;
       this.addPrescriptionInfo.doctor_id=this.receive.doctor_id;
@@ -145,6 +160,7 @@ name: "prescription",
         console.log(res)
         if(res.data.code===200){
           console.log("处方新增成功！")
+          this.getPrescription();
         }
       })
     },

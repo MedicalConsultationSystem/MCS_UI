@@ -156,8 +156,10 @@ name: "prescription",
       .post('https://api.zghy.xyz/prescription/list',reqJSON)
       .then(res=>{
         console.log(res)
-        if(res.data.code===200){
+        if(res.data.code===0){
           console.log("处方查询成功！")
+          console.log(res.data.data)
+          this.cards=res.data.data.prescriptions;
         }
       })
     },

@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
 name: "referral",
   onLoad(){
@@ -102,6 +104,7 @@ name: "referral",
 },
   methods:{
     getReferralList(){
+
       let reqJson=JSON.stringify(this.send_data);
       console.log(reqJson)
       this.$axios

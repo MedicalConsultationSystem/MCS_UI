@@ -85,7 +85,7 @@
       </view>
       <view class="btn">
         <view class="add_btn">
-          <u-button type="primary" u-icon="plus" @click="Tab('../prescription/index')">开设处方</u-button>
+          <u-button type="primary" u-icon="plus" @click="jumpToPrescription">开设处方</u-button>
         </view>
         <view class="submit_btn">
           <u-button type="success" @click="Tab('../referral/index')">完成接诊</u-button>
@@ -147,6 +147,13 @@ name: "patientInfo",
     Tab:function(taburl) {
       uni.navigateTo({
         url: taburl
+      })
+    },
+    jumpToPrescription(){
+      console.log(this.receive)
+      let navData=JSON.stringify(this.receive)
+      uni.navigateTo({
+        url:'../prescription/index?Info='+navData
       })
     }
   },

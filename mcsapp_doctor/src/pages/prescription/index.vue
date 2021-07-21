@@ -21,7 +21,7 @@
                     <view class="prescription_body" slot="body">
                       <view class="body">
                         <text class="xi_text">西药方</text>
-                        <view class="add" @click="Tab('../drugAdd/index')">
+                        <view class="add" @click="addPrescription">
                           <u-icon name="plus" size="20"  class="icon" ></u-icon>
                           <text class="add_text">新增药品</text>
                         </view>
@@ -51,7 +51,7 @@
               <view>
                 <view class="btn">
                   <view class="add_btn">
-                    <u-button type="primary" u-icon="plus" @click="addInner">新增处方</u-button>
+                    <u-button type="primary" u-icon="plus" @click="addPrescription">新增处方</u-button>
                   </view>
                   <view class="submit_btn">
                     <u-button type="success">提交处方</u-button>
@@ -79,8 +79,17 @@ name: "prescription",
       title: "电子处方",
       index:0,
       rev:null,
+      receive:null,
       cards:[],
       footShow:false,
+      addPrescriptionInfo:{
+        consult_id:null,
+        doctor_id:"",
+        doctor_name:"",
+        org_id:"",
+        prescription_type:"1",
+        user_id:""
+      },
       drugInfo: {
           id:null,
           drug_name:"",
@@ -103,13 +112,36 @@ name: "prescription",
     }
   },
   onLoad(options){
-    this.rev=JSON.parse(options.form);
-    console.log(this.rev);
-    this.cards.unshift(this.rev)
-    console.log(this.cards)
+    if(options.form){
+      this.rev=JSON.parse(options.form);
+      console.log(this.rev);
+      this.cards.unshift(this.rev)
+      console.log(this.cards)
+    }
+    if(options.Info){
+      this.receive=JSON.parse(options.Info)
+      console.log(this.receive)
+    }
+
   },
   methods:{
-
+    addPrescription(){
+      this.addPrescriptionInfo.consult_id=this.receive.consult_id;
+      this.addPrescriptionInfo.doctor_id=this.receive.doctor_id;
+      this.addPrescriptionInfo.doctor_name=this.receive.doctor_name;
+      this.addPrescriptionInfo.org_id=this.receive.org_id;
+      this.addPrescriptionInfo.user_id=this.receive.create_user_id;
+        let reqJSON=JSON.stringify(this.addPrescriptionInfo);
+        console.log(reqJSON)
+      this.$axios
+      .post('https://api.zghy.xyz/prescription/add',reqJSON)
+      .then(res=>{
+        console.log(res)
+        if(res.data.code===200){
+          console.log("处方新增成功！")
+        }
+      })
+    },
     tabsChange(index) {
       this.swiperCurrent = index;
     },

@@ -158,6 +158,7 @@ name: "patientInfo",
     }
   },
   onLoad(options){
+  console.log(this.$globalConsultId.$globalConsultId)
    this.receive=JSON.parse(options.patientInfo)
     console.log(this.receive)
   }

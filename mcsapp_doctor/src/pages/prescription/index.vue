@@ -17,7 +17,7 @@
               </view>
               <view v-for="(card,index) in cards" :key="card.prescription_id">
                 <view class="prescriptionBoard">
-                  <u-card class="prescription" :show-foot=card.footShow :show-head="false" :head-border-bottom="false" :foot-border-bottom="false">
+                  <u-card class="prescription" :show-head="false" :head-border-bottom="false" :foot-border-bottom="false">
                     <view class="prescription_body" slot="body">
                       <view class="body">
                         <text class="xi_text">西药方</text>
@@ -82,9 +82,10 @@ name: "prescription",
       receive:null,
       cards:[],
       footShow:false,
+      consult_id:null,
       prescription_id: null,
       getPrescriptionParams :{
-        consult_id: null
+        consult_id:null
       },
       delPrescriptionId :{
         prescription_id:null,
@@ -119,6 +120,9 @@ name: "prescription",
     }
   },
   created() {
+  if(this.$globalConsultId.$globalConsultId){
+    this.consult_id=this.$globalConsultId.$globalConsultId
+  };
     this.getPrescription();
   },
   onLoad(options){
@@ -166,7 +170,7 @@ name: "prescription",
       })
     },
     getPrescription(){
-      this.getPrescriptionParams.consult_id=this.receive.consult_id;
+      this.getPrescriptionParams.consult_id=this.$globalConsultId.$globalConsultId;
       let reqJSON=JSON.stringify(this.getPrescriptionParams);
       console.log(reqJSON)
       this.$axios

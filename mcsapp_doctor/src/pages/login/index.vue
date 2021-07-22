@@ -1,125 +1,78 @@
 <template>
   <view>
     <!-- #ifdef MP-WEIXIN -->
-    <view v-if="isCanUse">
-      <view>
-        <view class='header'>
-<!--          <image src='../../static/img/wx_login.png'></image>-->
-        </view>
-        <view class='content'>
-          <view>申请获取以下权限</view>
-          <text>获得你的公开信息(昵称，头像、地区等)</text>
-        </view>
-
-        <button class='bottom' type='primary' open-type="getUserInfo" withCredentials="true" lang="zh_CN" @getuserinfo="wxGetUserInfo">
-          授权登录
-        </button>
-      </view>
-    </view>
+    <button open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" style="margin-top: 160rpx">授权登录</button>
     <!-- #endif -->
   </view>
 </template>
-
 <script>
+import WXBizDataCrypt from "@/common/WXBizDataCrypt"
+
 export default {
   data() {
     return {
-      SessionKey: '',
-      OpenId: '',
+      session_key: '',
+      unionid:'',
+      openid: '',
+      msg:{
+        open_id:"",
+        phone:""
+      },
+      jsCode:'',
       nickName: null,
       avatarUrl: null,
-      isCanUse: uni.getStorageSync('isCanUse')||true//默认为true
+      phone:null,
+      // isCanUse: uni.getStorageSync('isCanUse')||true//默认为true
     };
   },
   methods: {
-    //第一授权获取用户信息===》按钮触发
-    wxGetUserInfo() {
-      let _this = this;
-      uni.getUserInfo({
-        provider: 'weixin',
-        success: function(infoRes) {
-          console.log(infoRes)
-          let nickName = infoRes.userInfo.nickName; //昵称
-          let avatarUrl = infoRes.userInfo.avatarUrl; //头像
-          try {
-            uni.setStorageSync('isCanUse', false);//记录是否第一次授权  false:表示不是第一次授权
-            _this.updateUserInfo();
-          } catch (e) {}
-        },
-        fail(res) {}
-      });
-    },　　　　　　//登录
-    login() {
-      let _this = this;
-      // uni.showLoading({
-      //   title: '登录中...'
-      // });
-
-      // 1.wx获取登录用户code
-      uni.login({
-        provider: 'weixin',
-        success: function(loginRes) {
-          console.log(loginRes)
-          let code = loginRes.code;
-          if (!_this.isCanUse) {
-            //非第一次授权获取用户信息
-            uni.getUserInfo({
-              provider: 'weixin',
-              success: function(infoRes) {
-                console.log(infoRes)　　　　　　　　　　　　　　　　　　　　　　//获取用户信息后向调用信息更新方法
-                let nickName = infoRes.userInfo.nickName; //昵称
-                let avatarUrl = infoRes.userInfo.avatarUrl; //头像
-                _this.updateUserInfo();//调用更新信息方法
-              }
-            });
-          }
-
-          //2.将用户登录code传递到后台置换用户SessionKey、OpenId等信息
-          // uni.request({
-          //   url: '服务器地址',
-          //   data: {
-          //     code: code,
-          //   },
-          //   method: 'GET',
-          //   header: {
-          //     'content-type': 'application/json'
-          //   },
-          //   success: (res) => {
-          //     //openId、或SessionKdy存储//隐藏loading
-          //     uni.hideLoading();
-          //   }
-          // });
-        },
-      });
+    getPhoneNumber(e){
+      if(e.detail.errMsg==="getPhoneNumber:fail user deny"){       //用户决绝授权
+        //拒绝授权后弹出一些提示
+      }else{      //允许授权
+        let pc = new WXBizDataCrypt('wxf6a3675168d24265',this.session_key);  //wxXXXXXXX为你的小程序APPID
+        let data = pc.decryptData(e.detail.encryptedData , e.detail.iv);
+        console.log(data)       //data就是最终解密的用户信息
+        this.msg.phone=data.phoneNumber
+        console.log(this.msg)
+        let reqJSON= JSON.stringify(this.msg)
+        this.$axios
+        .post('https://api.zghy.xyz/account/login',reqJSON)
+        .then(res=>{
+          console.log(res)
+        })
+      }
     },
-    //向后台更新信息
-    // updateUserInfo() {
-    //   let _this = this;
-    //   uni.request({
-    //     url:'url' ,//服务器端地址
-    //     data: {
-    //       appKey: this.$store.state.appKey,
-    //       customerId: _this.customerId,
-    //       nickName: _this.nickName,
-    //       headUrl: _this.avatarUrl
-    //     },
-    //     method: 'POST',
-    //     header: {
-    //       'content-type': 'application/json'
-    //     },
-    //     success: (res) => {
-    //       if (res.data.state == "success") {
-    //         uni.reLaunch({//信息更新成功后跳转到小程序首页
-    //           url: '/pages/index/index'
-    //         });
-    //       }
-    //     }
-    //
-    //   });
-    // }
+
   },
-  onLoad() {//默认加载
-    this.login();
+  onLoad(){
+    uni.login({
+      success: (res) => {
+        console.log(res)
+        if (res.code) {         //微信登录成功 已拿到code
+          this.jsCode=res.code        //保存获取到的code
+          uni.request({
+            url: 'https://api.weixin.qq.com/sns/jscode2session',
+            method:'GET',
+            data: {
+              appid: 'wxf6a3675168d24265',
+              secret: '305958934645553afc5ac9244f610e7e',       //你的小程序的secret,
+              js_code: this.jsCode              //wx.login 登录成功后的code
+            },
+            success: (cts) => {
+              console.log(cts)
+              // 换取成功后 暂存这些数据 留作后续操作
+              this.msg.open_id=cts.data.openid
+              this.openid=cts.data.openid     //openid 用户唯一标识
+              this.unionid=cts.data.unionid     //unionid 开放平台唯一标识
+              this.session_key=cts.data.session_key     //session_key  会话密钥
+            }
+          });
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+      }
+    })
   }
 }
 </script>

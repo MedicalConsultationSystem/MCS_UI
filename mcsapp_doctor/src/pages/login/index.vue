@@ -40,11 +40,13 @@ export default {
         .post('https://api.zghy.xyz/account/login',reqJSON)
         .then(res=>{
           console.log(res)
-          if(res.data.code===0){
+          if(res.data.data.user_type==="2"){
             console.log("登陆成功！")
             uni.navigateTo({
               url: '../referral/index'
             })
+          }else if(res.data.data.user_type==="1"){
+            console.log("您还不是医生，如是请联系管理员")
           }
         })
       }

@@ -15,10 +15,10 @@
               <view style="height: 40px">
                 <u-alert-tips type="warning"  :description="description" :show-icon="false"></u-alert-tips>
               </view>
-              <view v-for="(card,index) in cards" :key="card.prescription_id">
+              <view v-for="card in cards" :key="card.prescription_id">
                 <view class="prescriptionBoard">
-                  <u-card class="prescription" :show-head="false" :head-border-bottom="false" :foot-border-bottom="false">
-                    <view class="prescription_body" slot="body">
+                  <u-card class="prescription"  :head-border-bottom="false" :foot-border-bottom="false">
+                    <view class="prescription_head" slot="head">
                       <view class="body">
                         <text class="xi_text">西药方</text>
                         <view class="add" @click="jumpToDrugAdd(card.prescription_id)">
@@ -27,22 +27,28 @@
                         </view>
                       </view>
                     </view>
+                    <view class="prescription_body" slot="body">
+                      <block v-for="item in card.drugs" :key="item.prescription_drug_id" class="back_color">
+                        <view class="drug-information">
+                          <view class="body_left">
+                            <view class="factory_name">
+                              <text>{{item.drug_name}}</text>
+                              <text class="factory">{{item.factory_name}}</text>
+                            </view>
+                            <view >
+                              <text class="specification">{{item.specification}}</text>
+                            </view>
+                          </view>
+                          <view class="trash_body" @click="delDrug(item.prescription_drug_id)">
+                            <u-icon name="trash"></u-icon>
+                          </view>
+                        </view>
+                        <u-line class="line"></u-line>
+                      </block>
+                    </view>
                     <view class="prescription_foot" slot="foot">
-                      <view class="foot">
-                          <view class="foot_left">
-                            <text class="drug_name">{{card.drug_name}}</text>
-                            <text class="specification">{{card.specification}}</text>
-                            <text class="frequency_name">{{card.frequency_name}}</text>
-                          </view>
-                          <view class="foot_right">
-                            <view>
-                              <text>{{card.quantity}}</text>
-                              <text>{{card.pack_unit}}</text>
-                            </view>
-                            <view class="trash_icon">
-                              <u-icon name="trash" @click="delPrescription(card.prescription_id)"></u-icon>
-                            </view>
-                          </view>
+                      <view class="foot_trash" @click="delPrescription(card.prescription_id)" >
+                        <u-icon name="trash"></u-icon>
                       </view>
                     </view>
                   </u-card>
@@ -90,6 +96,9 @@ name: "prescription",
       getPrescriptionParams :{
         consult_id:null
       },
+      delPrescriptionDrugId :{
+        prescription_drug_id:null
+      },
       delPrescriptionId :{
         prescription_id:null,
       },
@@ -110,7 +119,8 @@ name: "prescription",
           pack_unit:"盒",
           footShow:false,
         },
-      list: [{
+      list: [
+          {
         name: '待提交'
       }, {
         name: '已开方'
@@ -147,6 +157,20 @@ name: "prescription",
         this.getPrescription();
       })
 
+    },
+    delDrug(index){
+      this.delPrescriptionDrugId.prescription_drug_id=parseInt(index)
+      let reqJSON=JSON.stringify(this.delPrescriptionDrugId);
+      console.log(reqJSON)
+      this.$axios
+      .delete('https://api.zghy.xyz/prescription/delDrug',{data:reqJSON})
+      .then(res=>{
+        console.log(res)
+        if(res.data.code===0){
+          console.log("处方药物删除成功")
+          this.getPrescription();
+        }
+      })
     },
     addPrescription(){
       this.addPrescriptionInfo.consult_id=this.receive.consult_id;
@@ -247,6 +271,19 @@ name: "prescription",
   color: #303133;
   margin-top: 10rpx;
 }
+.body_left{
+  display: flex;
+  flex-direction: column;
+}
+.drug-information{
+  display: flex;
+  flex-direction: row;
+  margin-left: 40rpx;
+  text-align: left;
+  padding: 40rpx 0 40rpx 0;
+  color: #323233;
+  font-size: 24rpx;
+}
 .frequency_name{
   font-size: 22rpx;
   color: #909399;
@@ -288,7 +325,7 @@ name: "prescription",
   color: #2979ff;
 }
 .prescription_foot{
-
+  height: 10rpx;
 }
 .prescription{
   display: flex;
@@ -315,11 +352,21 @@ name: "prescription",
   font-size: 25rpx;
   color:#2979ff;
 }
+.trash_body{
+  position: absolute;
+  margin-left: 540rpx;
+  margin-top: 10rpx;
+}
+.foot_trash{
+  position: absolute;
+  color: #dd524d;
+  margin-left: 580rpx;
+}
 .body{
   display: flex;
   flex-direction: row;
 }
-.prescription_body{
+.prescription_head{
   height: 20rpx;
 }
 .pack{

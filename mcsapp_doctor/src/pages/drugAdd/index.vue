@@ -40,11 +40,8 @@ data(){
   }
 },
   onLoad(options){
-  if(options.prescription_id){
-    console.log(options.prescription_id)
-    this.prescription_id=options.prescription_id;
+  this.prescription_id=uni.getStorageSync('prescription_id')
     console.log(this.prescription_id)
-  }
   },
   created() {
     this.getDrugList()
@@ -66,18 +63,13 @@ data(){
       })
     },
     jumpToSet(key){
-      console.log(key);
-      this.formData=this.drugInfo[key];
-      console.log(this.formData)
-      let name="prescription_id";
-      let value=parseInt(this.prescription_id)
-      console.log(typeof (value))
-      this.formData[name]=value
-      console.log(this.formData)
-      let navData=JSON.stringify(this.formData);
-      console.log(navData);
+      console.log(this.drugInfo[key])
+      uni.setStorage({
+        key:'drugInfo',
+        data:this.drugInfo[key]
+      })
       uni.navigateTo({
-        url:'../drugSetting/index?info='+navData
+        url:'../drugSetting/index'
       })
     }
   },

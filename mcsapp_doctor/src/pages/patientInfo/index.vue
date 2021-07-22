@@ -150,18 +150,14 @@ name: "patientInfo",
       })
     },
     jumpToPrescription(){
-      console.log(this.receive)
-      let navData=JSON.stringify(this.receive)
       uni.navigateTo({
-        url:'../prescription/index?Info='+navData
+        url:'../prescription/index'
       })
     }
   },
-  onLoad(options){
-  console.log(this.$globalConsultId.$globalConsultId)
-   this.receive=JSON.parse(options.patientInfo)
-    console.log(this.receive)
-  }
+  onLoad(){
+  this.receive=uni.getStorageSync('patientInfo')
+  },
 
 }
 </script>

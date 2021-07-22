@@ -114,17 +114,16 @@ name: "drugSetting",
   }
   },
   onLoad(options){
-  if(options.info){
-    this.receive=JSON.parse(options.info)
+    this.receive=uni.getStorageSync('drugInfo')
     console.log(this.receive)
-    this.form.prescription_id=this.receive.prescription_id
+    this.form.prescription_id=uni.getStorageSync('prescription_id')
+    console.log(this.form.prescription_id)
     this.form.drug_id=this.receive.drug_id
     this.form.drug_name=this.receive.drug_name
     this.form.dose_unit = this.receive.dose_unit
     this.form.dose=this.receive.dose
     this.form.pack_unit=this.receive.pack_unit
     this.form.specification=this.receive.specification
-  }
   },
   methods:{
   jumpToPrescription(){

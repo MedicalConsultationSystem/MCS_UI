@@ -54,7 +54,7 @@
                     <u-button type="primary" u-icon="plus" @click="addPrescription">新增处方</u-button>
                   </view>
                   <view class="submit_btn">
-                    <u-button type="success">提交处方</u-button>
+                    <u-button type="success" @click="sumPrescription">提交处方</u-button>
                   </view>
                 </view>
               </view>
@@ -83,6 +83,9 @@ name: "prescription",
       cards:[],
       footShow:false,
       consult_id:null,
+      prescription_ids:{
+        prescription_ids:[]
+      },
       prescription_id: null,
       getPrescriptionParams :{
         consult_id:null
@@ -120,23 +123,17 @@ name: "prescription",
     }
   },
   created() {
-  if(this.$globalConsultId.$globalConsultId){
-    this.consult_id=this.$globalConsultId.$globalConsultId
-  };
     this.getPrescription();
   },
   onLoad(options){
+  this.receive=uni.getStorageSync('patientInfo')
+    console.log(this.receive)
     if(options.form){
       this.rev=JSON.parse(options.form);
       console.log(this.rev);
       this.cards.unshift(this.rev)
       console.log(this.cards)
     }
-    if(options.Info){
-      this.receive=JSON.parse(options.Info)
-      console.log(this.receive)
-    }
-
   },
   methods:{
     delPrescription(index){
@@ -163,14 +160,14 @@ name: "prescription",
       .post('https://api.zghy.xyz/prescription/add',reqJSON)
       .then(res=>{
         console.log(res)
-        if(res.data.code===200){
+        if(res.data.code===0){
           console.log("处方新增成功！")
           this.getPrescription();
         }
       })
     },
     getPrescription(){
-      this.getPrescriptionParams.consult_id=this.$globalConsultId.$globalConsultId;
+      this.getPrescriptionParams.consult_id=this.receive.consult_id;
       let reqJSON=JSON.stringify(this.getPrescriptionParams);
       console.log(reqJSON)
       this.$axios
@@ -184,20 +181,27 @@ name: "prescription",
         }
       })
     },
+    sumPrescription(){
+      let prescription_ids=[]
+      console.log(this.cards)
+        for(let item in this.cards){
+          prescription_ids.push(this.cards[item].prescription_id)
+        }
+        this.prescription_ids.prescription_ids=prescription_ids
+        console.log(this.prescription_ids)
+        let reqJSON=JSON.stringify(this.prescription_ids)
+      this.$axios
+      .post('https://api.zghy.xyz/prescription/submit',reqJSON)
+      .then(res=>{
+        console.log(res)
+      })
+    },
     tabsChange(index) {
       this.swiperCurrent = index;
     },
     transition(e) {
       let dx = e.detail.dx;
       this.$refs.uTabs.setDx(dx);
-    },
-    addInner(e) {
-      this.index += 1;
-      this.cards.push({
-        id: this.index,
-      });
-      this.drugInfo.footShow=false
-      console.log(this.cards);
     },
     animationfinish(e) {
       let current = e.detail.current;
@@ -209,11 +213,13 @@ name: "prescription",
 
     },
     jumpToDrugAdd(params){
-      console.log(params);
-      this.prescription_id=params;
-      let navData=JSON.stringify(this.prescription_id)
+      console.log(params)
+      uni.setStorage({
+        key:'prescription_id',
+        data:params
+      })
       uni.navigateTo({
-        url:'../drugAdd/index?prescription_id='+navData
+        url:'../drugAdd/index'
       })
     },
     Tab:function(taburl) {

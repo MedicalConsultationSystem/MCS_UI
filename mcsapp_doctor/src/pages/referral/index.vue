@@ -134,11 +134,12 @@ name: "referral",
     },
     jumpToPatientInfo(index){
         console.log(this.dataList[0][index]);
-        this.$globalConsultId.setGlobalConsultId(this.dataList[0][index].consult_id)
-        console.log(this.$globalConsultId)
-        let navData=JSON.stringify(this.dataList[0][index]);
+        uni.setStorage({
+          key:'patientInfo',
+          data:this.dataList[0][index]
+        })
       uni.navigateTo({
-        url:'../patientInfo/index?patientInfo='+navData
+        url:'../patientInfo/index'
       })
     },
     Tab:function(taburl) {

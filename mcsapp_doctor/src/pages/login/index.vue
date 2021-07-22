@@ -40,6 +40,12 @@ export default {
         .post('https://api.zghy.xyz/account/login',reqJSON)
         .then(res=>{
           console.log(res)
+          if(res.data.code===0){
+            console.log("登陆成功！")
+            uni.navigateTo({
+              url: '../referral/index'
+            })
+          }
         })
       }
     },

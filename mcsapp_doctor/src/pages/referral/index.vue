@@ -9,7 +9,8 @@
         <u-card class="patient" >
           <view class="patient_head" slot="head">
             <view class="head_row">
-              <text class="apply_text">申请时间：{{item.create_time}}</text>
+              <text class="apply">{{apply}}</text>
+              <text class="apply_text">{{item.create_time}}</text>
               <text class="status_text">{{status}}</text>
             </view>
           </view>
@@ -44,7 +45,6 @@
 </template>
 
 <script>
-import axios from "axios";
 
 export default {
 name: "referral",
@@ -60,6 +60,7 @@ name: "referral",
     title: "复诊配药",
     screenHeight:null,
     status: "待接诊",
+    apply:"申请时间",
     background: {
       backgroundImage: 'linear-gradient(156deg, rgba(79, 107, 208,0.95), rgb(98, 141, 185)45%, rgba(102, 175, 161,0.93)85%)'
     },
@@ -104,8 +105,8 @@ name: "referral",
 },
   methods:{
     getReferralList(){
-
-      let reqJson=JSON.stringify(this.send_data);
+     let reqJson= uni.getStorageSync('doctor_id')
+     reqJson=JSON.stringify(reqJson);
       console.log(reqJson)
       this.$axios
           .post('https://api.zghy.xyz/consult/findByDoctor',reqJson)
@@ -215,7 +216,7 @@ name: "referral",
   margin-left: 20rpx;
   font-weight: bold;
   font-size: 24rpx;
-  color: #303133;
+  color: #606266;
 }
 
 .change{
@@ -224,7 +225,13 @@ name: "referral",
   justify-content: space-around;
   margin-left: 260rpx;
 }
+.apply{
+  font-size: 24rpx;
+  color: #909399;
+  width: 150rpx;
+}
 .apply_text{
+  margin-top: 10rpx;
   margin-left: 15rpx;
   font-size: 24rpx;
   color: #909399;
@@ -257,7 +264,7 @@ name: "referral",
   color: #4cd964;
 }
 .status_text{
-  margin-left: 240rpx;
+  margin-left: 140rpx;
   font-size: 23rpx;
   color: #ff9900;
   width: 120rpx;

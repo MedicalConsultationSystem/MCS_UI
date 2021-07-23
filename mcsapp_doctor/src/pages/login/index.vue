@@ -22,6 +22,9 @@ export default {
       nickName: null,
       avatarUrl: null,
       phone:null,
+      doctor_id:{
+        doctor_id:null
+      }
       // isCanUse: uni.getStorageSync('isCanUse')||true//默认为true
     };
   },
@@ -34,6 +37,11 @@ export default {
         let data = pc.decryptData(e.detail.encryptedData , e.detail.iv);
         console.log(data)       //data就是最终解密的用户信息
         this.msg.phone=data.phoneNumber
+        this.doctor_id.doctor_id=data.phoneNumber
+        uni.setStorage({
+          key:'doctor_id',
+          data:this.doctor_id
+        })
         console.log(this.msg)
         let reqJSON= JSON.stringify(this.msg)
         this.$axios
@@ -42,8 +50,8 @@ export default {
           console.log(res)
           if(res.data.data.user_type==="2"){
             console.log("登陆成功！")
-            uni.navigateTo({
-              url: '../referral/index'
+            uni.switchTab({
+              url: '../home/index'
             })
           }else if(res.data.data.user_type==="1"){
             console.log("您还不是医生，如是请联系管理员")

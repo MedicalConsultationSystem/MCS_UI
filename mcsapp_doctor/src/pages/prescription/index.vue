@@ -68,7 +68,33 @@
           </swiper-item>
           <swiper-item class="swiper-item">
             <scroll-view scroll-y style="height: 800rpx;width: 100%;" @scrolltolower="onreachBottom">
-              ...
+              <view v-for="card in submitedCards" :key="card.prescription_id">
+                <view class="prescriptionBoard">
+                  <u-card class="prescription"  :head-border-bottom="false" :foot-border-bottom="false" show-foot="false">
+                    <view class="prescription_head" slot="head">
+                      <view class="body">
+                        <text class="xi_text">西药方</text>
+                      </view>
+                    </view>
+                    <view class="prescription_body" slot="body">
+                      <block v-for="item in card.drugs" :key="item.prescription_drug_id" class="back_color">
+                        <view class="drug-information">
+                          <view class="body_left">
+                            <view class="factory_name">
+                              <text>{{item.drug_name}}</text>
+                              <text class="factory">{{item.factory_name}}</text>
+                            </view>
+                            <view >
+                              <text class="specification">{{item.specification}}</text>
+                            </view>
+                          </view>
+                        </view>
+                        <u-line class="line"></u-line>
+                      </block>
+                    </view>
+                  </u-card>
+                </view>
+              </view>
             </scroll-view>
           </swiper-item>
         </swiper>
@@ -87,6 +113,7 @@ name: "prescription",
       rev:null,
       receive:null,
       cards:[],
+      submitedCards:[],
       footShow:false,
       consult_id:null,
       prescription_ids:{
@@ -134,10 +161,11 @@ name: "prescription",
   },
   created() {
     this.getPrescription();
+    this.receive=uni.getStorageSync('patientInfo')
+    console.log(this.receive)
   },
   onLoad(options){
-  this.receive=uni.getStorageSync('patientInfo')
-    console.log(this.receive)
+
     if(options.form){
       this.rev=JSON.parse(options.form);
       console.log(this.rev);
@@ -173,7 +201,7 @@ name: "prescription",
       })
     },
     addPrescription(){
-      this.addPrescriptionInfo.consult_id=this.receive.consult_id;
+      this.addPrescriptionInfo.consult_id=uni.getStorageSync('patientInfo').consult_id;
       this.addPrescriptionInfo.doctor_id=this.receive.doctor_id;
       this.addPrescriptionInfo.doctor_name=this.receive.doctor_name;
       this.addPrescriptionInfo.org_id=this.receive.org_id;
@@ -191,7 +219,7 @@ name: "prescription",
       })
     },
     getPrescription(){
-      this.getPrescriptionParams.consult_id=this.receive.consult_id;
+      this.getPrescriptionParams.consult_id=uni.getStorageSync('patientInfo').consult_id;
       let reqJSON=JSON.stringify(this.getPrescriptionParams);
       console.log(reqJSON)
       this.$axios
@@ -201,7 +229,15 @@ name: "prescription",
         if(res.data.code===0){
           console.log("处方查询成功！")
           console.log(res.data.data)
-          this.cards=res.data.data.prescriptions;
+          for(let item in res.data.data.prescriptions ){
+            if(res.data.data.prescriptions[item].prescription_status==="0"){
+              this.cards.push(res.data.data.prescriptions[item])
+            }else {
+              this.submitedCards.push(res.data.data.prescriptions[item])
+            }
+          }
+
+
         }
       })
     },

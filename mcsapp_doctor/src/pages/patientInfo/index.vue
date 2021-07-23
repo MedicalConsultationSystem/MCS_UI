@@ -244,7 +244,7 @@ name: "patientInfo",
 }
 .header_illnessInfo {
   width: 100%;
-  height: 280rpx;
+  height: 180rpx;
   padding: 0 32rpx;
   display: flex;
   flex-direction: row;

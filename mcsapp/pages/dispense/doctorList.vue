@@ -2,11 +2,11 @@
 	<view class="content">
 		<view class="nav">
 			<!-- 自定义导航栏 -->
-			<u-navbar :is-back="false" back-icon-color="white" :title="title" title-color="white" :background="background" height="45"></u-navbar>
+			<u-navbar :is-back="true" back-icon-color="white" :title="title" title-color="white" :background="background" height="45"></u-navbar>
 		</view>
 		<view class="search-wrap" style="padding: 20rpx 10rpx;">
 			<!-- 如果使用u-search组件，必须要给v-model绑定一个变量 -->
-			<u-search v-model="keyword" height="65" placeholder="可搜索医生姓名" :show-action="showAction" :action-style="{color: '#909399'}"></u-search>
+			<u-search v-model="keyword" height="65" placeholder="可搜索医生姓名" :show-action="showAction" :action-style="{color: '#909399'}" @custom="searchDoctor" @search="searchDoctor"></u-search>
 		</view>
 		<view class="doctorInfo" v-for="(item,index) in doctorList" :key="index" @click="chooseDoctor(index)">
 			<view class="doctor">
@@ -42,7 +42,8 @@
 					level:"",
 					department:"",
 					src:"../../static/touxiang/touxiang5.jpg"
-				}
+				},
+				doctorInfoList: []
 			}
 		},
 		created() {
@@ -68,10 +69,27 @@
 				this.doctor.department=this.doctorList[key].dept_name;
 				// this.doctor.src=this.doctorList[key].avatar_url;
 				console.log(this.doctor);
+				this.doctorInfoList=this.doctorList[key];
+				console.log(this.doctorInfoList);
 				uni.$emit('doctorData',this.doctor);
+				uni.$emit('doctorInfo',this.doctorInfoList)
 				uni.navigateBack();
+			},
+			searchDoctor(value){
+				let search={};
+				search.doctor_name=value;
+				// console.log(search);
+				// console.log(typeof value);
+				this.$axios.post('https://api.zghy.xyz/doctor/findByName',search)
+					.then(res =>{
+						console.log(res);
+						let list=res.data.data;
+						console.log(res);
+						if(res.data.code===0){
+							this.doctorList=res.data.data;
+						}
+					})
 			}
-			
 		},
 	}
 </script>

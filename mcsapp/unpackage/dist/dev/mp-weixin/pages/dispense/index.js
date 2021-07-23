@@ -332,6 +332,8 @@ var _default =
       drugUrl: "../dispense/drugList",
       drugList: [],
       doctorList: [],
+      doctorInfoList: [],
+      birthday: "",
       params: {
         year: true,
         month: true,
@@ -343,66 +345,91 @@ var _default =
       background: {
         backgroundImage: 'rgba(#ffffff,0)' },
 
-      doctor: {
-        name: "方洪全",
-        level: "主任医师",
-        department: "呼吸内科",
-        src: "../../static/touxiang/touxiang6.jpg" },
-
-      patient: {
-        name: "",
-        identify: "",
-        sex: "",
-        birthday: "",
-        age: "",
-        phonenumber: "",
-        illness: "",
-        description: "" },
-
-      name: "",
+      // doctor: {
+      // 	name:"方洪全",
+      // 	level:"主任医师",
+      // 	department:"呼吸内科",
+      // 	src:"../../static/touxiang/touxiang6.jpg"
+      // },
       msg: {
-        "consult_status": 0,
-        "create_user_id": "string",
-        "dept_id": 0,
-        "dept_name": "string",
-        "diagnosis": "string",
-        "doctor_id": "string",
-        "doctor_level_code": "string",
-        "doctor_level_name": "string",
-        "doctor_name": "string",
-        "drug_ids": "string",
-        "drug_names": "string",
-        "org_id": 0,
-        "org_name": "string",
-        "person_age": 0,
-        "person_birth_date": "string",
-        "person_card_id": "string",
-        "person_card_type": "string",
-        "person_gender_code": "string",
-        "person_gender_name": "string",
-        "person_name": "string",
-        "person_phone_no": "string",
-        "photo_ids": "string",
-        "question": "string" } };
+        // 假数据
+        //问诊状态1待接诊
+        consult_status: 1,
+        create_user_id: "123456",
+        //证件类型"1"身份证
+        person_card_type: "1",
+        //病情照片
+        photo_ids: "1",
+        //选择医生面板获取的医生信息
+        doctor_name: "",
+        dept_id: 1,
+        dept_name: "1",
+        doctor_id: "1",
+        doctor_level_code: "1",
+        doctor_level_name: "1",
+        org_id: 1,
+        org_name: "1",
+        //问诊人信息
+        person_name: "",
+        person_card_id: "",
+        person_gender_code: "",
+        person_gender_name: "",
+        person_phone_no: "",
+        person_age: 0,
+        person_birth_date: "",
+        //确诊诊断
+        diagnosis: "",
+        //药品信息
+        drug_ids: "",
+        drug_names: "",
+        //病情描述
+        question: "" } };
+
 
 
   },
   onLoad: function onLoad() {var _this = this;
     uni.$on('drugData', function (e) {
-      console.log(e);
+      // console.log(e);
       _this.drugList.push(e);
-      console.log(_this.drugList);
+      // console.log(this.drugList);
+      if (_this.drugList.length <= 1) {
+        _this.msg.drug_ids += _this.drugList[0].id;
+        _this.msg.drug_names += _this.drugList[0].name;
+      } else
+      {
+        _this.msg.drug_ids += ',' + _this.drugList[_this.drugList.length - 1].id;
+        _this.msg.drug_names += ',' + _this.drugList[_this.drugList.length - 1].name;
+        // console.log(this.msg.drug_ids);
+        // console.log(this.msg.drug_names);
+      }
+      // console.log(this.msg);
     });
     uni.$on('doctorData', function (k) {
-      console.log(k);
+      // console.log(k);
       _this.show = true;
       _this.doctorList = k;
-      console.log(_this.doctorList);
+      // console.log(this.doctorList);
+    });
+    uni.$on('doctorInfo', function (g) {
+      _this.doctorInfoList = g;
+      // console.log(this.doctorInfoList);
+      _this.msg.doctor_id = _this.doctorInfoList.doctor_id;
+      _this.msg.doctor_name = _this.doctorInfoList.doctor_name;
+      _this.msg.dept_id = _this.doctorInfoList.dept_id;
+      _this.msg.dept_name = _this.doctorInfoList.dept_name;
+      _this.msg.doctor_level_code = _this.doctorInfoList.level_code;
+      _this.msg.doctor_level_name = _this.doctorInfoList.level_name;
+      _this.msg.org_id = _this.doctorInfoList.org_id;
+      _this.msg.org_name = _this.doctorInfoList.org_name;
+      _this.msg.doctor_id = _this.doctorInfoList.doctor_id;
+      console.log(_this.msg);
     });
   },
   onUnload: function onUnload() {
     uni.$off('drugData');
     uni.$off('doctorData');
+    uni.$off('doctorInfo');
   },
   onPageScroll: function onPageScroll(_ref)
 
@@ -431,28 +458,44 @@ var _default =
     },
     sexCallback: function sexCallback(e) {
       // console.log(e); 回调参数e[0]相当于index
-      this.patient.sex = this.sexList[e[0]];
+      this.msg.person_gender_name = this.sexList[e[0]];
+      var code = e[0] + 1;
+      this.msg.person_gender_code = code.toString();
     },
     birthdayCallback: function birthdayCallback(e) {
       console.log(e);
       var date = new Date();
       var year = date.getFullYear();
-      this.patient.age = year - e.year;
-      console.log(this.patient.age);
-      if (this.params.year) this.patient.birthday += e.year;
-      if (this.params.month) this.patient.birthday += '-' + e.month;
-      if (this.params.day) this.patient.birthday += '-' + e.day;
-      if (this.params.hour) this.patient.birthday += ' ' + e.hour;
-      if (this.params.minute) this.patient.birthday += ':' + e.minute;
-      if (this.params.second) this.patient.birthday += ':' + e.second;
+      this.msg.person_age = year - e.year;
+      console.log(this.msg.person_age);
+      if (this.params.year) this.msg.person_birth_date += e.year;
+      if (this.params.month) this.msg.person_birth_date += '-' + e.month;
+      if (this.params.day) this.msg.person_birth_date += '-' + e.day;
+      if (this.params.hour) this.msg.person_birth_date += ' ' + e.hour;
+      if (this.params.minute) this.msg.person_birth_date += ':' + e.minute;
+      if (this.params.second) this.msg.person_birth_date += ':' + e.second;
+      this.birthday = this.msg.person_birth_date;
+      console.log(this.birthday);
+      this.msg.person_birth_date += "T00:00:00+08:00";
+      console.log(this.msg.person_birth_date);
     },
     saveInfo: function saveInfo() {
       this.patientinfo_show = false;
-      this.saveList = this.patient.name + " " + this.patient.sex + " " + this.patient.age;
+      this.saveList = this.msg.person_name + " " + this.msg.person_gender_name + " " + this.msg.person_age;
     },
     tagClose: function tagClose(index) {
       console.log(index);
       this.drugList[index].show = false;
+    },
+    pushInfo: function pushInfo() {
+      var reqJson = JSON.stringify(this.msg);
+      console.log(reqJson);
+      console.log(typeof reqJson);
+      this.$axios.post('https://api.zghy.xyz/consult/add', reqJson).
+      then(function (res) {
+        console.log(res);
+      });
+      uni.navigateBack();
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

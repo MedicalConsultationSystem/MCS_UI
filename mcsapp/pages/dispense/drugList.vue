@@ -6,7 +6,7 @@
 		</view>
 		<view class="search-wrap" style="padding: 20rpx 10rpx;">
 			<!-- 如果使用u-search组件，必须要给v-model绑定一个变量 -->
-			<u-search v-model="keyword" height="65" placeholder="可搜索药品信息" :show-action="showAction" :action-style="{color: '#909399'}"></u-search>
+			<u-search v-model="keyword" height="65" placeholder="可搜索药品信息" :show-action="showAction" :action-style="{color: '#909399'}" @custom="searchDrug" @search="searchDrug"></u-search>
 		</view>
 		<view class="drugInfo" v-for="(item,index) in drugList" :key="index" @click="chooseDrug(index)">
 			<view class="drug">
@@ -33,6 +33,7 @@
 					backgroundImage: 'linear-gradient(156deg, rgb(79, 107, 208), rgb(98, 141, 185)70%, rgb(102, 175, 161)110%);'
 				},
 				drug:{
+					id:"",
 					name:"",
 					show:true
 				},
@@ -41,6 +42,9 @@
 		},
 		created() {
 			this.loadDrug();
+		},
+		onShow() {
+			
 		},
 		onLoad() {
 	
@@ -55,12 +59,57 @@
 							this.drugList=res.data.data;
 							// console.log(this.drugList[0].drug_name);
 						}
+						uni.setStorageSync("drugList", res.data.data);
 					})
 			},
 			chooseDrug(key){
+				this.drug.id=this.drugList[key].drug_id;
 				this.drug.name=this.drugList[key].drug_name;
 				uni.$emit('drugData',this.drug);
 				uni.navigateBack();
+			},
+			searchDrug(value){
+				// let search={};
+				// let search2={};
+				// search.drug_name=value;
+				// search2.pinyin=value;
+				// console.log(search);
+				// console.log(typeof value);
+				// this.$axios.post('https://api.zghy.xyz/drug/findByName',search)
+				// 	.then(res =>{
+				// 		console.log(res);
+				// 		let list=res.data.data;
+				// 		if(res.data.code===0){
+				// 			this.drugList=res.data.data;
+				// 			console.log(this.drugList);
+				// 		}
+				// 	})
+				// this.$axios.post('https://api.zghy.xyz/drug/findByPinyin',search2)
+				// 	.then(res =>{
+				// 		console.log(res);
+				// 		let list=res.data.data;
+				// 		if(res.data.code===0){
+				// 			this.drugList=res.data.data;
+				// 			console.log(this.drugList);
+				// 		}
+				// 	})
+				if(value!==""){
+					var drugList_temp = uni.getStorageSync('drugList');
+					var temp = [];
+					drugList_temp.forEach(function (i) {
+						var name=i.drug_name;
+						var pinyin=i.pinyin_code;
+						if (name.indexOf(value) != -1 || pinyin.indexOf(value) != -1) {
+							temp.push(i);
+							console.log("查找成功");
+						}
+					});
+					if (value === "") {
+						temp = []
+					}
+					this.drugList=temp;
+					console.log(this.drugList);
+				}
 			}
 		},
 	}

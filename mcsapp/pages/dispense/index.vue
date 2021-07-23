@@ -41,7 +41,7 @@
 			<view class="patient_item">
 				<text class="text1">确诊诊断</text>
 				<view class="patient_input">
-					<input class="pageinput" placeholder="请填写病情诊断" placeholder-style='text-align:right'  style="text-align:right" v-model="patient.illness"/>
+					<input class="pageinput" placeholder="请填写病情诊断" placeholder-style='text-align:right'  style="text-align:right" v-model="msg.diagnosis"/>
 				</view>
 			</view>
 			<view class="patient_item2">
@@ -64,7 +64,7 @@
 			<view class="description">
 				<text class="desc_text">病情描述</text>
 				<view class="desc_input">
-					<u-input type="textarea" placeholder="请填写病情描述" v-model="patient.description"/>
+					<u-input type="textarea" placeholder="请填写病情描述" v-model="msg.question"/>
 				</view>
 			</view>
 		</view>
@@ -81,30 +81,30 @@
 		</view>
 		<!-- 提交 -->
 		<view class="push">
-			<button class="btn">提交</button>
+			<button class="btn" @click="pushInfo">提交</button>
 		</view>
 		<!-- 弹出层 -->
 		<!-- 弹出填写问诊人人信息 -->
 		<u-popup v-model="patientinfo_show" mode="bottom" border-radius="45" height="800rpx">
 			<view class="popcontent">
 				<!-- 问诊人信息 -->
-				<u-form :model="patient" ref="uForm" >
+				<u-form :model="msg" ref="uForm" >
 					<u-form-item label="姓名" :label-width="130" >
-						<u-input :border="true" placeholder="请输入姓名" v-model="patient.name" type="text"></u-input>
+						<u-input :border="true" placeholder="请输入姓名" v-model="msg.person_name" type="text"></u-input>
 					</u-form-item>
 					<u-form-item label="身份证号" :label-width="130" >
-						<u-input :border="true" placeholder="请输入身份证号" v-model="patient.identify" type="number"></u-input>
+						<u-input :border="true" placeholder="请输入身份证号" v-model="msg.person_card_id" type="number"></u-input>
 					</u-form-item>
 					<u-form-item label="性别" :label-width="130">
-						<u-input v-model="patient.sex" type="select" :border="true" :select-open="showSex" placeholder="请选择性别" @click="showSex=true"></u-input>
+						<u-input v-model="msg.person_gender_name" type="select" :border="true" :select-open="showSex" placeholder="请选择性别" @click="showSex=true"></u-input>
 						<u-picker v-model="showSex" mode="selector" :default-selector="[0]" :range="sexList" @confirm="sexCallback"></u-picker>
 					</u-form-item>
 					<u-form-item label="出生日期" :label-width="130">
-						<u-input v-model="patient.birthday" type="select" :border="true" :select-open="showBirth" placeholder="请选择出生日期" @click="showBirth=true"></u-input>
+						<u-input v-model="birthday" type="select" :border="true" :select-open="showBirth" placeholder="请选择出生日期" @click="showBirth=true"></u-input>
 						<u-picker v-model="showBirth" mode="time" :params="params" @confirm="birthdayCallback"></u-picker>
 					</u-form-item>
 					<u-form-item label="手机号码" :label-width="130">
-						<u-input :border="true" placeholder="请输入手机号" v-model="patient.phonenumber" type="number"></u-input>
+						<u-input :border="true" placeholder="请输入手机号" v-model="msg.person_phone_no" type="number"></u-input>
 					</u-form-item>
 					
 				</u-form>
@@ -134,6 +134,8 @@
 				drugUrl: "../dispense/drugList",
 				drugList:[],
 				doctorList:[],
+				doctorInfoList:[],
+				birthday:"",
 				params: {
 					year: true,
 					month: true,
@@ -145,66 +147,91 @@
 				background: {
 					backgroundImage: 'rgba(#ffffff,0)'
 				},
-				doctor: {
-					name:"方洪全",
-					level:"主任医师",
-					department:"呼吸内科",
-					src:"../../static/touxiang/touxiang6.jpg"
-				},
-				patient: {
-					name: "",
-					identify: "",
-					sex: "",
-					birthday: "",
-					age: "",
-					phonenumber: "",
-					illness: "",
-					description: ""
-				},
-				name:"",
+				// doctor: {
+				// 	name:"方洪全",
+				// 	level:"主任医师",
+				// 	department:"呼吸内科",
+				// 	src:"../../static/touxiang/touxiang6.jpg"
+				// },
 				msg :{
-					"consult_status": 0,
-					"create_user_id": "string",
-					"dept_id": 0,
-					"dept_name": "string",
-					"diagnosis": "string",
-					"doctor_id": "string",
-					"doctor_level_code": "string",
-					"doctor_level_name": "string",
-					"doctor_name": "string",
-					"drug_ids": "string",
-					"drug_names": "string",
-					"org_id": 0,
-					"org_name": "string",
-					"person_age": 0,
-					"person_birth_date": "string",
-					"person_card_id": "string",
-					"person_card_type": "string",
-					"person_gender_code": "string",
-					"person_gender_name": "string",
-					"person_name": "string",
-					"person_phone_no": "string",
-					"photo_ids": "string",
-					"question": "string"
+					// 假数据
+						//问诊状态1待接诊
+						consult_status: 1,
+						create_user_id: "123456",
+						//证件类型"1"身份证
+						person_card_type: "1",
+						//病情照片
+						photo_ids: "1",	
+					//选择医生面板获取的医生信息
+					doctor_name: "",
+					dept_id: 1,
+					dept_name: "1",
+					doctor_id: "1",
+					doctor_level_code: "1",
+					doctor_level_name: "1",
+					org_id: 1,
+					org_name: "1",
+					//问诊人信息
+					person_name: "",
+					person_card_id: "",
+					person_gender_code: "",
+					person_gender_name: "",
+					person_phone_no: "",
+					person_age: 0,
+					person_birth_date: "",
+					//确诊诊断
+					diagnosis: "",
+					//药品信息
+					drug_ids: "",
+					drug_names: "",
+					//病情描述
+					question: "",
+					
 				}
 			}
 		},
 		onLoad() {
 			uni.$on('drugData', e => {
-				console.log(e);
+				// console.log(e);
 				this.drugList.push(e);
-				console.log(this.drugList);
+				// console.log(this.drugList);
+				if(this.drugList.length<=1){
+					this.msg.drug_ids+=this.drugList[0].id;
+					this.msg.drug_names+=this.drugList[0].name;
+				}
+				else{
+					this.msg.drug_ids += ','+this.drugList[this.drugList.length-1].id;
+					this.msg.drug_names += ','+this.drugList[this.drugList.length-1].name;
+					// console.log(this.msg.drug_ids);
+					// console.log(this.msg.drug_names);
+				}
+				// console.log(this.msg);
 			});
 			uni.$on('doctorData', k => {
-				console.log(k);
+				// console.log(k);
 				this.show=true;
 				this.doctorList=k;
-				console.log(this.doctorList);
+				// console.log(this.doctorList);
+			});
+			uni.$on('doctorInfo', g => {
+				this.doctorInfoList=g;
+				// console.log(this.doctorInfoList);
+				this.msg.doctor_id=this.doctorInfoList.doctor_id;
+				this.msg.doctor_name=this.doctorInfoList.doctor_name;
+				this.msg.dept_id=this.doctorInfoList.dept_id;
+				this.msg.dept_name=this.doctorInfoList.dept_name;
+				this.msg.doctor_level_code=this.doctorInfoList.level_code;
+				this.msg.doctor_level_name=this.doctorInfoList.level_name;
+				this.msg.org_id=this.doctorInfoList.org_id;
+				this.msg.org_name=this.doctorInfoList.org_name;
+				this.msg.doctor_id=this.doctorInfoList.doctor_id;
+				console.log(this.msg);
 			});
 		},
 		onUnload() {
 			uni.$off('drugData');
 			uni.$off('doctorData');
+			uni.$off('doctorInfo');
 		},
 		onPageScroll({
 		  scrollTop
@@ -233,28 +260,44 @@
 			},
 			sexCallback(e) {
 				// console.log(e); 回调参数e[0]相当于index
-				this.patient.sex = this.sexList[e[0]];
+				this.msg.person_gender_name = this.sexList[e[0]];
+				let code = e[0]+1;
+				this.msg.person_gender_code = code.toString();
 			},
 			birthdayCallback(e){
 				console.log(e); 
 				var date = new Date; 
 				var year = date.getFullYear();
-				this.patient.age=year-e.year;
-				console.log(this.patient.age);
-				if (this.params.year) this.patient.birthday += e.year;
-				if (this.params.month) this.patient.birthday += '-' + e.month;
-				if (this.params.day) this.patient.birthday += '-' + e.day;
-				if (this.params.hour) this.patient.birthday += ' ' + e.hour;
-				if (this.params.minute) this.patient.birthday += ':' + e.minute;
-				if (this.params.second) this.patient.birthday += ':' + e.second;
+				this.msg.person_age=year-e.year;
+				console.log(this.msg.person_age);
+				if (this.params.year) this.msg.person_birth_date += e.year;
+				if (this.params.month) this.msg.person_birth_date += '-' + e.month;
+				if (this.params.day) this.msg.person_birth_date += '-' + e.day;
+				if (this.params.hour) this.msg.person_birth_date += ' ' + e.hour;
+				if (this.params.minute) this.msg.person_birth_date += ':' + e.minute;
+				if (this.params.second) this.msg.person_birth_date += ':' + e.second;
+				this.birthday=this.msg.person_birth_date;
+				console.log(this.birthday);
+				this.msg.person_birth_date += "T00:00:00+08:00"
+				console.log(this.msg.person_birth_date);
 			},
 			saveInfo(){
 				this.patientinfo_show=false;
-				this.saveList=this.patient.name+" "+this.patient.sex+" "+this.patient.age;
+				this.saveList=this.msg.person_name+" "+this.msg.person_gender_name+" "+this.msg.person_age;
 			},
 			tagClose(index) {
 				console.log(index);
 				this.drugList[index].show=false
+			},
+			pushInfo(){
+				let reqJson= JSON.stringify(this.msg);
+				console.log(reqJson);
+				console.log(typeof (reqJson));
+				this.$axios.post('https://api.zghy.xyz/consult/add',reqJson)
+					.then(res =>{
+						console.log(res);
+					})
+				uni.navigateBack();
 			}
 		}
 	}

@@ -199,8 +199,9 @@ var _default =
         name: "",
         level: "",
         department: "",
-        src: "../../static/touxiang/touxiang5.jpg" } };
+        src: "../../static/touxiang/touxiang5.jpg" },
 
+      doctorInfoList: [] };
 
   },
   created: function created() {
@@ -226,8 +227,26 @@ var _default =
       this.doctor.department = this.doctorList[key].dept_name;
       // this.doctor.src=this.doctorList[key].avatar_url;
       console.log(this.doctor);
+      this.doctorInfoList = this.doctorList[key];
+      console.log(this.doctorInfoList);
       uni.$emit('doctorData', this.doctor);
+      uni.$emit('doctorInfo', this.doctorInfoList);
       uni.navigateBack();
+    },
+    searchDoctor: function searchDoctor(value) {var _this2 = this;
+      var search = {};
+      search.doctor_name = value;
+      // console.log(search);
+      // console.log(typeof value);
+      this.$axios.post('https://api.zghy.xyz/doctor/findByName', search).
+      then(function (res) {
+        console.log(res);
+        var list = res.data.data;
+        console.log(res);
+        if (res.data.code === 0) {
+          _this2.doctorList = res.data.data;
+        }
+      });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

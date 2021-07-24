@@ -106,30 +106,6 @@ name: "patientInfo",
     background: {
       backgroundImage: 'linear-gradient(156deg, rgba(79, 107, 208,0.95), rgb(98, 141, 185)45%, rgba(102, 175, 161,0.93)85%)'
     },
-    list:[
-      {
-        apply_time:"2021-7-16 15:41:31",
-        status:"待完成",
-        avatar:"../../static/touxiang/touxiang6.jpg",
-        name:"王大虎",
-        sex:"男",
-        age:18,
-        drugs:"lalalal",
-        historicalDiagnosis:"感冒",
-        illnessInfo:"从昨天晚上开始腹泻，头晕眼花，伴有呕吐症状，体温39摄氏度"
-      },
-      {
-        apply_time:"2021-7-16 15:41:31",
-        status:"待完成",
-        avatar:"../../static/touxiang/touxiang6.jpg",
-        name:"王大虎",
-        sex:"男",
-        age:18,
-        drugs:"lalalal",
-        historicalDiagnosis:"感冒",
-        illnessInfo:"从昨天晚上开始腹泻，头晕眼花，伴有呕吐症状，体温39摄氏度"
-      }
-    ],
     applyData: {
       apply_time:"2021-7-16 15:41:31",
       status:"待完成",
@@ -150,13 +126,15 @@ name: "patientInfo",
       })
     },
     jumpToPrescription(){
+      let NavData=JSON.stringify(this.receive)
       uni.navigateTo({
-        url:'../prescription/index'
+        url:'../prescription/index?patientInfo='+NavData
       })
     }
   },
-  onLoad(){
-  this.receive=uni.getStorageSync('patientInfo')
+  onLoad(options){
+    console.log(options.patientInfo)
+    this.receive=JSON.parse(options.patientInfo)
   },
 
 }

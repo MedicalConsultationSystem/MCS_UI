@@ -12,11 +12,14 @@
                    right-icon="arrow-down-fill"
           >
           </u-field>
-          <u-action-sheet @click="clickFrequency" :list="frequency_nameList" v-model="showF"></u-action-sheet>
-        </view>        <u-form-item label="剂量" class="item_margin"><u-number-box v-model="this.form.dose" class="nb"></u-number-box></u-form-item>
+        </view>
+        <view class="dose">
+          <u-form-item label="剂量" class="item_margin"><u-number-box v-model="this.form.dose" class="nb"></u-number-box></u-form-item>
+        </view>
         <view class="">
           <u-field @click="showFrequency" v-model="this.form.frequency_name"
-                   :disabled="true" label="频次" placeholder="请选择频次"
+                   label="频次" placeholder="请选择频次"
+                   :disabled="true"
                    right-icon="arrow-down-fill"
           >
           </u-field>
@@ -24,15 +27,22 @@
         </view>
         <view class="">
           <u-field @click="showUsage" v-model="this.form.usage_name"
-                   :disabled="true" label="用法" placeholder="请选择用法"
+                   label="用法" placeholder="请选择用法"
+                   :disabled="true"
                    right-icon="arrow-down-fill"
           >
           </u-field>
           <u-action-sheet @click="clickUsage" :list="usageList" v-model="showU"></u-action-sheet>
         </view>
-        <u-form-item label="用药天数(天)" class="item_margin"><u-number-box v-model="this.form.take_days" class="nb"></u-number-box></u-form-item>
-        <u-form-item class="item_margin" label="总量(盒)"><u-number-box v-model="this.form.quantity" class="nb"></u-number-box></u-form-item>
-        <u-input placeholder="请输入备注(选填)" v-model="this.form.remark" :type="type" :border="true" class="remark_input" :auto-height=true />
+        <view class="take_days">
+          <u-form-item label="用药天数(天)"><u-number-box v-model="this.form.take_days" class="nb"></u-number-box></u-form-item>
+        </view>
+        <view class="quantity">
+          <u-form-item label="总量(盒)"><u-number-box v-model="this.form.quantity" class="nb"></u-number-box></u-form-item>
+        </view>
+        <view class="remark">
+          <u-input placeholder="请输入备注(选填)" v-model="this.form.remark" :type="type" :border="true" :auto-height=true />
+        </view>
       </u-form>
     </view>
     <view>
@@ -77,6 +87,7 @@ name: "drugSetting",
         text: 'bid(每日两次)'
       },
       {
+
         text: 'tiw(每周三次)'
       },
       {
@@ -114,16 +125,17 @@ name: "drugSetting",
   }
   },
   onLoad(options){
-    this.receive=uni.getStorageSync('drugInfo')
+    this.receive=JSON.parse(options.drugInfo)
     console.log(this.receive)
-    this.form.prescription_id=uni.getStorageSync('prescription_id')
     console.log(this.form.prescription_id)
     this.form.drug_id=this.receive.drug_id
     this.form.drug_name=this.receive.drug_name
+    console.log(this.form.drug_name)
     this.form.dose_unit = this.receive.dose_unit
     this.form.dose=this.receive.dose
     this.form.pack_unit=this.receive.pack_unit
     this.form.specification=this.receive.specification
+    this.form.prescription_id=uni.getStorageSync('prescription_id')
   },
   methods:{
   jumpToPrescription(){
@@ -133,6 +145,11 @@ name: "drugSetting",
       url:'../prescription/index?form='+navData
     })
   },
+    confirm(e) {
+      console.log(e);
+      this.form.frequency_name=e[0].label
+      console.log(this.form.frequency_name)
+    },
     Tab:function(taburl) {
       uni.navigateTo({
         url: taburl
@@ -160,7 +177,7 @@ name: "drugSetting",
     },
     clickFrequency(index) {
       this.form.frequency_name = this.frequency_nameList[index].text;
-    }
+  }
   }
 
 }
@@ -181,6 +198,16 @@ name: "drugSetting",
     margin-left: 150rpx;
   }
 }
+.dose{
+  margin-left: 30rpx;
+}
+.quantity{
+  margin-left: 30rpx;
+}
+.take_days{
+  margin-left: 30rpx;
+}
+
 .nb{
   margin-left: 400rpx;
 }
@@ -191,6 +218,9 @@ name: "drugSetting",
   margin-left: 320rpx;
 }
 .item_margin{
+  margin-left: 30rpx;
+}
+.remark{
   margin-left: 30rpx;
 }
 .remark_input{

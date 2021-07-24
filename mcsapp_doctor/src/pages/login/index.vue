@@ -38,9 +38,10 @@ export default {
         console.log(data)       //data就是最终解密的用户信息
         this.msg.phone=data.phoneNumber
         this.doctor_id.doctor_id=data.phoneNumber
+        console.log(this.doctor_id.doctor_id)
         uni.setStorage({
           key:'doctor_id',
-          data:this.doctor_id
+          data:this.doctor_id.doctor_id
         })
         console.log(this.msg)
         let reqJSON= JSON.stringify(this.msg)

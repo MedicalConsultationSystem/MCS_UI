@@ -2,7 +2,7 @@
     <view class="back_color">
       <view>
         <!-- 自定义导航栏 -->
-        <u-navbar :is-back="true" back-icon-color="white" :title="title" title-color="white" :background="background" height="45"></u-navbar>
+        <u-navbar back-icon-color="white" :title="title" title-color="white" :background="background" height="45"></u-navbar>
       </view>
       <view>
         <view>
@@ -48,7 +48,7 @@
                     </view>
                     <view class="prescription_foot" slot="foot">
                       <view class="foot_trash" @click="delPrescription(card.prescription_id)" >
-                        <u-icon name="trash"></u-icon>
+                        <u-icon name="trash" size="30rpx"></u-icon>
                       </view>
                     </view>
                   </u-card>
@@ -161,11 +161,11 @@ name: "prescription",
   },
   created() {
     this.getPrescription();
-    this.receive=uni.getStorageSync('patientInfo')
-    console.log(this.receive)
   },
   onLoad(options){
-
+    if(options.patientInfo){
+      this.receive=JSON.parse(options.patientInfo)
+    }
     if(options.form){
       this.rev=JSON.parse(options.form);
       console.log(this.rev);
@@ -201,7 +201,7 @@ name: "prescription",
       })
     },
     addPrescription(){
-      this.addPrescriptionInfo.consult_id=uni.getStorageSync('patientInfo').consult_id;
+      this.addPrescriptionInfo.consult_id=uni.getStorageSync('consult_id');
       this.addPrescriptionInfo.doctor_id=this.receive.doctor_id;
       this.addPrescriptionInfo.doctor_name=this.receive.doctor_name;
       this.addPrescriptionInfo.org_id=this.receive.org_id;
@@ -219,7 +219,7 @@ name: "prescription",
       })
     },
     getPrescription(){
-      this.getPrescriptionParams.consult_id=uni.getStorageSync('patientInfo').consult_id;
+      this.getPrescriptionParams.consult_id=uni.getStorageSync('consult_id');
       let reqJSON=JSON.stringify(this.getPrescriptionParams);
       console.log(reqJSON)
       this.$axios
@@ -394,6 +394,7 @@ name: "prescription",
   margin-top: 10rpx;
 }
 .foot_trash{
+  margin-bottom: 5rpx;
   position: absolute;
   color: #dd524d;
   margin-left: 580rpx;
@@ -410,6 +411,7 @@ name: "prescription",
 }
 .trash{
   margin-left: 10rpx;
+  size: 30rpx;
 }
 .pack_text{
   font-size: 20rpx;

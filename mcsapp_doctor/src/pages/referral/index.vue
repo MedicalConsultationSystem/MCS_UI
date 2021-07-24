@@ -5,7 +5,7 @@
       <u-navbar :is-back="true" back-icon-color="white" :title="title" title-color="white" :background="background" height="45"></u-navbar>
     </view>
     <view>
-      <view class="patientBoard" v-for="(item,index) in dataList[0]" :key="index" >
+      <view class="patientBoard" v-for="(item,index) in dataList" :key="index" >
         <u-card class="patient" >
           <view class="patient_head" slot="head">
             <view class="head_row">
@@ -34,7 +34,7 @@
             </view>
           </view>
           <view class="patient_foot" slot="foot">
-            <u-button type="success" size="mini" :plain="true" shape="circle">完成接诊</u-button>
+            <u-button type="success" size="mini" :plain="true" shape="circle" @click="finishReferral(index)">完成接诊</u-button>
           </view>
         </u-card>
       </view>
@@ -48,11 +48,8 @@
 
 export default {
 name: "referral",
-  onLoad(){
-    this.screenHeight=uni.getSystemInfoSync().windowHeight;
-    console.log(this.screenHeight)
-  },
   created() {
+    this.doctor_id.doctor_id=uni.getStorageSync('doctor_id')
     this.getReferralList();
   },
   data(){
@@ -61,11 +58,14 @@ name: "referral",
     screenHeight:null,
     status: "待接诊",
     apply:"申请时间",
+    consult_id:{
+      consult_id:null
+    },
     background: {
       backgroundImage: 'linear-gradient(156deg, rgba(79, 107, 208,0.95), rgb(98, 141, 185)45%, rgba(102, 175, 161,0.93)85%)'
     },
-    send_data:{
-      doctor_id:"6",
+    doctor_id:{
+      doctor_id:"",
     },
     patient: {
       src:"../../static/touxiang/touxiang6.jpg"
@@ -103,9 +103,26 @@ name: "referral",
 
 
 },
+  onLoad(){
+
+  },
   methods:{
+    finishReferral(index){
+      let reqJson=this.dataList[index].consult_id
+      reqJson=JSON.stringify(reqJson);
+      console.log(reqJson)
+      this.$axios
+      .post('https://api.zghy.xyz/consult/finish',reqJson)
+      .then(res=>{
+        if(res.data.code===200){
+          console.log("问诊结束成功")
+          this.getReferralList()
+        }
+      })
+    },
     getReferralList(){
-     let reqJson= uni.getStorageSync('doctor_id')
+      console.log(this.doctor_id)
+      let reqJson=this.doctor_id
      reqJson=JSON.stringify(reqJson);
       console.log(reqJson)
       this.$axios
@@ -120,10 +137,11 @@ name: "referral",
               console.log(res.data.data[0].consult_status)
               for(let item in res.data.data){
                 if(res.data.data[item].consult_status===1){
-                  console.log(typeof(res.data.data[item].create_time))
+                  console.log(res.data.data[item].create_time)
                   let date = new Date(res.data.data[item].create_time).toJSON();
                   res.data.data[item].create_time=new Date(+new Date(date)+8*3600*1000).toISOString().replace(/T/g,' ').replace(/\.[\d]{3}Z/,'');
-                  this.dataList.push(res.data.data)
+                  console.log(res.data.data[item])
+                  this.dataList.push(res.data.data[item])
                   console.log(this.dataList)
                 }
               }
@@ -134,13 +152,15 @@ name: "referral",
           })
     },
     jumpToPatientInfo(index){
-        console.log(this.dataList[0][index]);
+      this.consult_id.consult_id=this.dataList[index].consult_id
         uni.setStorage({
-          key:'patientInfo',
-          data:this.dataList[0][index]
+          key:'consult_id',
+          data:this.consult_id.consult_id
         })
+        console.log(this.dataList[index]);
+        let NavData=JSON.stringify(this.dataList[index]);
       uni.navigateTo({
-        url:'../patientInfo/index'
+        url:'../patientInfo/index?patientInfo='+NavData
       })
     },
     Tab:function(taburl) {
@@ -231,7 +251,6 @@ name: "referral",
   width: 150rpx;
 }
 .apply_text{
-  margin-top: 10rpx;
   margin-left: 15rpx;
   font-size: 24rpx;
   color: #909399;

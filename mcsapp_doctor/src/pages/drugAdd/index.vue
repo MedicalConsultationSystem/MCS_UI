@@ -64,12 +64,9 @@ data(){
     },
     jumpToSet(key){
       console.log(this.drugInfo[key])
-      uni.setStorage({
-        key:'drugInfo',
-        data:this.drugInfo[key]
-      })
+      let NavData=JSON.stringify(this.drugInfo[key])
       uni.navigateTo({
-        url:'../drugSetting/index'
+        url:'../drugSetting/index?drugInfo='+NavData
       })
     }
   },

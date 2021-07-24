@@ -11,7 +11,7 @@
             <view class="head_row">
               <text class="apply">{{apply}}</text>
               <text class="apply_text">{{item.create_time}}</text>
-              <text class="status_text">{{status}}</text>
+              <text class="status_text">{{item.consult_status}}</text>
             </view>
           </view>
           <view class="patient_body" slot="body" @click="jumpToPatientInfo(index)">
@@ -56,7 +56,10 @@ name: "referral",
   return{
     title: "复诊配药",
     screenHeight:null,
-    status: "待接诊",
+    status: {
+      1:"待接诊",
+      2:"进行中"
+    },
     apply:"申请时间",
     consult_id:{
       consult_id:null
@@ -79,26 +82,7 @@ name: "referral",
         sex:"",
         age:null,
         drugs:""},
-    list:[
-      {
-        id:1,
-        apply_time:"2021-7-16 15:41:31",
-        status:"待完成",
-        avatar:"../../static/touxiang/touxiang6.jpg",
-        name:"王大虎",
-        sex:"男",
-        age:18,
-        drugs:"lalalal"},
-      {
-        id:2,
-        apply_time:"2021-7-16 15:41:31",
-        status:"待完成",
-        avatar:"../../static/touxiang/touxiang6.jpg",
-        name:"王大虎",
-        sex:"男",
-        age:18,
-        drugs:"lalalal"},
-    ],
+    list:[],
   }
 
 
@@ -107,6 +91,23 @@ name: "referral",
 
   },
   methods:{
+    startReferral(index){
+      let reqJson={
+        consult_id: null
+      }
+      reqJson.consult_id=this.dataList[index].consult_id
+      reqJson=JSON.stringify(reqJson);
+      console.log(reqJson)
+      this.$axios
+          .post('https://api.zghy.xyz/consult/accept',reqJson)
+          .then(res=>{
+            console.log(res)
+            if(res.data.code===200){
+              console.log("接诊成功")
+              this.getReferralList()
+            }
+          })
+    },
     finishReferral(index){
       let reqJson={
         consult_id: null
@@ -139,8 +140,10 @@ name: "referral",
               //   type: 'success',
               // })
               console.log(res.data.data[0].consult_status)
+
               for(let item in res.data.data){
-                if(res.data.data[item].consult_status===1){
+                if((res.data.data[item].consult_status===1)||(res.data.data[item].consult_status===2)){
+                  res.data.data[item].consult_status=this.status[res.data.data[item].consult_status]
                   console.log(res.data.data[item].create_time)
                   let date = new Date(res.data.data[item].create_time).toJSON();
                   res.data.data[item].create_time=new Date(+new Date(date)+8*3600*1000).toISOString().replace(/T/g,' ').replace(/\.[\d]{3}Z/,'');
@@ -166,6 +169,7 @@ name: "referral",
       uni.navigateTo({
         url:'../patientInfo/index?patientInfo='+NavData
       })
+      this.startReferral(index)
     },
     Tab:function(taburl) {
       uni.navigateTo({

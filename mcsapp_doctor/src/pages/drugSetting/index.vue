@@ -17,7 +17,7 @@
           <u-form-item label="剂量" class="item_margin"><u-number-box v-model="value1" index="1" @change="doseChange" class="nb"></u-number-box></u-form-item>
         </view>
         <view class="">
-          <u-field @click="showFrequency" v-model="this.form.frequency_name"
+          <u-field @click="showFrequency" v-model="frequency_name"
                    label="频次" placeholder="请选择频次"
                    :disabled="true"
                    right-icon="arrow-down-fill"
@@ -26,7 +26,7 @@
           <u-action-sheet @click="clickFrequency" :list="frequency_nameList" v-model="showF"></u-action-sheet>
         </view>
         <view class="">
-          <u-field @click="showUsage" v-model="this.form.usage_name"
+          <u-field @click="showUsage" v-model="usage_name"
                    label="用法" placeholder="请选择用法"
                    :disabled="true"
                    right-icon="arrow-down-fill"
@@ -79,6 +79,7 @@ name: "drugSetting",
         text: '静脉注射'
       }
     ],
+    frequency_name:'',
     frequency_nameList:[
       {
         text: 'qd(每日一次)',
@@ -198,10 +199,12 @@ name: "drugSetting",
       this.showU = true;
     },
     clickUsage(index) {
-      this.form.usage_name = this.usageList[index].text;
+      this.usage_name = this.usageList[index].text;
+      this.form.usage_name=this.usage_name
     },
     clickFrequency(index) {
-      this.form.frequency_name = this.frequency_nameList[index].text;
+      this.frequency_name = this.frequency_nameList[index].text;
+      this.form.frequency_name=this.frequency_name
   }
   }
 

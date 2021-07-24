@@ -1,18 +1,22 @@
 <template>
   <view class="content">
+    <view>
+      <!-- 自定义导航栏 -->
+      <u-navbar back-icon-color="white" :title="title" title-color="white" :background="background" height="45" ></u-navbar>
+    </view>
     <view class="userboard">
-      <u-card class="user">
+      <u-card class="user" :head-border-bottom="false" :foot-border-bottom="false">
         <view class="head" slot="head">
-          <u-image width="95rpx" height="95rpx" :src="user.src" shape="circle"></u-image>
-          <text>{{user.name}}</text>
-          <text>{{user.title}}</text>
+          <image :src="user.src"></image>
+          <text>{{doctor_info.doctor_name}}</text>
+          <text>{{doctor_info.level_name}}</text>
           <u-icon name="more-dot-fill" color="black" size="35"></u-icon>
         </view>
         <view class="body" slot="body">
-          <text>所属机构：{{user.organization}}</text>
+          <text>所属机构：{{doctor_info.org_name}}</text>
         </view>
         <view class="foot" slot="foot">
-          <text>所属科室：{{user.department}}</text>
+          <text>所属科室：{{doctor_info.dept_name}}</text>
         </view>
       </u-card>
     </view>
@@ -28,7 +32,18 @@ export default {
         title:"主任医师",
         organization:"杭州市第三人民医院",
         department:"内科",
+
         src: "../../static/mine/user_male.png"
+      },
+      doctor_id:null,
+      doctor_info:{
+        doctor_name: "",
+        level_name:"",
+        org_name:"",
+        dept_name:"",
+      },
+      background: {
+        backgroundImage: 'linear-gradient(156deg, rgba(79, 107, 208,0.95), rgb(98, 141, 185)45%, rgba(102, 175, 161,0.93)85%)'
       },
       serviceList:[
         {id:1,src:"../../static/mine",text:"我的报告",url:"../diagnosis/index"},
@@ -37,11 +52,26 @@ export default {
       ]
     }
   },
-  onLoad() {
-
+  created() {
+    this.getDoctorInfo()
   },
   methods: {
-
+    getDoctorInfo(){
+      this.doctor_id=uni.getStorageSync('doctor_id')
+      this.$axios
+      .get('https://api.zghy.xyz/doctor/listAll')
+      .then(res=>{
+        console.log(res)
+        if(res.data.code===0){
+          for(let item in res.data.data){
+            if(res.data.data[item].doctor_id===this.doctor_id){
+              console.log(res.data.data[item])
+              this.doctor_info=res.data.data[item]
+            }
+          }
+        }
+      })
+    }
   }
 }
 </script>
@@ -62,5 +92,11 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+}
+.head image{
+  width: 150rpx;
+  height: 150rpx;
+  margin-left: 35rpx;
+  border-radius: 75rpx;
 }
 </style>

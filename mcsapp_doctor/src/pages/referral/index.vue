@@ -103,9 +103,8 @@ name: "referral",
           .post('https://api.zghy.xyz/consult/accept',reqJson)
           .then(res=>{
             console.log(res)
-            if(res.data.code===200){
+            if(res.data.code===0){
               console.log("接诊成功")
-              this.getReferralList()
             }
           })
     },

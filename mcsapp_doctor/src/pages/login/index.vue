@@ -1,7 +1,10 @@
 <template>
-  <view>
+  <view class="content">
+    <image class="bg-set" src="../../static/login/login_bg.jpg"></image>
     <!-- #ifdef MP-WEIXIN -->
-    <button open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" style="margin-top: 160rpx">授权登录</button>
+    <view class="login">
+      <button class="loginBtn" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" style="margin-top: 160rpx">授权登录</button>
+    </view>
     <!-- #endif -->
   </view>
 </template>
@@ -95,34 +98,35 @@ export default {
 </script>
 
 <style>
-.header {
-  margin: 90rpx 0 90rpx 50rpx;
-  border-bottom: 1px solid #ccc;
-  text-align: center;
-  width: 650rpx;
-  height: 300rpx;
-  line-height: 450rpx;
+.content{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
 }
-
-.header image {
-  width: 200rpx;
-  height: 200rpx;
+.bg-set{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
-
-.content {
-  margin-left: 50rpx;
-  margin-bottom: 90rpx;
+.login{
+  display: flex;
+  flex-direction: row;
+  width: auto;
+  height: 80rpx;
+  align-items: center;
+  margin-top: 1050rpx;
 }
-
-.content text {
-  display: block;
-  color: #9d9d9d;
-  margin-top: 40rpx;
-}
-
-.bottom {
-  border-radius: 80rpx;
-  margin: 70rpx 50rpx;
+.loginBtn{
+  width: 400rpx;
+  color: white;
+  font-weight: bold;
+  background: rgba(230,230,240,0.4);
+  border-radius: 50rpx;
   font-size: 35rpx;
 }
 </style>

@@ -11,7 +11,7 @@
         </view>
         <swiper :current="swiperCurrent" style="height: 1440rpx;width: 100%;"@transition="transition" @animationfinish="animationfinish">
           <swiper-item class="swiper-item">
-            <scroll-view scroll-y style="height: 1·440rpx;width: 100%;" @scrolltolower="onreachBottom">
+            <scroll-view scroll-y style="height: 1440rpx;width: 100%;" @scrolltolower="onreachBottom">
               <view style="height: 40px">
                 <u-alert-tips type="warning"  :description="description" :show-icon="false"></u-alert-tips>
               </view>
@@ -40,7 +40,7 @@
                             </view>
                           </view>
                           <view class="trash_body" @click="delDrug(item.prescription_drug_id)">
-                            <u-icon name="trash"></u-icon>
+                            <u-icon name="trash" size="40rpx"></u-icon>
                           </view>
                         </view>
                         <u-line class="line"></u-line>
@@ -48,7 +48,7 @@
                     </view>
                     <view class="prescription_foot" slot="foot">
                       <view class="foot_trash" @click="delPrescription(card.prescription_id)" >
-                        <u-icon name="trash" size="30rpx"></u-icon>
+                        <u-icon name="trash" size="40rpx"></u-icon>
                       </view>
                     </view>
                   </u-card>
@@ -184,7 +184,9 @@ name: "prescription",
       .delete('https://api.zghy.xyz/prescription/delPre',{data:reqJSON})
       .then(res=>{
         console.log(res);
-        this.getPrescription();
+        if(res.data.code===0){
+          this.getPrescription();
+        }
       })
 
     },
@@ -256,6 +258,10 @@ name: "prescription",
       .post('https://api.zghy.xyz/prescription/submit',reqJSON)
       .then(res=>{
         console.log(res)
+        if(res.data.code===0){
+          console.log("提交处方成功")
+          this.getPrescription();
+        }
       })
     },
     tabsChange(index) {
@@ -449,7 +455,6 @@ name: "prescription",
   margin-top: 10rpx;
 }
 .foot_trash{
-  margin-bottom: 5rpx;
   position: absolute;
   color: #dd524d;
   margin-left: 580rpx;

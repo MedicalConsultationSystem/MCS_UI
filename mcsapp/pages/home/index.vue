@@ -65,7 +65,7 @@
 					}
 				],
 				menuList:[
-					{id:1,src:"../../static/home/menu1.png",text:"初诊记录",url:"../diagnosis/index"},
+					{id:1,src:"../../static/home/menu1.png",text:"初诊记录",url:"../home/index"},
 					{id:2,src:"../../static/home/menu2.png",text:"复诊配药",url:"../dispense/index"},
 					{id:3,src:"../../static/home/menu3.png",text:"配药记录",url:"../record/index"},
 					{id:4,src:"../../static/home/menu4.png",text:"电子处方",url:"../prescription/index"}

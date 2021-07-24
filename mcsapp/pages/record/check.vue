@@ -23,11 +23,15 @@
 					{name: '处方二'}, 
 					{name: '处方三'},
 				],
-				current: 0
+				current: 2,
+				preList: getApp().globalData.prescriptions,
 			}
 		},
 		onLoad() {
-	
+			this.preList=getApp().globalData.prescriptions;
+			console.log(this.preList);
+			console.log(getApp().globalData.prescriptions);
+			console.log(123);
 		},
 		methods: {
 			change(index) {

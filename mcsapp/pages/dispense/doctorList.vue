@@ -15,8 +15,7 @@
 					<text class="name_text1">{{item.doctor_name}}</text>
 					<view v-if="item.level_name!==''">
 						<text class="name_text2">{{item.level_name}}</text>
-					</view>
-					
+					</view>	
 				</view>
 			</view>
 			<view class="department">

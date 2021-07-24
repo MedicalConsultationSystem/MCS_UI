@@ -1,5 +1,8 @@
 <script>
 	export default {
+		globalData:{
+			prescriptions:[],
+		},
 		onLaunch: function() {
 			console.log('App Launch')
 		},

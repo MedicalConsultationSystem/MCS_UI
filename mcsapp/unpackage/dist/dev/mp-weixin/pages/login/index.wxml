@@ -1,0 +1,1 @@
+<view class="content"><image class="bg-set" src="../../static/login/login_bg.jpg"></image><view class="login"><button class="loginBtn" open-type="getPhoneNumber" data-event-opts="{{[['getphonenumber',[['getPhoneNumber',['$event']]]]]}}" bindgetphonenumber="__e">授权登录</button></view></view>

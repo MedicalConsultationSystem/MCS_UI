@@ -147,31 +147,25 @@
 				background: {
 					backgroundImage: 'rgba(#ffffff,0)'
 				},
-				// doctor: {
-				// 	name:"方洪全",
-				// 	level:"主任医师",
-				// 	department:"呼吸内科",
-				// 	src:"../../static/touxiang/touxiang6.jpg"
-				// },
 				msg :{
 					// 假数据
 						//问诊状态1待接诊
 						consult_status: 1,
-						create_user_id: "123456",
 						//证件类型"1"身份证
 						person_card_type: "1",
 						//病情照片
 						photo_ids: "1",	
 					//选择医生面板获取的医生信息
 					doctor_name: "",
-					dept_id: 1,
-					dept_name: "1",
-					doctor_id: "1",
-					doctor_level_code: "1",
-					doctor_level_name: "1",
-					org_id: 1,
-					org_name: "1",
+					dept_id: 0,
+					dept_name: "",
+					doctor_id: "",
+					doctor_level_code: "",
+					doctor_level_name: "",
+					org_id: 0,
+					org_name: "",
 					//问诊人信息
+					create_user_id: "",
 					person_name: "",
 					person_card_id: "",
 					person_gender_code: "",
@@ -191,6 +185,9 @@
 			}
 		},
 		onLoad() {
+			var user = uni.getStorageSync('userInfo');
+			console.log(user);
+			this.msg.create_user_id=user.user_id;
 			uni.$on('drugData', e => {
 				// console.log(e);
 				this.drugList.push(e);
@@ -296,8 +293,19 @@
 				this.$axios.post('https://api.zghy.xyz/consult/add',reqJson)
 					.then(res =>{
 						console.log(res);
+						if(res.data.code===0){
+							uni.navigateBack();
+						}else{
+							console.log(res.data.msg)
+							//返回错误信息
+							let msg=res.data.msg;
+							uni.showToast({
+								title: msg,
+								icon:'none',
+								duration: 1500
+							});
+						}
 					})
-				uni.navigateBack();
 			}
 		}
 	}

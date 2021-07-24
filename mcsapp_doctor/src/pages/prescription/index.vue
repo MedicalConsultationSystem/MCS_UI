@@ -11,7 +11,7 @@
         </view>
         <swiper :current="swiperCurrent" style="height: 1440rpx;width: 100%;"@transition="transition" @animationfinish="animationfinish">
           <swiper-item class="swiper-item">
-            <scroll-view scroll-y style="height: 1440rpx;width: 100%;" @scrolltolower="onreachBottom">
+            <scroll-view scroll-y style="height: 1·440rpx;width: 100%;" @scrolltolower="onreachBottom">
               <view style="height: 40px">
                 <u-alert-tips type="warning"  :description="description" :show-icon="false"></u-alert-tips>
               </view>
@@ -113,6 +113,7 @@ name: "prescription",
       rev:null,
       receive:null,
       cards:[],
+      drugs:[],
       submitedCards:[],
       footShow:false,
       consult_id:null,
@@ -165,6 +166,7 @@ name: "prescription",
   onLoad(options){
     if(options.patientInfo){
       this.receive=JSON.parse(options.patientInfo)
+      console.log(this.receive)
     }
     if(options.form){
       this.rev=JSON.parse(options.form);
@@ -297,11 +299,64 @@ name: "prescription",
   background-color: #f3f4f6;
   height: 1667rpx;
 }
+.tip{
+  width: 100%;
+  height: 40rpx;
+  display: flex;
+  flex-direction: row;
+}
 .drug_name{
   font-size: 27rpx;
   color: #303133;
 }
+.header {
+  width: 100%;
+  height: 120rpx;
+  padding: 0 32rpx;
+  display: flex;
+  flex-direction: row;
 
+  .row {
+    position: relative;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 24rpx;
+    height: 24rpx;
+    font-size: 0;
+  }
+
+  .box {
+    width: 180rpx;
+    height: 100%;
+    border-bottom: 1rpx solid #E4E4E4;
+    line-height: 120rpx;
+
+    label {
+      font-size: 30rpx;
+      font-weight: 400;
+      color: #333333;
+      line-height: 42px;
+    }
+
+    .color {
+      color: #FC5C56;
+    }
+  }
+  .u-input {
+    border-bottom: 1rpx solid #E4E4E4;
+    color: #333333;
+    flex: 1;
+    line-height: 120rpx;
+    text-align: right;
+
+    input {
+      width: 100%;
+      height: 100%;
+    }
+
+  }
+}
 .specification{
   font-size: 24rpx;
   color: #303133;

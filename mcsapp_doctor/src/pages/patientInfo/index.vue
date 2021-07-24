@@ -57,9 +57,9 @@
           <text class="color">*</text>
         </view>
         <view class="u-input">
-          <text class="drug_text">{{receive.drug_names}}</text>
+            <text class="drug_text" >{{receive.drug_names}}</text>
+          </view>
         </view>
-      </view>
       <view class="header ">
         <view class="box">
           <label>历史诊断</label>
@@ -88,10 +88,9 @@
           <u-button type="primary" u-icon="plus" @click="jumpToPrescription">开设处方</u-button>
         </view>
         <view class="submit_btn">
-          <u-button type="success" @click="Tab('../referral/index')">完成接诊</u-button>
+          <u-button type="success" @click="finishReferral">完成接诊</u-button>
         </view>
       </view>
-
     </view>
   </view>
 </template>
@@ -103,8 +102,12 @@ name: "patientInfo",
   return{
     title: "患者详情",
     receive:null,
+    drugs:[],
     background: {
       backgroundImage: 'linear-gradient(156deg, rgba(79, 107, 208,0.95), rgb(98, 141, 185)45%, rgba(102, 175, 161,0.93)85%)'
+    },
+    doctor_id:{
+      doctor_id:null
     },
     applyData: {
       apply_time:"2021-7-16 15:41:31",
@@ -119,11 +122,32 @@ name: "patientInfo",
     }
   }
   },
+  created() {
+    this.doctor_id.doctor_id=uni.getStorageSync('doctor_id')
+  },
   methods:{
-    Tab:function(taburl) {
-      uni.navigateTo({
-        url: taburl
+
+    Tab:function() {
+      uni.navigateBack({
+        delta:1
       })
+    },
+    finishReferral(){
+      let reqJson={
+        consult_id: null
+      }
+      reqJson.consult_id=this.receive.consult_id
+      reqJson=JSON.stringify(reqJson);
+      console.log(reqJson)
+      this.$axios
+          .post('https://api.zghy.xyz/consult/finish',reqJson)
+          .then(res=>{
+            console.log(res)
+            if(res.data.code===0){
+              console.log("问诊结束成功")
+              this.Tab();
+            }
+          })
     },
     jumpToPrescription(){
       let NavData=JSON.stringify(this.receive)
@@ -135,6 +159,9 @@ name: "patientInfo",
   onLoad(options){
     console.log(options.patientInfo)
     this.receive=JSON.parse(options.patientInfo)
+    this.drugs=this.receive.drug_names.split(",")
+    console.log(this.receive.drug_names)
+    console.log(this.drugs[0])
   },
 
 }

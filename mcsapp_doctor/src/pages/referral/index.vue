@@ -1,8 +1,8 @@
 <template>
-  <view class="back_color">
+  <view class="back_color" @click="Tab('../home/index')">
     <view>
       <!-- 自定义导航栏 -->
-      <u-navbar :is-back="true" back-icon-color="white" :title="title" title-color="white" :background="background" height="45"></u-navbar>
+      <u-navbar back-icon-color="white" :title="title" title-color="white" :background="background" height="45" ></u-navbar>
     </view>
     <view>
       <view class="patientBoard" v-for="(item,index) in dataList" :key="index" >
@@ -52,6 +52,7 @@ name: "referral",
     this.doctor_id.doctor_id=uni.getStorageSync('doctor_id')
     this.getReferralList();
   },
+
   data(){
   return{
     title: "复诊配药",
@@ -119,7 +120,7 @@ name: "referral",
       .post('https://api.zghy.xyz/consult/finish',reqJson)
       .then(res=>{
         console.log(res)
-        if(res.data.code===200){
+        if(res.data.code===0){
           console.log("问诊结束成功")
           this.getReferralList()
         }
@@ -172,6 +173,7 @@ name: "referral",
       this.startReferral(index)
     },
     Tab:function(taburl) {
+      console.log("页面跳转")
       uni.navigateTo({
         url: taburl
       })

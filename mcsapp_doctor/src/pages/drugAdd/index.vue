@@ -23,6 +23,13 @@
       </view>
       <u-line class="line"></u-line>
     </block>
+    <view>
+      <view class="btn">
+        <view class="add_btn">
+          <u-button type="primary" u-icon="plus" @click="Tab()">完成添加药物</u-button>
+        </view>
+      </view>
+    </view>
   </view>
 </template>
 <script>
@@ -57,9 +64,9 @@ data(){
       }
     })
   },
-    Tab:function(taburl) {
-      uni.navigateTo({
-        url: taburl
+    Tab:function() {
+      uni.navigateBack({
+        delta:1
       })
     },
     jumpToSet(key){
@@ -97,6 +104,17 @@ data(){
   color:#909399;
   margin-left: 40rpx;
   position: absolute;
+}
+.btn{
+  display: flex;
+  flex-direction: row;
+  margin-top: 700rpx;
+  position: fixed;
+  bottom: 30rpx;
+  .add_btn{
+    color: #2979ff;
+    margin-left: 240rpx;
+  }
 }
 .back_color{
   background-color: #F5F5F5;

@@ -150,9 +150,9 @@ name: "drugSetting",
       this.form.frequency_name=e[0].label
       console.log(this.form.frequency_name)
     },
-    Tab:function(taburl) {
-      uni.navigateTo({
-        url: taburl
+    Tab:function() {
+      uni.navigateBack({
+        delta:1
       })
     },
     addDrug(){
@@ -163,7 +163,11 @@ name: "drugSetting",
       .post('https://api.zghy.xyz/prescription/addDrug',reqJSON)
       .then(res=>{
         console.log(res)
-        this.Tab('../prescription/index')
+        if(res.data.code===0){
+          console.log("药物添加成功")
+          this.Tab()
+        }
+
       })
     },
     showFrequency() {

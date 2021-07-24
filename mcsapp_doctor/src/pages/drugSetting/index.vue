@@ -41,7 +41,7 @@
           <u-form-item label="总量(盒)"><u-number-box v-model="value3" class="nb" index="3" @change="quantityChange"></u-number-box></u-form-item>
         </view>
         <view class="remark">
-          <u-input placeholder="请输入备注(选填)" v-model="this.form.remark" :type="type" :border="true" :auto-height=true />
+          <u-input placeholder="请输入备注(选填)" v-model="remark" :type="type" :border="true" :auto-height=true />
         </view>
       </u-form>
     </view>
@@ -65,6 +65,7 @@ name: "drugSetting",
   return{
     title:"药品设置",
     usage_name: '',
+    remark: '',
     usageList:[
       {
         text: '口服',
@@ -141,6 +142,7 @@ name: "drugSetting",
   },
   methods:{
   jumpToPrescription(){
+
     console.log(this.form)
     let navData=JSON.stringify(this.form);
     uni.navigateTo({
@@ -178,6 +180,8 @@ name: "drugSetting",
       })
     },
     addDrug(){
+      console.log(this.remark)
+      this.form.remark=this.remark
       console.log(this.form.prescription_id)
       let reqJSON=JSON.stringify(this.form)
       console.log(reqJSON)

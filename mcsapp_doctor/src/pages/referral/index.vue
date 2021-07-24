@@ -108,12 +108,16 @@ name: "referral",
   },
   methods:{
     finishReferral(index){
-      let reqJson=this.dataList[index].consult_id
+      let reqJson={
+        consult_id: null
+      }
+      reqJson.consult_id=this.dataList[index].consult_id
       reqJson=JSON.stringify(reqJson);
       console.log(reqJson)
       this.$axios
       .post('https://api.zghy.xyz/consult/finish',reqJson)
       .then(res=>{
+        console.log(res)
         if(res.data.code===200){
           console.log("问诊结束成功")
           this.getReferralList()

@@ -5,30 +5,28 @@
       <u-navbar :is-back="true" back-icon-color="white" :title="title" title-color="white" :background="background" height="45"></u-navbar>
     </view>
     <view>
-      <view class="patientBoard" v-for="item in list" :key="item.id" >
+      <view class="patientBoard" v-for="(item,index) in dataList" :key="index" >
         <u-card class="patient" >
           <view class="patient_head" slot="head">
             <view class="head_row">
-              <text class="apply_text">申请时间：{{item.apply_time}}</text>
-              <text class="status_text">{{item.status}}</text>
+              <text class="apply">{{apply}}</text>
+              <text class="apply_text">{{item.create_time}}</text>
+              <text class="status_text">{{status}}</text>
             </view>
           </view>
-          <view class="patient_body" slot="body" @click="Tab('../patientInfo/index')">
+          <view class="patient_body" slot="body">
             <view class="bodySet">
               <image :src="patient.src" class="imgSet"></image>
               <view class="divide">
                 <view class="name">
-                  <text class="name_text">{{item.name}}</text>
-                  <text class="sex_text">{{item.sex}}</text>
-                  <text class="age_text">{{item.age}}岁</text>
+                  <text class="name_text">{{item.person_name}}</text>
+                  <text class="sex_text">{{item.person_gender_name}}</text>
+                  <text class="age_text">{{item.person_age}}岁</text>
                 </view>
                 <view class="need">
                   <text class="name_text">药品需求：</text>
-                  <text class="need_text">{{item.drugs}}</text>
+                  <text class="need_text">{{item.drug_names}}</text>
                 </view>
-              </view>
-              <view class="arrow">
-                <u-icon class="change_icon" name="arrow-right" size="30"></u-icon>
               </view>
             </view>
           </view>
@@ -44,22 +42,31 @@
 </template>
 
 <script>
+
 export default {
-  name: "referralFinished",
-  onLoad(){
-    this.screenHeight=uni.getSystemInfoSync().windowHeight;
-    console.log(this.screenHeight)
+  name: "referral",
+  created() {
+    this.doctor_id.doctor_id=uni.getStorageSync('doctor_id')
+    this.getReferralList();
   },
   data(){
     return{
       title: "配药记录",
-      screenHeight:null,
+      status: "已完成",
+      apply:"申请时间",
+      consult_id:{
+        consult_id:null
+      },
       background: {
         backgroundImage: 'linear-gradient(156deg, rgba(79, 107, 208,0.95), rgb(98, 141, 185)45%, rgba(102, 175, 161,0.93)85%)'
+      },
+      doctor_id:{
+        doctor_id:"",
       },
       patient: {
         src:"../../static/touxiang/touxiang6.jpg"
       },
+      dataList:[],
       applyData: {
         apply_time:"",
         status:"",
@@ -72,7 +79,7 @@ export default {
         {
           id:1,
           apply_time:"2021-7-16 15:41:31",
-          status:"已完成",
+          status:"待完成",
           avatar:"../../static/touxiang/touxiang6.jpg",
           name:"王大虎",
           sex:"男",
@@ -81,7 +88,7 @@ export default {
         {
           id:2,
           apply_time:"2021-7-16 15:41:31",
-          status:"已完成",
+          status:"待完成",
           avatar:"../../static/touxiang/touxiang6.jpg",
           name:"王大虎",
           sex:"男",
@@ -92,12 +99,46 @@ export default {
 
 
   },
+  onLoad(){
+
+  },
   methods:{
+    getReferralList(){
+      console.log(this.doctor_id)
+      let reqJson=this.doctor_id
+      reqJson=JSON.stringify(reqJson);
+      console.log(reqJson)
+      this.$axios
+          .post('https://api.zghy.xyz/consult/findByDoctor',reqJson)
+          .then(res=>{
+            console.log(res)
+            if(res.data.code===0){
+              // this.$refs.uToast.show({
+              //   title: '问诊信息获取成功！',
+              //   type: 'success',
+              // })
+              console.log(res.data.data[0].consult_status)
+              for(let item in res.data.data){
+                if(res.data.data[item].consult_status===3){
+                  console.log(res.data.data[item].create_time)
+                  let date = new Date(res.data.data[item].create_time).toJSON();
+                  res.data.data[item].create_time=new Date(+new Date(date)+8*3600*1000).toISOString().replace(/T/g,' ').replace(/\.[\d]{3}Z/,'');
+                  console.log(res.data.data[item])
+                  this.dataList.push(res.data.data[item])
+                  console.log(this.dataList)
+                }
+              }
+            }
+          })
+          .catch(error=>{
+            console.log(error)
+          })
+    },
     Tab:function(taburl) {
       uni.navigateTo({
         url: taburl
       })
-    }
+    },
   }
 }
 </script>
@@ -140,6 +181,10 @@ export default {
   font-size: 25rpx;
   color: #909399;
 }
+.apply_time{
+  display: flex;
+  flex-direction: row;
+}
 .need{
   display: flex;
   flex-direction: column;
@@ -162,7 +207,7 @@ export default {
   margin-left: 20rpx;
   font-weight: bold;
   font-size: 24rpx;
-  color: #303133;
+  color: #606266;
 }
 
 .change{
@@ -171,10 +216,16 @@ export default {
   justify-content: space-around;
   margin-left: 260rpx;
 }
+.apply{
+  font-size: 24rpx;
+  color: #909399;
+  width: 150rpx;
+}
 .apply_text{
   margin-left: 15rpx;
   font-size: 24rpx;
   color: #909399;
+  width: 480rpx;
 }
 .change_text{
   margin-left: 15rpx;
@@ -203,9 +254,10 @@ export default {
   color: #4cd964;
 }
 .status_text{
-  margin-left: 240rpx;
+  margin-left: 140rpx;
   font-size: 23rpx;
   color: #ff9900;
+  width: 120rpx;
 }
 .imgSet{
   align-items: center;

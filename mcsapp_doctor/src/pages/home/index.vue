@@ -64,10 +64,10 @@ export default {
         }
       ],
       menuList:[
-        {id:1,src:"../../static/home/menu1.png",text:"初诊记录",url:"../diagnosis/index"},
+        {id:1,src:"../../static/home/menu1.png",text:"初诊记录",url:""},
         {id:2,src:"../../static/home/menu2.png",text:"复诊配药",url:"../referral/index"},
         {id:3,src:"../../static/home/menu3.png",text:"配药记录",url:"../referralFinished/index"},
-        {id:4,src:"../../static/home/menu4.png",text:"电子处方",url:"../prescription/index"}
+        {id:4,src:"../../static/home/menu4.png",text:"电子处方",url:""}
       ],
       answerList:[
         {id:1,src:"../../static/touxiang/touxiang1.jpg",text:"知名球员张恩华48岁心梗去世，运动员都难逃其手，还以为猝死离你很远吗？"},

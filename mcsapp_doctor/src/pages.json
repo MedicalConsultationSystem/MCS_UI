@@ -60,6 +60,13 @@
 			}
 		},
 		{
+			"path": "pages/check/index",
+			"style": {
+				"navigationStyle": "custom" ,
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
 			"path": "pages/referralFinished/index",
 			"style": {
 				"navigationStyle": "custom" ,

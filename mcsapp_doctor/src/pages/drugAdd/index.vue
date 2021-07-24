@@ -6,7 +6,7 @@
       <u-navbar :is-back="true" back-icon-color="white" :title="title" title-color="white" :background="background" height="45"></u-navbar>
     </view>
     <view >
-      <u-search placeholder="搜索药品" v-model="keyword"></u-search>
+      <u-search placeholder="搜索药品" v-model="drug_name.drug_name" @click="findByName()"></u-search>
     </view>
     <block v-for="(item,index) in drugInfo" :key="index" class="back_color">
       <view class="drug-information">
@@ -38,6 +38,9 @@ name: "drugAdd",
 data(){
   return{
     title:"新增药品",
+    drug_name:{
+      drug_name:"",
+    },
     background: {
       backgroundImage: 'linear-gradient(156deg, rgba(79, 107, 208,0.95), rgb(98, 141, 185)45%, rgba(102, 175, 161,0.93)85%)'
     },
@@ -54,6 +57,19 @@ data(){
     this.getDrugList()
   },
   methods:{
+  findByName(){
+    console.log(this.drug_name.drug_name)
+    let reqJson=JSON.stringify(this.drug_name)
+    this.$axios
+    .post('https://api.zghy.xyz/drug/findByName')
+    .then(res=>{
+      console.log(res)
+      if(res.data.code===0){
+        console.log("药品查询成功")
+        this.drugInfo=res.data.data
+      }
+    })
+  },
   getDrugList(){
     this.$axios
     .get('https://api.zghy.xyz/drug/listAll')

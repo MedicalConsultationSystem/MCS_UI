@@ -14,7 +14,7 @@
           </u-field>
         </view>
         <view class="dose">
-          <u-form-item label="剂量" class="item_margin"><u-number-box v-model="this.form.dose" class="nb"></u-number-box></u-form-item>
+          <u-form-item label="剂量" class="item_margin"><u-number-box v-model="value1" index="1" @change="doseChange" class="nb"></u-number-box></u-form-item>
         </view>
         <view class="">
           <u-field @click="showFrequency" v-model="this.form.frequency_name"
@@ -35,10 +35,10 @@
           <u-action-sheet @click="clickUsage" :list="usageList" v-model="showU"></u-action-sheet>
         </view>
         <view class="take_days">
-          <u-form-item label="用药天数(天)"><u-number-box v-model="this.form.take_days" class="nb"></u-number-box></u-form-item>
+          <u-form-item label="用药天数(天)"><u-number-box v-model="value2" @change="take_daysChange" index="2" class="nb"></u-number-box></u-form-item>
         </view>
         <view class="quantity">
-          <u-form-item label="总量(盒)"><u-number-box v-model="this.form.quantity" class="nb"></u-number-box></u-form-item>
+          <u-form-item label="总量(盒)"><u-number-box v-model="value3" class="nb" index="3" @change="quantityChange"></u-number-box></u-form-item>
         </view>
         <view class="remark">
           <u-input placeholder="请输入备注(选填)" v-model="this.form.remark" :type="type" :border="true" :auto-height=true />
@@ -99,7 +99,6 @@ name: "drugSetting",
     receive:null,
     form: {
       prescription_id:null,
-      id:2,
       drug_id:null,
       drug_name: null,
       dose:null,
@@ -114,11 +113,12 @@ name: "drugSetting",
       group_number:1,
       take_days:"",
       quantity:"",
-      sex: '',
       remark:"",
-      footShow: true
+      price:null,
     },
-    value: 0,
+    value1: 0,
+    value2: 0,
+    value3: 0,
     background: {
       backgroundImage: 'linear-gradient(156deg, rgba(79, 107, 208,0.95), rgb(98, 141, 185)45%, rgba(102, 175, 161,0.93)85%)'
     }
@@ -136,6 +136,7 @@ name: "drugSetting",
     this.form.pack_unit=this.receive.pack_unit
     this.form.specification=this.receive.specification
     this.form.prescription_id=uni.getStorageSync('prescription_id')
+    this.form.price=this.receive.price
   },
   methods:{
   jumpToPrescription(){
@@ -145,6 +146,26 @@ name: "drugSetting",
       url:'../prescription/index?form='+navData
     })
   },
+    take_daysChange(e){
+      console.log(e)
+      if(e.index==="2")
+      {
+        this.form.take_days=e.value
+        console.log(this.form.take_days)
+      }
+    },
+    quantityChange(e){
+      if(e.index==="3"){
+        this.form.quantity=e.value
+        console.log(this.form.quantity)
+      }
+    },
+    doseChange(e){
+      if(e.index==="1"){
+        this.form.dose=e.value
+        console.log(this.form.dose)
+      }
+    },
     confirm(e) {
       console.log(e);
       this.form.frequency_name=e[0].label

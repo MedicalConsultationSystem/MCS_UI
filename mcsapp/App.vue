@@ -1,7 +1,10 @@
 <script>
 	export default {
 		globalData:{
-			prescriptions:[],
+			userInfo:[],
+			consult_id:"",
+			consult_index:"",
+			consult:[]
 		},
 		onLaunch: function() {
 			console.log('App Launch')

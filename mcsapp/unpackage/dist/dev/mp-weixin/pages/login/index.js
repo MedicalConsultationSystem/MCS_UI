@@ -200,7 +200,7 @@ var _default = { data: function data() {return { session_key: '', unionid: '', o
         post('https://api.zghy.xyz/account/login', reqJSON).
         then(function (res) {
           console.log(res.data.data);
-          uni.setStorageSync("userInfo", res.data.data);
+          getApp().globalData.userInfo = res.data.data;
           console.log("登陆成功！");
           uni.switchTab({
             url: '../home/index' });

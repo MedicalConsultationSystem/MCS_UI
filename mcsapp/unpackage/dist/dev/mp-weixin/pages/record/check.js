@@ -97,7 +97,10 @@ try {
       return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-navbar/u-navbar */ "node-modules/uview-ui/components/u-navbar/u-navbar").then(__webpack_require__.bind(null, /*! uview-ui/components/u-navbar/u-navbar.vue */ 300))
     },
     uTabs: function() {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-tabs/u-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-tabs/u-tabs")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-tabs/u-tabs.vue */ 410))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-tabs/u-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-tabs/u-tabs")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-tabs/u-tabs.vue */ 403))
+    },
+    uGap: function() {
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-gap/u-gap */ "node-modules/uview-ui/components/u-gap/u-gap").then(__webpack_require__.bind(null, /*! uview-ui/components/u-gap/u-gap.vue */ 342))
     }
   }
 } catch (e) {
@@ -166,6 +169,60 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -174,24 +231,82 @@ var _default =
       background: {
         backgroundImage: 'linear-gradient(156deg, rgb(79, 107, 208), rgb(98, 141, 185)70%, rgb(102, 175, 161)110%);' },
 
-      list: [
-      { name: '处方一' },
-      { name: '处方二' },
-      { name: '处方三' }],
-
-      current: 2,
-      preList: getApp().globalData.prescriptions };
+      list: [],
+      current: 0,
+      consult_id: getApp().globalData.consult_id,
+      consult_index: getApp().globalData.consult_index,
+      prescriptions: [],
+      prescription: [],
+      consult: [],
+      drugList: [] };
 
   },
-  onLoad: function onLoad() {
-    this.preList = getApp().globalData.prescriptions;
-    console.log(this.preList);
-    console.log(getApp().globalData.prescriptions);
+  onLoad: function onLoad() {var _this = this;
+    this.consult = getApp().globalData.consult[this.consult_index];
+    console.log(this.consult_id);
+    console.log(this.consult_index);
+    console.log(this.consult);
     console.log(123);
+    var temp = {};
+    temp.consult_id = this.consult_id;
+    var reqJson = JSON.stringify(temp);
+    this.$axios.post('https://api.zghy.xyz/prescription/list', reqJson).
+    then(function (res) {
+      console.log(res);
+      _this.prescriptions = res.data.data.prescriptions;
+      //时间格式处理
+      for (var index in _this.prescriptions) {
+        //rfc3339转标准时间
+        var str = _this.prescriptions[index].create_time;
+        var date = new Date(str).toJSON();
+        var newDate = new Date(+new Date(date) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
+        //string转成中国标准时间格式取年月日
+        var str2 = newDate.toString();
+        str2 = str2.replace("/-/g", "/");
+        var oDate1 = new Date(str2); //Sat Jul 24 2021 10:07:38 GMT+0800 (中国标准时间)
+        console.log(oDate1);
+        _this.prescriptions[index].create_time = oDate1.getFullYear() + "-" + oDate1.getMonth() + "-" + oDate1.getDate();
+        console.log(_this.prescriptions[index].create_time);
+      }
+      _this.prescription = _this.prescriptions[0];
+      _this.drugList = _this.prescription.drugs;
+      console.log(_this.prescription);
+      console.log(_this.drugList);
+      for (var item in _this.prescriptions) {
+        console.log(item);
+        var title = {};
+        if (item === "0") {
+          title.name = "处方一";
+        } else if (item === "1") {
+          title.name = "处方二";
+        } else if (item === "2") {
+          title.name = "处方三";
+        } else if (item === "3") {
+          title.name = "处方四";
+        } else if (item === "4") {
+          title.name = "处方五";
+        } else if (item === "5") {
+          title.name = "处方六";
+        } else if (item === "6") {
+          title.name = "处方七";
+        } else if (item === "7") {
+          title.name = "处方八";
+        } else if (item === "8") {
+          title.name = "处方九";
+        } else if (item === "9") {
+          title.name = "处方十";
+        }
+        _this.list.push(title);
+        console.log(_this.list);
+      }
+    });
   },
   methods: {
     change: function change(index) {
       this.current = index;
+      this.prescription = this.prescriptions[index];
+      this.drugList = this.prescription.drugs;
+      console.log(this.prescription);
     } } };exports.default = _default;
 
 /***/ })

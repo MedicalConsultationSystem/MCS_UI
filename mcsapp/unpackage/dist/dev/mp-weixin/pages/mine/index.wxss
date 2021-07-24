@@ -35,13 +35,14 @@
           flex-direction: column;
   width: 100%;
   height: 1215rpx;
-  background: -webkit-linear-gradient(285deg, rgba(79, 107, 208, 0.95), #628db9 33%, #66afa1 43%, rgba(92, 210, 133, 0.3) 73%, white 90%);
-  background: linear-gradient(165deg, rgba(79, 107, 208, 0.95), #628db9 33%, #66afa1 43%, rgba(92, 210, 133, 0.3) 73%, white 90%);
+  background: -webkit-linear-gradient(top, rgba(79, 107, 208, 0.95), #628db9 19%, #66afa1 29%, white 38%);
+  background: linear-gradient(180deg, rgba(79, 107, 208, 0.95), #628db9 19%, #66afa1 29%, white 38%);
 }
-.user {
-  background: rgba(255, 255, 255, 0.4);
+/* 我的面板 */
+.mineboard {
+  margin-top: 180rpx;
 }
-.head {
+.mine_head {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -49,11 +50,22 @@
   -webkit-box-direction: normal;
   -webkit-flex-direction: row;
           flex-direction: row;
+  -webkit-box-pack: left;
+  -webkit-justify-content: left;
+          justify-content: left;
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-          justify-content: space-between;
+}
+.mine_head image {
+  width: 150rpx;
+  height: 150rpx;
+  margin-left: 35rpx;
+  border-radius: 75rpx;
+}
+.name {
+  margin-left: 85rpx;
+  font-size: 29rpx;
+  color: #909399;
 }
 

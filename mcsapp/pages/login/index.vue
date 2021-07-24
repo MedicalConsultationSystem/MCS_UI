@@ -39,7 +39,7 @@ export default {
         .post('https://api.zghy.xyz/account/login',reqJSON)
         .then(res=>{
             console.log(res.data.data)
-			uni.setStorageSync("userInfo", res.data.data);
+			getApp().globalData.userInfo=res.data.data;
             console.log("登陆成功！")
             uni.switchTab({
             	url: '../home/index',

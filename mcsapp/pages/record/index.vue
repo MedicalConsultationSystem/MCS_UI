@@ -69,7 +69,7 @@
 			}
 		},
 		onLoad() {
-			var user = uni.getStorageSync('userInfo');
+			var user = getApp().globalData.userInfo;
 			console.log(user);
 			this.user.create_user_id=user.user_id;
 			this.user.user_type=user.user_type;
@@ -90,21 +90,25 @@
 						this.consult[item].create_time=newDate;
 						console.log(this.consult[item].create_time);
 					}
+					getApp().globalData.consult=this.consult;
 					console.log(this.consult);
 				})
 		},
 		methods: {
 			checkPrescription:function(taburl,key) {
-				let temp2={};
-				temp2.consult_id=this.consult[key].consult_id;
-				let reqJson2= JSON.stringify(temp2);
-				this.$axios.post('https://api.zghy.xyz/prescription/list',reqJson2)
-					.then(res2 =>{
-						console.log(res2);
-						getApp().globalData.prescriptions = res2.data.data.prescriptions[0];
-						console.log(12);
-						console.log(getApp().globalData.prescriptions);
-					})
+				// let temp2={};
+				// temp2.consult_id=this.consult[key].consult_id;
+				// let reqJson2= JSON.stringify(temp2);
+				// this.$axios.post('https://api.zghy.xyz/prescription/list',reqJson2)
+				// 	.then(res2 =>{
+				// 		console.log(res2);
+				// 		getApp().globalData.prescriptions = res2.data.data.prescriptions[0];
+				// 		console.log(12);
+				// 		console.log(getApp().globalData.prescriptions);
+				// 	})
+				getApp().globalData.consult_id=this.consult[key].consult_id;
+				getApp().globalData.consult_index=key;
+				console.log(getApp().globalData.consult_id);
 				uni.navigateTo({
 					url: taburl
 				})

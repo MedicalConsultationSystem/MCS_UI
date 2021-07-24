@@ -97,12 +97,6 @@ try {
   components = {
     uCard: function() {
       return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-card/u-card */ "node-modules/uview-ui/components/u-card/u-card").then(__webpack_require__.bind(null, /*! uview-ui/components/u-card/u-card.vue */ 328))
-    },
-    uImage: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-image/u-image */ "node-modules/uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! uview-ui/components/u-image/u-image.vue */ 335))
-    },
-    uIcon: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */ "node-modules/uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 321))
     }
   }
 } catch (e) {
@@ -175,34 +169,15 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 var _default =
 {
   data: function data() {
     return {
       user: {
-        id: "A4231123",
-        name: "弹代码的吉他",
-        sex: "男",
-        age: "21",
-        src: "../../static/mine/user_male.png" },
+        src: "../../static/mine/user_male.png",
+        id: "" },
 
+      userInfo: [],
       serviceList: [
       { id: 1, src: "../../static/mine", text: "我的报告", url: "../diagnosis/index" },
       { id: 2, src: "../../static/home/menu2.png", text: "我的药物", url: "" },
@@ -211,7 +186,8 @@ var _default =
 
   },
   onLoad: function onLoad() {
-
+    this.userInfo = getApp().globalData.userInfo;
+    this.user.id = this.userInfo.phone_no;
   },
   methods: {} };exports.default = _default;
 

@@ -216,20 +216,20 @@ var _default =
       keyword: '',
       searchUrl: "../dispense/drugList",
       list: [{
-        image: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-        title: '昨夜星辰昨夜风，画楼西畔桂堂东' },
+        image: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20200331%2Fe0375d880965492f89885ca24b0352ad.jpeg&refer=http%3A%2F%2F5b0988e595225.cdn.sohucs.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1629734986&t=88026fd1c075929506d968461270bc3a',
+        title: '医疗机构大规模开展互联网复诊' },
 
       {
-        image: 'https://cdn.uviewui.com/uview/swiper/2.jpg',
-        title: '身无彩凤双飞翼，心有灵犀一点通' },
+        image: 'https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00412-2326.jpg',
+        title: '健康大药房，1000+在售药品，种类齐全' },
 
       {
-        image: 'https://cdn.uviewui.com/uview/swiper/3.jpg',
-        title: '谁念西风独自凉，萧萧黄叶闭疏窗，沉思往事立残阳' }],
+        image: 'https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00234-3856.jpg',
+        title: '不知道该吃什么药？试试线上复诊配药' }],
 
 
       menuList: [
-      { id: 1, src: "../../static/home/menu1.png", text: "初诊记录", url: "../home/index" },
+      { id: 1, src: "../../static/home/menu1.png", text: "初诊记录", url: "../diagnosis/index" },
       { id: 2, src: "../../static/home/menu2.png", text: "复诊配药", url: "../dispense/index" },
       { id: 3, src: "../../static/home/menu3.png", text: "配药记录", url: "../record/index" },
       { id: 4, src: "../../static/home/menu4.png", text: "电子处方", url: "../prescription/index" }],

@@ -185,7 +185,7 @@
 			}
 		},
 		onLoad() {
-			var user = uni.getStorageSync('userInfo');
+			var user = getApp().globalData.userInfo;
 			console.log(user);
 			this.msg.create_user_id=user.user_id;
 			uni.$on('drugData', e => {

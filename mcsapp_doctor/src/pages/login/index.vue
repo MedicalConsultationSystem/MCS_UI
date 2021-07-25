@@ -1,6 +1,6 @@
 <template>
   <view class="content">
-<!--    <image class="bg-set" :src="@/static/logo_bg.jpg"></image>-->
+    <image class="bg-set" src="@/static/logo_bg.jpg"></image>
     <!-- #ifdef MP-WEIXIN -->
     <view class="login">
       <button class="loginBtn" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" style="margin-top: 160rpx">授权登录</button>

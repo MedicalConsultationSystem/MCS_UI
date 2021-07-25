@@ -95,22 +95,6 @@ name: "referral",
 
   },
   methods:{
-    startReferral(index){
-      let reqJson={
-        consult_id: null
-      }
-      reqJson.consult_id=this.dataList[index].consult_id
-      reqJson=JSON.stringify(reqJson);
-      console.log(reqJson)
-      this.$axios
-          .post('https://api.zghy.xyz/consult/accept',reqJson,{headers:this.headers})
-          .then(res=>{
-            console.log(res)
-            if(res.data.code===0){
-              console.log("接诊成功")
-            }
-          })
-    },
     finishReferral(index){
       let reqJson={
         consult_id: null
@@ -176,7 +160,6 @@ name: "referral",
       uni.navigateTo({
         url:'../patientInfo/index?patientInfo='+NavData
       })
-      this.startReferral(index)
     },
     Tab:function(taburl) {
       console.log("页面跳转")

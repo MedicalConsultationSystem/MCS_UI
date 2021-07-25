@@ -195,6 +195,9 @@ name: "drugSetting",
         }
 
       })
+          .catch(errors=>{
+            console.log(errors)
+          })
     },
     showFrequency() {
       this.showF = true;

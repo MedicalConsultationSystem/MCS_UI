@@ -12,9 +12,6 @@
         <swiper :current="swiperCurrent" style="height: 1440rpx;width: 100%;"@transition="transition" @animationfinish="animationfinish">
           <swiper-item class="swiper-item">
             <scroll-view scroll-y style="height: 1440rpx;width: 100%;" @scrolltolower="onreachBottom">
-              <view style="height: 40px">
-                <u-alert-tips type="warning"  :description="description" :show-icon="false"></u-alert-tips>
-              </view>
               <view v-for="card in cards" :key="card.prescription_id">
                 <view class="prescriptionBoard">
                   <u-card class="prescription"  :head-border-bottom="false" :foot-border-bottom="false">
@@ -33,17 +30,23 @@
                           <view class="body_left">
                             <view class="factory_name">
                               <text>{{item.drug_name}}</text>
-                              <text class="factory">{{item.factory_name}}</text>
                             </view>
                             <view >
                               <text class="specification">{{item.specification}}</text>
                             </view>
+                            <view >
+                              <text class="usage">{{usage}}</text>
+                              <text class="usage">{{item.usage_name}}</text>
+                            </view>
+                          </view>
+                          <view class="quantity">
+                            <text>{{item.quantity}}</text>
+                            <text>{{item.pack_unit}}</text>
                           </view>
                           <view class="trash_body" @click="delDrug(item.prescription_drug_id)">
                             <u-icon name="trash" size="40rpx"></u-icon>
                           </view>
                         </view>
-                        <u-line class="line"></u-line>
                       </block>
                     </view>
                     <view class="prescription_foot" slot="foot">
@@ -87,6 +90,14 @@
                             <view >
                               <text class="specification">{{item.specification}}</text>
                             </view>
+                            <view >
+                              <text class="usage">{{usage}}</text>
+                              <text class="usage">{{item.usage_name}}</text>
+                            </view>
+                          </view>
+                          <view class="quantity">
+                            <text>{{item.quantity}}</text>
+                            <text>{{item.pack_unit}}</text>
                           </view>
                         </view>
                         <u-line class="line"></u-line>
@@ -107,13 +118,14 @@ export default {
 name: "prescription",
   data() {
     return {
-      description:`患者所需药品`,
+      description:"患者所需药品",
       title: "电子处方",
       index:0,
       rev:null,
       receive:null,
       cards:[],
       drugs:[],
+      usage:"用法:",
       submitedCards:[],
       footShow:false,
       consult_id:null,
@@ -188,6 +200,9 @@ name: "prescription",
           this.getPrescription();
         }
       })
+          .catch(errors=>{
+            console.log(errors)
+          })
 
     },
     delDrug(index){
@@ -220,7 +235,9 @@ name: "prescription",
           console.log("处方新增成功！")
           this.getPrescription();
         }
-      })
+      }).catch(errors=>{
+            console.log(errors)
+          })
     },
     getPrescription(){
       this.getPrescriptionParams.consult_id=uni.getStorageSync('consult_id');
@@ -233,9 +250,11 @@ name: "prescription",
         if(res.data.code===0){
           console.log("处方查询成功！")
           console.log(res.data.data)
+          this.cards=[]
           for(let item in res.data.data.prescriptions ){
             if(res.data.data.prescriptions[item].prescription_status==="0"){
               this.cards.push(res.data.data.prescriptions[item])
+              console.log(this.cards)
             }else {
               this.submitedCards.push(res.data.data.prescriptions[item])
             }
@@ -243,6 +262,9 @@ name: "prescription",
 
 
         }
+      })
+          .catch(errors=>{
+        console.log(errors)
       })
     },
     sumPrescription(){
@@ -263,6 +285,9 @@ name: "prescription",
           this.getPrescription();
         }
       })
+          .catch(errors=>{
+            console.log(errors)
+          })
     },
     tabsChange(index) {
       this.swiperCurrent = index;
@@ -368,6 +393,17 @@ name: "prescription",
   color: #303133;
   margin-top: 10rpx;
 }
+.usage{
+  font-size: 24rpx;
+  color: #909399;
+  margin-top: 10rpx;
+}
+.quantity{
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  margin-left: 420rpx;
+}
 .body_left{
   display: flex;
   flex-direction: column;
@@ -428,7 +464,12 @@ name: "prescription",
   display: flex;
   flex-direction: column;
 }
-
+.top{
+  display: flex;
+  flex-direction: row;
+  height: 40rpx;
+  color: #fdf6ec;
+}
 .prescriptionBoard{
   margin-top: 40rpx;
 }

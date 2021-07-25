@@ -2,7 +2,7 @@
   <view class="back_color">
     <view>
       <!-- 自定义导航栏 -->
-      <u-navbar back-icon-color="white" :title="title" title-color="white" :background="background" height="45" @click="Tab('../home/index')"></u-navbar>
+      <u-navbar back-icon-color="white" :title="title" title-color="white" :background="background" height="45"></u-navbar>
     </view>
     <view>
       <view class="patientBoard" v-for="(item,index) in dataList" :key="index" >
@@ -31,7 +31,7 @@
             </view>
           </view>
           <view class="patient_foot" slot="foot">
-            <u-button type="success" size="mini" :plain="true" shape="circle">查看处方</u-button>
+            <u-button type="success" size="mini" :plain="true" shape="circle" @click="Tab(index)">查看处方</u-button>
           </view>
         </u-card>
       </view>
@@ -134,9 +134,10 @@ export default {
             console.log(error)
           })
     },
-    Tab:function(taburl) {
+    Tab:function(index) {
+      let navData= JSON.stringify(this.dataList[index])
       uni.navigateTo({
-        url: taburl
+        url: '../check/index?dataList='+navData
       })
     },
   }

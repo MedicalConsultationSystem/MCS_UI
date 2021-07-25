@@ -74,7 +74,7 @@ export default {
       },
       list: [],
       current: 0,
-      consult_id: getApp().globalData.consult_id,
+      consult_id: null,
       consult_index: getApp().globalData.consult_index,
       prescriptions: [],
       prescription:[],
@@ -82,14 +82,12 @@ export default {
       drugList: []
     }
   },
-  onLoad() {
-    this.consult=getApp().globalData.consult[this.consult_index];
-    console.log(this.consult_id);
-    console.log(this.consult_index);
-    console.log(this.consult);
-    console.log(123);
+  onLoad(options) {
+    console.log(options.dataList)
+    this.consult=JSON.parse(options.dataList)
+    this.consult_id=this.consult.consult_id
     let temp={};
-    temp.consult_id=this.consult_id;
+    temp.consult_id=parseInt(this.consult_id);
     let reqJson= JSON.stringify(temp);
     this.$axios.post('https://api.zghy.xyz/prescription/list',reqJson)
         .then(res =>{

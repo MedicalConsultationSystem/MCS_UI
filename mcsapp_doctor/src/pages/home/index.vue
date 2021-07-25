@@ -32,7 +32,7 @@
         <u-icon class="into" name="arrow-right" size="30"></u-icon>
       </view>
       <!-- 资讯列表 -->
-      <view>
+      <view class="list">
         <scroll-view class="answer" :scroll-y="true">
           <view class="answer-item" v-for="item in answerList" :key="item.id" >
             <image :src="item.src"></image>
@@ -128,6 +128,9 @@ export default {
   flex-direction: row;
   justify-content:space-around;
 }
+.list{
+  height: 400rpx;
+}
 .menu-item {
   display: flex;
   width: 150rpx;
@@ -170,9 +173,12 @@ export default {
   margin-top: 40rpx;
   margin-bottom: 20rpx;
 }
+.total{
+  height: 1400rpx;
+}
 .answer{
   width: 750rpx;
-  height: 480rpx;
+  height: 980rpx;
   display: flex;
   flex-direction: column;
 }

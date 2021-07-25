@@ -147,7 +147,7 @@ name: "referral",
               //   type: 'success',
               // })
               console.log(res.data.data[0].consult_status)
-
+              this.dataList=[]
               for(let item in res.data.data){
                 if((res.data.data[item].consult_status===1)||(res.data.data[item].consult_status===2)){
                   res.data.data[item].consult_status=this.status[res.data.data[item].consult_status]

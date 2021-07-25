@@ -1,6 +1,6 @@
 <template>
   <view class="content">
-    <image class="bg-set" src="../../static/login/login_bg.jpg"></image>
+<!--    <image class="bg-set" :src="@/static/logo_bg.jpg"></image>-->
     <!-- #ifdef MP-WEIXIN -->
     <view class="login">
       <button class="loginBtn" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" style="margin-top: 160rpx">授权登录</button>
@@ -46,6 +46,7 @@ export default {
           key:'doctor_id',
           data:this.doctor_id.doctor_id
         })
+
         console.log(this.msg)
         let reqJSON= JSON.stringify(this.msg)
         this.$axios
@@ -56,6 +57,10 @@ export default {
             console.log("登陆成功！")
             uni.switchTab({
               url: '../home/index'
+            })
+            uni.setStorage({
+              key:'token',
+              data:res.data.data.token
             })
           }else if(res.data.data.user_type==="1"){
             console.log("您还不是医生，如是请联系管理员")

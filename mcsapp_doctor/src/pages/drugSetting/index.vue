@@ -66,6 +66,9 @@ name: "drugSetting",
     title:"药品设置",
     usage_name: '',
     remark: '',
+    headers:{
+      "x-token":uni.getStorageSync('token'),
+    },
     usageList:[
       {
         text: '口服',
@@ -186,7 +189,7 @@ name: "drugSetting",
       let reqJSON=JSON.stringify(this.form)
       console.log(reqJSON)
       this.$axios
-      .post('https://api.zghy.xyz/prescription/addDrug',reqJSON)
+      .post('https://api.zghy.xyz/prescription/addDrug',reqJSON,{headers:this.headers})
       .then(res=>{
         console.log(res)
         if(res.data.code===0){

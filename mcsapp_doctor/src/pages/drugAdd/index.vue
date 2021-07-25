@@ -41,6 +41,9 @@ data(){
     drug_name:{
       drug_name:"",
     },
+    headers:{
+      "x-token":uni.getStorageSync('token'),
+    },
     background: {
       backgroundImage: 'linear-gradient(156deg, rgba(79, 107, 208,0.95), rgb(98, 141, 185)45%, rgba(102, 175, 161,0.93)85%)'
     },
@@ -61,7 +64,7 @@ data(){
     console.log(this.drug_name.drug_name)
     let reqJson=JSON.stringify(this.drug_name)
     this.$axios
-    .post('https://api.zghy.xyz/drug/findByName')
+    .post('https://api.zghy.xyz/drug/findByName',reqJson,{headers:this.headers})
     .then(res=>{
       console.log(res)
       if(res.data.code===0){
@@ -72,7 +75,7 @@ data(){
   },
   getDrugList(){
     this.$axios
-    .get('https://api.zghy.xyz/drug/listAll')
+    .get('https://api.zghy.xyz/drug/listAll',{headers:this.headers})
     .then(res=>{
       console.log(res)
       if(res.data.code===0){

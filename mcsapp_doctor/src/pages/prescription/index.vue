@@ -127,6 +127,9 @@ name: "prescription",
       drugs:[],
       usage:"用法:",
       submitedCards:[],
+      headers:{
+        "x-token":uni.getStorageSync('token'),
+      },
       footShow:false,
       consult_id:null,
       prescription_ids:{
@@ -172,10 +175,8 @@ name: "prescription",
       }
     }
   },
-  created() {
-    this.getPrescription();
-  },
   onLoad(options){
+    this.getPrescription();
     if(options.patientInfo){
       this.receive=JSON.parse(options.patientInfo)
       console.log(this.receive)
@@ -193,7 +194,7 @@ name: "prescription",
       let reqJSON=JSON.stringify(this.delPrescriptionId);
       console.log(reqJSON);
       this.$axios
-      .delete('https://api.zghy.xyz/prescription/delPre',{data:reqJSON})
+      .delete('https://api.zghy.xyz/prescription/delPre',{data:reqJSON,headers:this.headers},)
       .then(res=>{
         console.log(res);
         if(res.data.code===0){
@@ -210,7 +211,7 @@ name: "prescription",
       let reqJSON=JSON.stringify(this.delPrescriptionDrugId);
       console.log(reqJSON)
       this.$axios
-      .delete('https://api.zghy.xyz/prescription/delDrug',{data:reqJSON})
+      .delete('https://api.zghy.xyz/prescription/delDrug',{data:reqJSON,headers:this.headers})
       .then(res=>{
         console.log(res)
         if(res.data.code===0){
@@ -228,7 +229,7 @@ name: "prescription",
         let reqJSON=JSON.stringify(this.addPrescriptionInfo);
         console.log(reqJSON)
       this.$axios
-      .post('https://api.zghy.xyz/prescription/add',reqJSON)
+      .post('https://api.zghy.xyz/prescription/add',reqJSON,{headers:this.headers})
       .then(res=>{
         console.log(res)
         if(res.data.code===0){
@@ -244,7 +245,7 @@ name: "prescription",
       let reqJSON=JSON.stringify(this.getPrescriptionParams);
       console.log(reqJSON)
       this.$axios
-      .post('https://api.zghy.xyz/prescription/list',reqJSON)
+      .post('https://api.zghy.xyz/prescription/list',reqJSON,{headers:this.headers})
       .then(res=>{
         console.log(res)
         if(res.data.code===0){
@@ -277,7 +278,7 @@ name: "prescription",
         console.log(this.prescription_ids)
         let reqJSON=JSON.stringify(this.prescription_ids)
       this.$axios
-      .post('https://api.zghy.xyz/prescription/submit',reqJSON)
+      .post('https://api.zghy.xyz/prescription/submit',reqJSON,{headers:this.headers})
       .then(res=>{
         console.log(res)
         if(res.data.code===0){

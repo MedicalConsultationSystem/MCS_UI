@@ -36,6 +36,9 @@ export default {
         src: "../../static/mine/user_male.png"
       },
       doctor_id:null,
+      headers:{
+        "x-token":uni.getStorageSync('token'),
+      },
       doctor_info:{
         doctor_name: "",
         level_name:"",
@@ -59,7 +62,7 @@ export default {
     getDoctorInfo(){
       this.doctor_id=uni.getStorageSync('doctor_id')
       this.$axios
-      .get('https://api.zghy.xyz/doctor/listAll')
+      .get('https://api.zghy.xyz/doctor/listAll',{headers:this.headers})
       .then(res=>{
         console.log(res)
         if(res.data.code===0){

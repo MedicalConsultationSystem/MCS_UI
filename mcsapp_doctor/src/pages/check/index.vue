@@ -73,6 +73,9 @@ export default {
         backgroundImage: 'linear-gradient(156deg, rgb(79, 107, 208), rgb(98, 141, 185)70%, rgb(102, 175, 161)110%);'
       },
       list: [],
+      headers:{
+        "x-token":uni.getStorageSync('token'),
+      },
       current: 0,
       consult_id: null,
       consult_index: getApp().globalData.consult_index,
@@ -89,7 +92,7 @@ export default {
     let temp={};
     temp.consult_id=parseInt(this.consult_id);
     let reqJson= JSON.stringify(temp);
-    this.$axios.post('https://api.zghy.xyz/prescription/list',reqJson)
+    this.$axios.post('https://api.zghy.xyz/prescription/list',reqJson,{headers:this.headers})
         .then(res =>{
           console.log(res);
           this.prescriptions = res.data.data.prescriptions;

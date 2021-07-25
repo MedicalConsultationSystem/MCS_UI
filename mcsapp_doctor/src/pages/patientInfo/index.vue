@@ -103,6 +103,9 @@ name: "patientInfo",
     title: "患者详情",
     receive:null,
     drugs:[],
+    headers:{
+      "x-token":uni.getStorageSync('token'),
+    },
     background: {
       backgroundImage: 'linear-gradient(156deg, rgba(79, 107, 208,0.95), rgb(98, 141, 185)45%, rgba(102, 175, 161,0.93)85%)'
     },
@@ -140,7 +143,7 @@ name: "patientInfo",
       reqJson=JSON.stringify(reqJson);
       console.log(reqJson)
       this.$axios
-          .post('https://api.zghy.xyz/consult/finish',reqJson)
+          .post('https://api.zghy.xyz/consult/finish',reqJson,{headers:this.headers})
           .then(res=>{
             console.log(res)
             if(res.data.code===0){

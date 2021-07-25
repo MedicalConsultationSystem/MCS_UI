@@ -62,6 +62,9 @@ name: "referral",
       2:"进行中"
     },
     apply:"申请时间",
+    headers:{
+      "x-token":uni.getStorageSync('token'),
+    },
     consult_id:{
       consult_id:null
     },
@@ -100,7 +103,7 @@ name: "referral",
       reqJson=JSON.stringify(reqJson);
       console.log(reqJson)
       this.$axios
-          .post('https://api.zghy.xyz/consult/accept',reqJson)
+          .post('https://api.zghy.xyz/consult/accept',reqJson,{headers:this.headers})
           .then(res=>{
             console.log(res)
             if(res.data.code===0){
@@ -115,8 +118,9 @@ name: "referral",
       reqJson.consult_id=this.dataList[index].consult_id
       reqJson=JSON.stringify(reqJson);
       console.log(reqJson)
+
       this.$axios
-      .post('https://api.zghy.xyz/consult/finish',reqJson)
+      .post('https://api.zghy.xyz/consult/finish',reqJson,{headers:this.headers})
       .then(res=>{
         console.log(res)
         if(res.data.code===0){
@@ -130,8 +134,11 @@ name: "referral",
       let reqJson=this.doctor_id
      reqJson=JSON.stringify(reqJson);
       console.log(reqJson)
+      let headers={
+        "x-token":uni.getStorageSync('token'),
+      }
       this.$axios
-          .post('https://api.zghy.xyz/consult/findByDoctor',reqJson)
+          .post('https://api.zghy.xyz/consult/findByDoctor',reqJson,{headers:this.headers})
           .then(res=>{
             console.log(res)
             if(res.data.code===0){

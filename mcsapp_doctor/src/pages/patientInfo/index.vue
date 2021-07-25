@@ -131,6 +131,13 @@ name: "patientInfo",
   methods:{
 
     Tab:function() {
+      let pages = getCurrentPages(); // 当前页面
+      let currPage = pages[pages.length - 1]; //当前页面
+
+      let prevPage = pages[pages.length - 2]; //上一个页面
+      prevPage.setData({
+        isDoRefresh:true
+      })
       uni.navigateBack({
         delta:1
       })

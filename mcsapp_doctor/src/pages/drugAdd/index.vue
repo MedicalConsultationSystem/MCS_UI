@@ -89,14 +89,8 @@ data(){
 
       let prevPage = pages[pages.length - 2]; //上一个页面
       prevPage.setData({
-
-
         isDoRefresh:true
-
-
       })
-
-
       uni.navigateBack({
         delta:1,
       })

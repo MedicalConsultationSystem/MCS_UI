@@ -170,26 +170,12 @@ name: "prescription",
   },
   onShow(e){
     let pages = getCurrentPages();
-
-
     let currPage = pages[pages.length-1];
-
-
     if (currPage.data.isDoRefresh == true){
-
-
       currPage.data.isDoRefresh = false;
-
-
       this.getPrescription();
-
-
     }else{
-
-
 //不用刷新
-
-
     }
   },
   onLoad(options){

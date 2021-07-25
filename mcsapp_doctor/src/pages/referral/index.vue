@@ -91,10 +91,18 @@ name: "referral",
 
 
 },
-  onLoad(){
-
+  onShow(e){
+    let pages = getCurrentPages();
+    let currPage = pages[pages.length-1];
+    if (currPage.data.isDoRefresh == true){
+      currPage.data.isDoRefresh = false;
+      this.getReferralList();
+    }else{
+//不用刷新
+    }
   },
   methods:{
+
     finishReferral(index){
       let reqJson={
         consult_id: null

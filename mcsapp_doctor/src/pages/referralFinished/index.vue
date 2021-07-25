@@ -54,6 +54,9 @@ export default {
       title: "配药记录",
       status: "已完成",
       apply:"申请时间",
+      headers:{
+        "x-token":uni.getStorageSync('token'),
+      },
       consult_id:{
         consult_id:null
       },
@@ -109,7 +112,7 @@ export default {
       reqJson=JSON.stringify(reqJson);
       console.log(reqJson)
       this.$axios
-          .post('https://api.zghy.xyz/consult/findByDoctor',reqJson)
+          .post('https://api.zghy.xyz/consult/findByDoctor',reqJson,{headers:this.headers})
           .then(res=>{
             console.log(res)
             if(res.data.code===0){

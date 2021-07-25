@@ -16,7 +16,7 @@
                 <view class="body">
                   <text class="xi_text">西药方</text>
                   <view class="add" @click="jumpToDrugAdd(card.prescription_id)">
-                    <u-icon name="plus" size="20"  class="icon" ></u-icon>
+                    <u-icon name="plus" size="25"  class="icon" ></u-icon>
                     <text class="add_text">新增药品</text>
                   </view>
                 </view>
@@ -26,12 +26,12 @@
                   <view class="drug-information">
                     <view class="body_left">
                       <view class="factory_name">
-                        <text>{{item.drug_name}}</text>
+                        <text class="drug_name">{{item.drug_name}}</text>
                       </view>
                       <view >
                         <text class="specification">{{item.specification}}</text>
                       </view>
-                      <view >
+                      <view class="usage_set">
                         <text class="usage">{{usage}}</text>
                         <text class="usage">{{item.usage_name}}</text>
                       </view>
@@ -79,13 +79,12 @@
                   <view class="drug-information">
                     <view class="body_left">
                       <view class="factory_name">
-                        <text>{{item.drug_name}}</text>
-                        <text class="factory">{{item.factory_name}}</text>
+                        <text class="drug_name">{{item.drug_name}}</text>
                       </view>
                       <view >
                         <text class="specification">{{item.specification}}</text>
                       </view>
-                      <view >
+                      <view class="usage_set">
                         <text class="usage">{{usage}}</text>
                         <text class="usage">{{item.usage_name}}</text>
                       </view>
@@ -95,12 +94,12 @@
                       <text>{{item.pack_unit}}</text>
                     </view>
                   </view>
-                  <u-line class="line"></u-line>
                 </block>
               </view>
             </u-card>
           </view>
         </view>
+
       </view>
     </view>
 </template>
@@ -340,6 +339,9 @@ name: "prescription",
   background-color: #f3f4f6;
   height: 1667rpx;
 }
+.usage_set{
+  margin-top: 10rpx;
+}
 .tip{
   width: 100%;
   height: 40rpx;
@@ -427,24 +429,31 @@ name: "prescription",
   }
 }
 .specification{
-  font-size: 24rpx;
+  font-size: 27rpx;
   color: #303133;
-  margin-top: 10rpx;
+  margin-top: 20rpx;
+}
+.drug_name{
+  font-size: 28rpx;
 }
 .usage{
-  font-size: 24rpx;
+  font-size: 26rpx;
   color: #909399;
-  margin-top: 10rpx;
+  margin-top: 20rpx;
 }
 .quantity{
   position: absolute;
   display: flex;
   flex-direction: row;
   margin-left: 420rpx;
+  margin-top: 10rpx;
 }
 .body_left{
   display: flex;
   flex-direction: column;
+}
+.factory_name{
+  margin-top: 10rpx;
 }
 .drug-information{
   display: flex;
@@ -496,7 +505,7 @@ name: "prescription",
   color: #2979ff;
 }
 .prescription_foot{
-  height: 10rpx;
+  height: 20rpx;
 }
 .prescription{
   display: flex;
@@ -514,10 +523,10 @@ name: "prescription",
 .add{
   display: flex;
   flex-direction: row;
-  margin-left: 430rpx;
+  margin-left: 380rpx;
 }
 .xi_text{
-  font-size: 25rpx;
+  font-size: 28rpx;
   color: #323233;
 }
 .name_text{
@@ -525,7 +534,7 @@ name: "prescription",
   color: #323233;
 }
 .add_text{
-  font-size: 25rpx;
+  font-size: 28rpx;
   color:#2979ff;
 }
 .trash_body{

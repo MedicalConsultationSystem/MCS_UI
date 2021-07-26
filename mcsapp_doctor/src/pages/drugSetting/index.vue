@@ -14,7 +14,7 @@
           </u-field>
         </view>
         <view class="dose">
-          <u-form-item label="剂量" class="item_margin"><u-number-box v-model="value1" index="1" @change="doseChange" class="nb"></u-number-box></u-form-item>
+          <u-form-item label="剂量"><u-number-box v-model="value1" index="1" @change="doseChange" class="nb"></u-number-box></u-form-item>
         </view>
         <view class="fre">
           <u-field @click="showFrequency" v-model="frequency_name"

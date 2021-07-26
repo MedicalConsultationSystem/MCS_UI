@@ -5,8 +5,9 @@
       <!-- 自定义导航栏 -->
       <u-navbar :is-back="true" back-icon-color="white" :title="title" title-color="white" :background="background" height="45"></u-navbar>
     </view>
-    <view >
-      <u-search placeholder="搜索药品" v-model="drug_name.drug_name" @click="findByName()"></u-search>
+    <view class="search-wrap" style="padding: 20rpx 10rpx;">
+      <!-- 如果使用u-search组件，必须要给v-model绑定一个变量 -->
+      <u-search v-model="keyword" height="65" placeholder="请输入药品拼音缩写" :show-action="showAction" :action-style="{color: '#909399'}" @custom="searchMedicine" @search="searchMedicine"></u-search>
     </view>
     <block v-for="(item,index) in drugInfo" :key="index" class="back_color">
       <view class="drug-information">
@@ -38,9 +39,12 @@ name: "drugAdd",
 data(){
   return{
     title:"新增药品",
-    drug_name:{
-      drug_name:"",
+    search:'',
+    pinyin:{
+      pinyin:"",
     },
+    showAction: true,
+    keyword: '',
     headers:{
       "x-token":uni.getStorageSync('token'),
     },
@@ -60,17 +64,26 @@ data(){
     this.getDrugList()
   },
   methods:{
-  findByName(){
-    console.log(this.drug_name.drug_name)
-    let reqJson=JSON.stringify(this.drug_name)
+  searchMedicine(){
+    this.pinyin.pinyin=this.keyword
+    console.log(this.pinyin.pinyin)
+    let reqJson=JSON.stringify(this.pinyin)
     this.$axios
-    .post('https://api.zghy.xyz/drug/findByName',reqJson,{headers:this.headers})
+    .post('https://api.zghy.xyz/drug/findByPinyin',reqJson,{headers:this.headers})
     .then(res=>{
       console.log(res)
       if(res.data.code===0){
         console.log("药品查询成功")
+        uni.showToast({
+          title:'查询成功',
+          duration: 2000
+        })
         this.drugInfo=res.data.data
+        console.log(this.drugInfo)
+
       }
+    }).catch(errors=>{
+      console.log(errors)
     })
   },
   getDrugList(){
@@ -148,6 +161,12 @@ data(){
 }
 .line{
   color: #909399;
+}
+.search-wrap {
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  margin-bottom: 5rpx;
+  flex: 1;
 }
 .icon{
   position: absolute;

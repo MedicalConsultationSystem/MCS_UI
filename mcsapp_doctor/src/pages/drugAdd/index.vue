@@ -13,13 +13,13 @@
       <view class="drug-information">
         <view class="factory_name">
           <text>{{item.drug_name}}</text>
-          <text class="factory">{{item.factory_name}}</text>
+          <text class="specification">{{item.specification}}</text>
+          <view class="icon" @click="jumpToSet(index)">
+            <u-icon name="plus" size="35"></u-icon>
+          </view>
         </view>
         <view >
-          <text class="specification">{{item.specification}}</text>
-        </view>
-        <view class="icon" @click="jumpToSet(index)">
-          <u-icon name="plus" size="35"></u-icon>
+          <text class="factory">{{item.factory_name}}</text>
         </view>
       </view>
       <u-line class="line"></u-line>
@@ -126,7 +126,7 @@ data(){
 }
 .drug-information{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin-left: 40rpx;
   text-align: left;
   padding: 40rpx 0 40rpx 0;
@@ -140,7 +140,7 @@ data(){
 .specification{
   font-size: 22rpx;
   color:#909399;
-  margin-left: 40rpx;
+  margin-left: 460rpx;
   position: absolute;
 }
 .btn{

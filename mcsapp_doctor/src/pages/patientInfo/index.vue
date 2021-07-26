@@ -82,6 +82,10 @@
         <view class="box">
           <label>病情图片</label>
         </view>
+        <view class="u-input">
+          <text class="common_text"></text>
+        </view>
+        </view>
       </view>
       <view class="btn">
         <view class="add_btn">

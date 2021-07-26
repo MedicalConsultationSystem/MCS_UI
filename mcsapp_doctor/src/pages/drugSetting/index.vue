@@ -6,7 +6,7 @@
     </view>
     <view>
       <u-form :model="form" ref="uForm">
-        <view class="">
+        <view class="drug">
           <u-field @click="Tab('../drugAdd/index')" v-model="form.drug_name"
                    :disabled="true" label="药品" placeholder="请选择药品"
                    right-icon="arrow-down-fill"
@@ -16,7 +16,7 @@
         <view class="dose">
           <u-form-item label="剂量" class="item_margin"><u-number-box v-model="value1" index="1" @change="doseChange" class="nb"></u-number-box></u-form-item>
         </view>
-        <view class="">
+        <view class="fre">
           <u-field @click="showFrequency" v-model="frequency_name"
                    label="频次" placeholder="请选择频次"
                    :disabled="true"
@@ -25,7 +25,7 @@
           </u-field>
           <u-action-sheet @click="clickFrequency" :list="frequency_nameList" v-model="showF"></u-action-sheet>
         </view>
-        <view class="">
+        <view class="usage">
           <u-field @click="showUsage" v-model="usage_name"
                    label="用法" placeholder="请选择用法"
                    :disabled="true"
@@ -35,13 +35,15 @@
           <u-action-sheet @click="clickUsage" :list="usageList" v-model="showU"></u-action-sheet>
         </view>
         <view class="take_days">
-          <u-form-item label="用药天数(天)"><u-number-box v-model="value2" @change="take_daysChange" index="2" class="nb"></u-number-box></u-form-item>
+          <u-form-item label="用药天数(天)" label-width="180"><u-number-box v-model="value2" @change="take_daysChange" index="2" class="nb1"></u-number-box></u-form-item>
         </view>
         <view class="quantity">
-          <u-form-item label="总量(盒)"><u-number-box v-model="value3" class="nb" index="3" @change="quantityChange"></u-number-box></u-form-item>
+          <u-form-item label="总量"><u-number-box v-model="value3" class="nb" index="3" @change="quantityChange"></u-number-box></u-form-item>
         </view>
         <view class="remark">
-          <u-input placeholder="请输入备注(选填)" v-model="remark" :type="type" :border="true" :auto-height=true />
+          <u-form-item label="备注">
+            <u-input placeholder="请输入备注" v-model="remark" :border="true" :auto-height=true />
+          </u-form-item>
         </view>
       </u-form>
     </view>
@@ -236,6 +238,10 @@ name: "drugSetting",
     margin-left: 150rpx;
   }
 }
+.drug{
+}
+.fre{
+}
 .dose{
   margin-left: 30rpx;
 }
@@ -245,9 +251,13 @@ name: "drugSetting",
 .take_days{
   margin-left: 30rpx;
 }
-
+.usage{
+}
 .nb{
   margin-left: 400rpx;
+}
+.nb1{
+  margin-left: 310rpx;
 }
 .btn_cancel{
   margin-left: 80rpx;
@@ -260,6 +270,7 @@ name: "drugSetting",
 }
 .remark{
   margin-left: 30rpx;
+  width: 690rpx;
 }
 .remark_input{
   height: 120rpx;

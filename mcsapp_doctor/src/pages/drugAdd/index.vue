@@ -19,7 +19,7 @@
           <text class="specification">{{item.specification}}</text>
         </view>
         <view class="icon" @click="jumpToSet(index)">
-          <u-icon name="plus"></u-icon>
+          <u-icon name="plus" size="35"></u-icon>
         </view>
       </view>
       <u-line class="line"></u-line>
@@ -131,11 +131,10 @@ data(){
   text-align: left;
   padding: 40rpx 0 40rpx 0;
   color: #323233;
-  font-size: 24rpx;
+  font-size: 28rpx;
 }
 .factory_name{
   display: flex;
-
   flex-direction: column;
 }
 .specification{

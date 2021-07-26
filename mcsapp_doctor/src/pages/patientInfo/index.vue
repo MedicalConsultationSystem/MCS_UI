@@ -196,13 +196,7 @@ name: "patientInfo",
 
 <style lang="scss" scoped>
 .drug_text{
-  border: 1rpx solid #4cd964;
-  border-radius: 30rpx;
-  font-size: 15rpx;
-  color: #4cd964;
-  padding-left: 10rpx;
-  padding-right: 10rpx;
-  padding-bottom: 4rpx;
+  color: #909399;
 }
 
 .common_text{

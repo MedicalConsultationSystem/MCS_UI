@@ -9,6 +9,15 @@
       </view>
       <!-- 标签页对应的内容 -->
       <view v-if="tabCur === 0">
+        <view class="container">
+          <u-sticky>
+            <!-- 只能有一个根元素 -->
+            <view class="sticky">
+              {{description}}
+              {{receive.drug_names}}
+            </view>
+          </u-sticky>
+        </view>
         <view v-for="card in cards" :key="card.prescription_id">
           <view class="prescriptionBoard">
             <u-card class="prescription"  :head-border-bottom="false" :foot-border-bottom="false">
@@ -109,7 +118,7 @@ export default {
 name: "prescription",
   data() {
     return {
-      description:"患者所需药品",
+      description:"患者所需药品:",
       title: "电子处方",
       index:0,
       tabCur: 0,
@@ -298,22 +307,6 @@ name: "prescription",
             console.log(errors)
           })
     },
-    tabsChange(index) {
-      this.swiperCurrent = index;
-    },
-    transition(e) {
-      let dx = e.detail.dx;
-      this.$refs.uTabs.setDx(dx);
-    },
-    animationfinish(e) {
-      let current = e.detail.current;
-      this.$refs.uTabs.setFinishCurrent(current);
-      this.swiperCurrent = current;
-      this.current = current;
-    },
-    onreachBottom() {
-
-    },
     jumpToDrugAdd(params){
       console.log(params)
       uni.setStorage({
@@ -359,7 +352,15 @@ name: "prescription",
   background-color: #FFF;
   color: #A9A9A9;
 }
+.container {
+}
 
+.sticky {
+  width: 750rpx;
+  background-color: #a0cfff;
+  color: #fff;
+  padding: 24rpx;
+}
 .tab_item {
   height: 114rpx;
   line-height: 100rpx;

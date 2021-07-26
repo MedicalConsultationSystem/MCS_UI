@@ -128,9 +128,9 @@ export default {
   flex-direction: row;
   justify-content:space-around;
 }
-.list{
-  height: 400rpx;
-}
+//.list{
+//  height: 400rpx;
+//}
 .menu-item {
   display: flex;
   width: 150rpx;
@@ -178,7 +178,7 @@ export default {
 }
 .answer{
   width: 750rpx;
-  height: 980rpx;
+  height: 800rpx;
   display: flex;
   flex-direction: column;
 }

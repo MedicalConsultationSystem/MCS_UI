@@ -5,8 +5,9 @@
       <u-navbar back-icon-color="white" :title="title" title-color="white" :background="background" height="45"></u-navbar>
     </view>
     <view>
+      <scroll-view class="answer" :scroll-y="true">
       <view class="patientBoard" v-for="(item,index) in dataList" :key="index" >
-        <u-card class="patient" head-border-bottom="false" foot-border-top="false">
+        <u-card class="patient" :border="false" :head-border-bottom="false" :foot-border-top="false">
           <view class="patient_head" slot="head">
             <view class="head_row">
               <text class="apply">{{apply}}</text>
@@ -35,6 +36,7 @@
           </view>
         </u-card>
       </view>
+      </scroll-view>
     </view>
 
   </view>
@@ -176,6 +178,12 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: left;
+}
+.answer{
+  width: 750rpx;
+  height: 1520rpx;
+  display: flex;
+  flex-direction: column;
 }
 .name_text{
   display: flex;

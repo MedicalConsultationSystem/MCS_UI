@@ -1,5 +1,5 @@
 <template>
-    <view class="back_color">
+    <view class="content">
       <view>
         <!-- 自定义导航栏 -->
         <u-navbar back-icon-color="white" :title="title" title-color="white" :background="background" height="45"></u-navbar>
@@ -18,51 +18,53 @@
             </view>
           </u-sticky>
         </view>
-        <view v-for="card in cards" :key="card.prescription_id">
-          <view class="prescriptionBoard">
-            <u-card class="prescription"  :head-border-bottom="false" :foot-border-bottom="false">
-              <view class="prescription_head" slot="head">
-                <view class="body">
-                  <text class="xi_text">西药方</text>
-                  <view class="add" @click="jumpToDrugAdd(card.prescription_id)">
-                    <u-icon name="plus" size="25"  class="icon" ></u-icon>
-                    <text class="add_text">新增药品</text>
-                  </view>
-                </view>
-              </view>
-              <view class="prescription_body" slot="body">
-                <block v-for="item in card.drugs" :key="item.prescription_drug_id" class="back_color">
-                  <view class="drug-information">
-                    <view class="body_left">
-                      <view class="factory_name">
-                        <text class="drug_name">{{item.drug_name}}</text>
-                      </view>
-                      <view >
-                        <text class="specification">{{item.specification}}</text>
-                      </view>
-                      <view class="usage_set">
-                        <text class="usage">{{usage}}</text>
-                        <text class="usage">{{item.usage_name}}</text>
-                      </view>
-                    </view>
-                    <view class="quantity">
-                      <text>{{item.quantity}}</text>
-                      <text>{{item.pack_unit}}</text>
-                    </view>
-                    <view class="trash_body" @click="delDrug(item.prescription_drug_id)">
-                      <u-icon name="trash" size="40rpx"></u-icon>
+        <scroll-view class="answer" :scroll-y="true">
+          <view v-for="card in cards" :key="card.prescription_id" >
+            <view >
+              <u-card class="prescription"  :border="false" :head-border-bottom="false" :foot-border-top="false">
+                <view class="prescription_head" slot="head">
+                  <view class="body">
+                    <text class="xi_text">西药方</text>
+                    <view class="add" @click="jumpToDrugAdd(card.prescription_id)">
+                      <u-icon name="plus" size="25"  class="icon" ></u-icon>
+                      <text class="add_text">新增药品</text>
                     </view>
                   </view>
-                </block>
-              </view>
-              <view class="prescription_foot" slot="foot">
-                <view class="foot_trash" @click="delPrescription(card.prescription_id)" >
-                  <u-icon name="trash" size="40rpx"></u-icon>
                 </view>
-              </view>
-            </u-card>
+                <view class="prescription_body" slot="body">
+                  <block v-for="item in card.drugs" :key="item.prescription_drug_id" class="back_color">
+                    <view class="drug-information">
+                      <view class="body_left">
+                        <view class="factory_name">
+                          <text class="drug_name">{{item.drug_name}}</text>
+                        </view>
+                        <view >
+                          <text class="specification">{{item.specification}}</text>
+                        </view>
+                        <view class="usage_set">
+                          <text class="usage">{{usage}}</text>
+                          <text class="usage">{{item.usage_name}}</text>
+                        </view>
+                      </view>
+                      <view class="quantity">
+                        <text class="text_set">{{item.quantity}}</text>
+                        <text class="text_set">{{item.pack_unit}}</text>
+                      </view>
+                      <view class="trash_body" @click="delDrug(item.prescription_drug_id)">
+                        <u-icon name="trash" size="40rpx"></u-icon>
+                      </view>
+                    </view>
+                  </block>
+                </view>
+                <view class="prescription_foot" slot="foot">
+                  <view class="foot_trash" @click="delPrescription(card.prescription_id)" >
+                    <u-icon name="trash" size="40rpx"></u-icon>
+                  </view>
+                </view>
+              </u-card>
+            </view>
           </view>
-        </view>
+        </scroll-view>
         <view>
           <view class="btn">
             <view class="add_btn">
@@ -75,9 +77,10 @@
         </view>
       </view>
       <view v-else-if="tabCur === 1">
+        <scroll-view class="answer1" :scroll-y="true">
         <view v-for="card in submitedCards" :key="card.prescription_id">
           <view class="prescriptionBoard">
-            <u-card class="prescription"  :head-border-bottom="false" :foot-border-bottom="false" show-foot="false">
+            <u-card class="prescription"  :border="false" :head-border-bottom="false" :foot-border-bottom="false" show-foot="false">
               <view class="prescription_head" slot="head">
                 <view class="body">
                   <text class="xi_text">西药方</text>
@@ -108,7 +111,7 @@
             </u-card>
           </view>
         </view>
-
+        </scroll-view>
       </view>
     </view>
 </template>
@@ -237,7 +240,7 @@ name: "prescription",
       })
     },
     addPrescription(){
-      this.addPrescriptionInfo.consult_id=uni.getStorageSync('consult_id');
+      this.consult_id=uni.getStorageSync('consult_id');
       this.addPrescriptionInfo.doctor_id=this.receive.doctor_id;
       this.addPrescriptionInfo.doctor_name=this.receive.doctor_name;
       this.addPrescriptionInfo.org_id=this.receive.org_id;
@@ -328,9 +331,18 @@ name: "prescription",
 </script>
 
 <style scoped lang="scss">
-.back_color{
+
+.content{
   background-color: #f3f4f6;
   height: 1667rpx;
+}
+.back_color{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+
 }
 .usage_set{
   margin-top: 10rpx;
@@ -446,8 +458,11 @@ name: "prescription",
   position: absolute;
   display: flex;
   flex-direction: row;
-  margin-left: 420rpx;
+  margin-left: 480rpx;
   margin-top: 10rpx;
+}
+.text_set{
+  font-size: 26rpx;
 }
 .body_left{
   display: flex;
@@ -459,12 +474,25 @@ name: "prescription",
 .drug-information{
   display: flex;
   flex-direction: row;
-  margin-left: 40rpx;
   text-align: left;
   padding: 40rpx 0 40rpx 0;
   color: #323233;
   font-size: 24rpx;
 }
+.answer{
+  width: 750rpx;
+  height: 1180rpx;
+  display: flex;
+
+  flex-direction: column;
+}
+.answer1{
+  width: 750rpx;
+  height: 1420rpx;
+  display: flex;
+  flex-direction: column;
+}
+
 .frequency_name{
   font-size: 22rpx;
   color: #909399;
@@ -507,6 +535,7 @@ name: "prescription",
 }
 .prescription_foot{
   height: 20rpx;
+  align-content: center;
 }
 .prescription{
   display: flex;
@@ -520,6 +549,7 @@ name: "prescription",
 }
 .prescriptionBoard{
   //margin-top: 20rpx;
+  //height: 1000rpx;
 }
 .add{
   display: flex;
@@ -546,7 +576,8 @@ name: "prescription",
 .foot_trash{
   position: absolute;
   color: #dd524d;
-  margin-left: 580rpx;
+  margin-left: 540rpx;
+  align-content: center;
 }
 .body{
   display: flex;

@@ -27,19 +27,21 @@ export default {
       if(e.detail.errMsg==="getPhoneNumber:fail user deny"){       //用户决绝授权
         //拒绝授权后弹出一些提示
       }else{      //允许授权
-		console.log(e.detail)
+		// console.log(e.detail)
         let pc = new WXBizDataCrypt('wx7eec75ebae0ab5c2',this.session_key);  //wxXXXXXXX为你的小程序APPID
         let data = pc.decryptData(e.detail.encryptedData, e.detail.iv);
-        
-		console.log(data)       //data就是最终解密的用户信息
+        //data就是最终解密的用户信息
+		// console.log(data)       
         this.msg.phone=data.phoneNumber
-        console.log(this.msg)
+        // console.log(this.msg)
         let reqJSON= JSON.stringify(this.msg)
         this.$axios
         .post('https://api.zghy.xyz/account/login',reqJSON)
         .then(res=>{
-            console.log(res.data.data)
+            // console.log(res.data.data)
 			getApp().globalData.userInfo=res.data.data;
+			// console.log(res.data.data.token);
+			uni.setStorageSync("token", res.data.data.token);
             console.log("登陆成功！")
             uni.switchTab({
             	url: '../home/index',

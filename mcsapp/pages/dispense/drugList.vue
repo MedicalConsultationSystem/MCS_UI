@@ -51,7 +51,10 @@
 		},
 		methods: {
 			loadDrug(){
-				this.$axios.get('https://api.zghy.xyz/drug/listAll')
+				let headers={
+					"x-token":uni.getStorageSync("token"),
+				}
+				this.$axios.get('https://api.zghy.xyz/drug/listAll',{headers:headers})
 					.then(res=>{
 						let list=res.data.data;
 						// console.log(res);
@@ -59,7 +62,7 @@
 							this.drugList=res.data.data;
 							// console.log(this.drugList[0].drug_name);
 						}
-						uni.setStorageSync("drugList", res.data.data);
+						getApp().globalData.drugList=res.data.data;
 					})
 			},
 			chooseDrug(key){
@@ -69,46 +72,22 @@
 				uni.navigateBack();
 			},
 			searchDrug(value){
-				// let search={};
-				// let search2={};
-				// search.drug_name=value;
-				// search2.pinyin=value;
-				// console.log(search);
-				// console.log(typeof value);
-				// this.$axios.post('https://api.zghy.xyz/drug/findByName',search)
-				// 	.then(res =>{
-				// 		console.log(res);
-				// 		let list=res.data.data;
-				// 		if(res.data.code===0){
-				// 			this.drugList=res.data.data;
-				// 			console.log(this.drugList);
-				// 		}
-				// 	})
-				// this.$axios.post('https://api.zghy.xyz/drug/findByPinyin',search2)
-				// 	.then(res =>{
-				// 		console.log(res);
-				// 		let list=res.data.data;
-				// 		if(res.data.code===0){
-				// 			this.drugList=res.data.data;
-				// 			console.log(this.drugList);
-				// 		}
-				// 	})
 				if(value!==""){
-					var drugList_temp = uni.getStorageSync('drugList');
+					var drugList_temp = getApp().globalData.drugList;
 					var temp = [];
 					drugList_temp.forEach(function (i) {
 						var name=i.drug_name;
 						var pinyin=i.pinyin_code;
 						if (name.indexOf(value) != -1 || pinyin.indexOf(value) != -1) {
 							temp.push(i);
-							console.log("查找成功");
+							// console.log("查找成功");
 						}
 					});
 					if (value === "") {
 						temp = []
 					}
 					this.drugList=temp;
-					console.log(this.drugList);
+					// console.log(this.drugList);
 				}
 			}
 		},

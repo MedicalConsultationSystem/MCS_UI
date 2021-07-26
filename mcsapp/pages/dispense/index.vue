@@ -14,8 +14,12 @@
 					<view class="left" v-if="show===true">
 						<image :src="doctorList.src"></image>
 						<view class="name_text">
-							<text class="name_text1">{{doctorList.name}}</text>
-							<text class="name_text2">{{doctorList.level}}</text>
+							<view>
+								<text class="name_text1">{{doctorList.name}}</text>
+							</view>
+							<view>
+								<text class="name_text2">{{doctorList.level}}</text>
+							</view>
 						</view>
 					</view>
 					<view :class="[show===true?'change':'change2']" @click="changeDoctor(doctorUrl)">
@@ -59,18 +63,18 @@
 		</view>
 		<view class="illness_description">
 			<view class="gap">
-				<u-gap bg-color="#c0c4cc" height="30" margin-left="40"></u-gap>
+				<u-gap bg-color="#c0c4cc" height="30"></u-gap>
 			</view>
 			<view class="description">
 				<text class="desc_text">病情描述</text>
 				<view class="desc_input">
-					<u-input type="textarea" placeholder="请填写病情描述" v-model="msg.question"/>
+					<input class="desc_input_text" placeholder="请填写病情描述" v-model="msg.question" />
 				</view>
 			</view>
 		</view>
 		<view class="illness_photos">
 			<view class="gap">
-				<u-gap bg-color="#c0c4cc" height="30" margin-left="40"></u-gap>
+				<u-gap bg-color="#c0c4cc" height="30"></u-gap>
 			</view>
 			<view class="upload">
 				<text class="uptext">病情照片</text>
@@ -186,7 +190,6 @@
 		},
 		onLoad() {
 			var user = getApp().globalData.userInfo;
-			console.log(user);
 			this.msg.create_user_id=user.user_id;
 			uni.$on('drugData', e => {
 				// console.log(e);
@@ -222,7 +225,7 @@
 				this.msg.org_id=this.doctorInfoList.org_id;
 				this.msg.org_name=this.doctorInfoList.org_name;
 				this.msg.doctor_id=this.doctorInfoList.doctor_id;
-				console.log(this.msg);
+				// console.log(this.msg);
 			});
 		},
 		onUnload() {
@@ -230,9 +233,7 @@
 			uni.$off('doctorData');
 			uni.$off('doctorInfo');
 		},
-		onPageScroll({
-		  scrollTop
-		}) {
+		onPageScroll({scrollTop}) {
 		  if (scrollTop >= 23) {
 		    this.navShow1 = false;
 		    this.navShow2 = true;
@@ -262,11 +263,11 @@
 				this.msg.person_gender_code = code.toString();
 			},
 			birthdayCallback(e){
-				console.log(e); 
+				// console.log(e); 
 				var date = new Date; 
 				var year = date.getFullYear();
 				this.msg.person_age=year-e.year;
-				console.log(this.msg.person_age);
+				// console.log(this.msg.person_age);
 				if (this.params.year) this.msg.person_birth_date += e.year;
 				if (this.params.month) this.msg.person_birth_date += '-' + e.month;
 				if (this.params.day) this.msg.person_birth_date += '-' + e.day;
@@ -274,29 +275,32 @@
 				if (this.params.minute) this.msg.person_birth_date += ':' + e.minute;
 				if (this.params.second) this.msg.person_birth_date += ':' + e.second;
 				this.birthday=this.msg.person_birth_date;
-				console.log(this.birthday);
+				// console.log(this.birthday);
 				this.msg.person_birth_date += "T00:00:00+08:00"
-				console.log(this.msg.person_birth_date);
+				// console.log(this.msg.person_birth_date);
 			},
 			saveInfo(){
 				this.patientinfo_show=false;
 				this.saveList=this.msg.person_name+" "+this.msg.person_gender_name+" "+this.msg.person_age;
 			},
 			tagClose(index) {
-				console.log(index);
+				// console.log(index);
 				this.drugList[index].show=false
 			},
 			pushInfo(){
 				let reqJson= JSON.stringify(this.msg);
-				console.log(reqJson);
-				console.log(typeof (reqJson));
-				this.$axios.post('https://api.zghy.xyz/consult/add',reqJson)
+				// console.log(reqJson);
+				// console.log(typeof (reqJson));
+				let headers={
+					"x-token":uni.getStorageSync("token"),
+				}
+				this.$axios.post('https://api.zghy.xyz/consult/add',reqJson,{headers:headers})
 					.then(res =>{
-						console.log(res);
+						// console.log(res);
 						if(res.data.code===0){
 							uni.navigateBack();
 						}else{
-							console.log(res.data.msg)
+							// console.log(res.data.msg)
 							//返回错误信息
 							let msg=res.data.msg;
 							uni.showToast({
@@ -477,9 +481,19 @@
 		border-bottom: 1rpx solid rgba(144,147,153,0.3);
 	}
 	.desc_input{
-		height: 150rpx;
+		display: flex;
+		align-items: flex-start;
+		width: auto;
+		height: 170rpx;
 		margin-top: 10rpx;
 		margin-bottom: 20rpx;
+	}
+	.desc_input_text{
+		display: flex;
+		align-items: flex-start;
+		width: 100%;
+		font-size: 12px;
+		color: #909399;
 	}
 	.gap{
 		margin-left: 30rpx;

@@ -4,7 +4,8 @@
 			userInfo:[],
 			consult_id:"",
 			consult_index:"",
-			consult:[]
+			consult:[],
+			drugList:[],
 		},
 		onLaunch: function() {
 			console.log('App Launch')

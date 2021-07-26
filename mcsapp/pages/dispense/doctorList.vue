@@ -53,10 +53,13 @@
 		},
 		methods: {
 			loadDoctor(){	
-				this.$axios.get('https://api.zghy.xyz/doctor/listAll')
+				let headers={
+					"x-token":uni.getStorageSync("token"),
+				}
+				this.$axios.get('https://api.zghy.xyz/doctor/listAll',{headers:headers})
 					.then(res=>{
 						let list=res.data.data;
-						console.log(res);
+						// console.log(res);
 						if(res.data.code===0){
 							this.doctorList=res.data.data;
 						}
@@ -67,9 +70,9 @@
 				this.doctor.level=this.doctorList[key].level_name;
 				this.doctor.department=this.doctorList[key].dept_name;
 				// this.doctor.src=this.doctorList[key].avatar_url;
-				console.log(this.doctor);
+				// console.log(this.doctor);
 				this.doctorInfoList=this.doctorList[key];
-				console.log(this.doctorInfoList);
+				// console.log(this.doctorInfoList);
 				uni.$emit('doctorData',this.doctor);
 				uni.$emit('doctorInfo',this.doctorInfoList)
 				uni.navigateBack();
@@ -79,11 +82,14 @@
 				search.doctor_name=value;
 				// console.log(search);
 				// console.log(typeof value);
-				this.$axios.post('https://api.zghy.xyz/doctor/findByName',search)
+				let headers={
+					"x-token":uni.getStorageSync("token"),
+				}
+				this.$axios.post('https://api.zghy.xyz/doctor/findByName',search,{headers:headers})
 					.then(res =>{
-						console.log(res);
+						// console.log(res);
 						let list=res.data.data;
-						console.log(res);
+						// console.log(res);
 						if(res.data.code===0){
 							this.doctorList=res.data.data;
 						}

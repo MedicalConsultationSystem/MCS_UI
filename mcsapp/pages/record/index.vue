@@ -70,17 +70,20 @@
 		},
 		onLoad() {
 			var user = getApp().globalData.userInfo;
-			console.log(user);
+			// console.log(user);
 			this.user.create_user_id=user.user_id;
 			this.user.user_type=user.user_type;
 			this.user.phone_no=user.phone_no;
 			let temp={};
 			temp.create_user_id=this.user.create_user_id
 			let reqJson= JSON.stringify(temp);
-			console.log(reqJson);
-			this.$axios.post('https://api.zghy.xyz/consult/findByUser',reqJson)
+			// console.log(reqJson);
+			let headers={
+				"x-token":uni.getStorageSync("token"),
+			}
+			this.$axios.post('https://api.zghy.xyz/consult/findByUser',reqJson,{headers:headers})
 				.then(res =>{
-					console.log(res);
+					// console.log(res);
 					//问诊时间RFC3339格式转标准格式			
 					this.consult=res.data.data;
 					for(let item in this.consult){
@@ -88,10 +91,10 @@
 						var date = new Date(str).toJSON();
 						var newDate=new Date(+new Date(date)+8*3600*1000).toISOString().replace(/T/g,' ').replace(/\.[\d]{3}Z/,'');
 						this.consult[item].create_time=newDate;
-						console.log(this.consult[item].create_time);
+						// console.log(this.consult[item].create_time);
 					}
 					getApp().globalData.consult=this.consult;
-					console.log(this.consult);
+					// console.log(this.consult);
 				})
 		},
 		methods: {
@@ -108,7 +111,7 @@
 				// 	})
 				getApp().globalData.consult_id=this.consult[key].consult_id;
 				getApp().globalData.consult_index=key;
-				console.log(getApp().globalData.consult_id);
+				// console.log(getApp().globalData.consult_id);
 				uni.navigateTo({
 					url: taburl
 				})

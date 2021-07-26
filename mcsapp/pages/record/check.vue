@@ -5,60 +5,60 @@
 			<u-navbar :is-back="true" back-icon-color="white" :title="title" title-color="white" :background="background" height="45"></u-navbar>
 		</view>
 		<view>
-			<u-tabs :list="list" :is-scroll="false" :current="current" active-color="rgb(79, 107, 208)" inactive-color="#909399" font-size="32" height="100" bar-width="95" @change="change"></u-tabs>
+			<u-tabs :list="list" :is-scroll="true" :current="current" active-color="rgb(79, 107, 208)" inactive-color="#909399" font-size="32" height="100" bar-width="95" @change="change"></u-tabs>
 		</view>
 		<view class="prescription">
 			<view class="head">
-				<view>
-					<text>创业慧康医院处方笺</text>
+				<view class="title">
+					<text style="font-size: 16px; font-weight: bold;">创业慧康医院</text>
+					<text style="font-size: 16px; font-weight: bold;">处方笺</text>
 				</view>
-				<view>
+				<view class="flag" style="font-size: 14px;">
 					<text>普通药品处方</text>
 				</view>
 			</view>
 			<view class="body">
-				<view>
+				<view class="body_info" style="font-size: 11px;">
 					<text>姓名：{{consult.person_name}}</text>
 					<text>性别：{{consult.person_gender_name}}</text>
 					<text>年龄：{{consult.person_age}}</text>
 					<text>日期：{{prescription.create_time}}</text>
 				</view>
-				<view>
+				<view class="body_info" style="font-size: 11px;">
 					<text>身份证号：{{consult.person_card_id}}</text>
 					<text>手机号：{{consult.person_phone_no}}</text>
 				</view>
 				<view class="gap">
-					<u-gap bg-color="#c0c4cc" height="30" margin-left="40"></u-gap>
+					<u-gap bg-color="#000000" height="10"></u-gap>
 				</view>
-				<text>Rp</text>
+				<text style="font-size: 15px; font-weight: bold;margin-top: 20rpx;margin-bottom: 20rpx;">Rp</text>
 				<view class="drugList" v-for="(item,index) in drugList" :key="index">
-					<view>
-						<view>
-							<text>{{drugList[index].drug_name}}</text>
-							<text>用法：{{drugList[index].dose+drugList[index].dose_unit+"/次 "+drugList[index].frequency_name+""+drugList[index].usage_name}}</text>
+					<view class="drug">
+						<view class="drug_item">
+							<text style="font-size: 13px;">{{drugList[index].drug_name}}</text>
+							<text style="font-size: 13px;">1.00{{drugList[index].pack_unit}}</text>
 						</view>
-						<view>
-							<text>1.00{{drugList[index].pack_unit}}</text>
-						</view>
+						<text style="font-size: 13px; color: #909399;">用法：{{drugList[index].dose+drugList[index].dose_unit+"/次 "+drugList[index].frequency_name+""+drugList[index].usage_name}}</text>
 					</view>
-					<view class="price">
-						<text>药费：{{drugList[index].price}}元</text>
+					<view class="price" style="font-size: 13px; text-align:right">
+						<text>药费：</text>
+						<text style="color: #ff9900;">{{drugList[index].price}}</text>
+						<text>元</text>
 					</view>
 				</view>
-				
 			</view>
 			<view class="footer">
-				<view>
-					<text>处方医师：{{consult.doctor_name}}</text>
-					<text>审核医师：</text>
-					<text>发药医师：</text>
-				</view>
-				<view>
-					<text>盖章：</text>
+				<view class="doctor">
+					<view class="doctor_item">
+						<text style="font-size: 13px;">处方医师：{{consult.doctor_name}}</text>
+						<text style="font-size: 13px;">盖章：</text>
+					</view>
+					<text style="font-size: 13px;">审核医师：</text>
+					<text style="font-size: 13px;">发药医师：</text>
 				</view>
 			</view>
-			<view class="attention">
-				*药品温馨提示：请遵医嘱服药！处方当日有效！
+			<view class="attention" >
+				<text style="font-size: 11px; color: #909399;">*药品温馨提示：请遵医嘱服药！处方当日有效！</text>
 			</view>
 		</view>
 	</view>
@@ -84,16 +84,19 @@
 		},
 		onLoad() {
 			this.consult=getApp().globalData.consult[this.consult_index];
-			console.log(this.consult_id);
-			console.log(this.consult_index);
-			console.log(this.consult);
-			console.log(123);
+			// console.log(this.consult_id);
+			// console.log(this.consult_index);
+			// console.log(this.consult);
+			// console.log(123);
 			let temp={};
 			temp.consult_id=this.consult_id;
 			let reqJson= JSON.stringify(temp);
-			this.$axios.post('https://api.zghy.xyz/prescription/list',reqJson)
+			let headers={
+				"x-token":uni.getStorageSync("token"),
+			}
+			this.$axios.post('https://api.zghy.xyz/prescription/list',reqJson,{headers:headers})
 				.then(res =>{
-					console.log(res);
+					// console.log(res);
 					this.prescriptions = res.data.data.prescriptions;
 					//时间格式处理
 					for(let index in this.prescriptions){
@@ -105,16 +108,16 @@
 						var str2 = newDate.toString();
 						str2 = str2.replace("/-/g", "/");
 						var oDate1 = new Date(str2); //Sat Jul 24 2021 10:07:38 GMT+0800 (中国标准时间)
-						console.log(oDate1);
+						// console.log(oDate1);
 						this.prescriptions[index].create_time=oDate1.getFullYear()+"-"+oDate1.getMonth()+"-"+oDate1.getDate();
-						console.log(this.prescriptions[index].create_time);
+						// console.log(this.prescriptions[index].create_time);
 					}
 					this.prescription = this.prescriptions[0];
 					this.drugList = this.prescription.drugs;
-					console.log(this.prescription);
-					console.log(this.drugList);
+					// console.log(this.prescription);
+					// console.log(this.drugList);
 					for(let item in this.prescriptions){
-						console.log(item);
+						// console.log(item);
 						let title={};
 						if(item==="0"){
 							title.name="处方一";
@@ -138,7 +141,7 @@
 							title.name="处方十";
 						}
 						this.list.push(title);
-						console.log(this.list);
+						// console.log(this.list);
 					}
 				})
 		},
@@ -147,11 +150,101 @@
 				this.current = index;
 				this.prescription=this.prescriptions[index];
 				this.drugList = this.prescription.drugs;
-				console.log(this.prescription);
+				// console.log(this.prescription);
 			}
 		},
 	}
 </script>
 
 <style>
+	.prescription{
+		width: auto;
+		height: 100%;
+		margin-left: 30rpx;
+		margin-right: 30rpx;
+	}
+	.head{
+		width: auto;
+		height: 170rpx;
+		display: flex;
+		flex-direction: row;
+	}
+	.title{
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		margin-left: 230rpx;
+		margin-top: 10rpx;
+	}
+	.flag{
+		width: 110rpx;
+		height: 100rpx;
+		padding-left: 9rpx;
+		padding-top: 2rpx;
+		margin-top: 50rpx;
+		margin-left: 110rpx;
+		border: 2rpx solid #000000;
+	}
+	.body{
+		width: auto;
+		display: flex;
+		flex-direction: column;
+	}
+	.body_info{
+		width: auto;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		margin-top: 20rpx;
+	}
+	.gap{
+		margin-top: 190rpx;
+	}
+	.drugList{
+		width: auto;
+		display: flex;
+		flex-direction: column;
+		padding-bottom: 15rpx;
+		border-bottom: 1rpx solid rgba(144,147,153,0.3);
+	}
+	.drugList text{
+		margin-top: 15rpx;
+	}
+	.drug{
+		width: auto;
+		display: flex;
+		flex-direction: column;
+	}
+	.drug_item{
+		width: auto;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+	.footer{
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+	}
+	.doctor{
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+	.doctor text{
+		margin-top: 15rpx;
+	}
+	.doctor_item{
+		width: auto;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+	.attention{
+		margin-top: 120rpx;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+	}
 </style>

@@ -173,7 +173,7 @@
 	}
 	.into{
 		margin-right: 26rpx;
-		margin-top: 40rpx;
+		margin-top: 35rpx;
 		margin-bottom: 20rpx;
 	}
 	.answer{

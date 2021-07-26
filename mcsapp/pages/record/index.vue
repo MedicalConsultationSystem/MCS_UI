@@ -1,5 +1,5 @@
 <template>
-	<view class="content" style="height: 1667rpx; background-color: #f5f5f5;">
+	<view class="content" style="height: 100%; background-color: #f5f5f5;">
 		<view class="nav">
 			<!-- 自定义导航栏 -->
 			<u-navbar :is-back="true" back-icon-color="white" :title="title" title-color="white" :background="background" height="45"></u-navbar>

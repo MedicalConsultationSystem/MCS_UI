@@ -519,7 +519,7 @@ name: "prescription",
   color: #fdf6ec;
 }
 .prescriptionBoard{
-  margin-top: 40rpx;
+  //margin-top: 20rpx;
 }
 .add{
   display: flex;

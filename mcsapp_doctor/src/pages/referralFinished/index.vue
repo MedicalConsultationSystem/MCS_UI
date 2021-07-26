@@ -6,7 +6,7 @@
     </view>
     <view>
       <view class="patientBoard" v-for="(item,index) in dataList" :key="index" >
-        <u-card class="patient" >
+        <u-card class="patient" head-border-bottom="false" foot-border-top="false">
           <view class="patient_head" slot="head">
             <view class="head_row">
               <text class="apply">{{apply}}</text>
@@ -153,7 +153,7 @@ export default {
   height: 1667rpx;
 }
 .patientBoard{
-  margin-top: 40rpx;
+  //margin-top: 20rpx;
 }
 .patient{
   display: flex;

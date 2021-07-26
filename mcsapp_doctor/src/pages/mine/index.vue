@@ -5,7 +5,7 @@
       <u-navbar back-icon-color="white" :title="title" title-color="white" :background="background" height="45" ></u-navbar>
     </view>
     <view class="userboard">
-      <u-card class="user" :head-border-bottom="false" :foot-border-bottom="false">
+      <u-card class="user" head-border-bottom="false" foot-border-bottom="false">
         <view class="head" slot="head">
           <image :src="user.src"></image>
           <text>{{doctor_info.doctor_name}}</text>

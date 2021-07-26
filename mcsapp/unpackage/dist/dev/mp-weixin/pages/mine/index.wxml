@@ -1,0 +1,1 @@
+<view class="content"><view class="mineboard"><u-card class="mine" vue-id="2efac497-1" box-shadow="2px 3px 8px #888888" bind:__l="__l" vue-slots="{{['body','foot']}}"><view class="mine_head" slot="body"><image src="{{user.src}}"></image><view><text class="name">{{"用户："+user.id}}</text></view></view><view slot="foot"></view></u-card></view></view>

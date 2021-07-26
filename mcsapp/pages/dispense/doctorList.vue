@@ -10,9 +10,8 @@
 		</view>
 		<view class="doctorInfo" v-for="(item,index) in doctorList" :key="index" @click="chooseDoctor(index)">
 			<view class="doctor">
-				<!-- 服务器医生头像 -->
 				<!-- <image :src="item.avatar_url"></image> -->
-				<image :src=doctor.src></image>
+				<image :src="doctor.src"></image>
 				<view class="name_text">
 					<text class="name_text1">{{item.doctor_name}}</text>
 					<view v-if="item.level_name!==''">

@@ -11,7 +11,10 @@
   "license": "ISC",
   "dependencies": {
     "@dcloudio/uni-helper-json": "^1.0.13",
+<<<<<<< HEAD
     "axios": "^0.21.1",
+=======
+>>>>>>> mcsapp_doctor
     "uview-ui": "^1.8.4"
   }
 }

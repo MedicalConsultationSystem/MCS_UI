@@ -54,12 +54,17 @@
 
 	},
 	"mp-weixin": { /* 微信小程序特有相关 */
+<<<<<<< HEAD
 		"appid": "",
+=======
+		"appid": "wxf6a3675168d24265",
+>>>>>>> mcsapp_doctor
 		"setting": {
 			"urlCheck": false
 		},
 		"usingComponents": true
 	},
+<<<<<<< HEAD
 	"mp-alipay" : {
         "usingComponents" : true
     },
@@ -73,3 +78,18 @@
         "usingComponents" : true
     }
 }
+=======
+	"mp-alipay" : {
+        "usingComponents" : true
+    },
+    "mp-baidu" : {
+        "usingComponents" : true
+    },
+    "mp-toutiao" : {
+        "usingComponents" : true
+    },
+    "mp-qq" : {
+        "usingComponents" : true
+    }
+}
+>>>>>>> mcsapp_doctor

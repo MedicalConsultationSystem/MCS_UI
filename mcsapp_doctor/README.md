@@ -1,10 +1,14 @@
 # mcsapp_doctor
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> mcsapp_doctor
 ## Project setup
 ```
 yarn install
 ```
+<<<<<<< HEAD
 
 ### Compiles and hot-reloads for development
 ```
@@ -38,13 +42,23 @@ npm run build --report
 
 # run unit tests
 npm run unit
+=======
+>>>>>>> mcsapp_doctor
 
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
+### Compiles and hot-reloads for development
+```
+yarn serve
 ```
 
+### Compiles and minifies for production
+```
+yarn build
+```
+
+<<<<<<< HEAD
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 >>>>>>> master
+=======
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
+>>>>>>> mcsapp_doctor

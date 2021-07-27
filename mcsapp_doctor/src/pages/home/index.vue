@@ -32,7 +32,11 @@
         <u-icon class="into" name="arrow-right" size="30"></u-icon>
       </view>
       <!-- 资讯列表 -->
+<<<<<<< HEAD
       <view>
+=======
+      <view class="list">
+>>>>>>> mcsapp_doctor
         <scroll-view class="answer" :scroll-y="true">
           <view class="answer-item" v-for="item in answerList" :key="item.id" >
             <image :src="item.src"></image>
@@ -64,10 +68,17 @@ export default {
         }
       ],
       menuList:[
+<<<<<<< HEAD
         {id:1,src:"../../static/home/menu1.png",text:"初诊记录",url:"../diagnosis/index"},
         {id:2,src:"../../static/home/menu2.png",text:"复诊配药",url:"../referral/index"},
         {id:3,src:"../../static/home/menu3.png",text:"配药记录",url:"../record/index"},
         {id:4,src:"../../static/home/menu4.png",text:"电子处方",url:"../prescription/index"}
+=======
+        {id:1,src:"../../static/home/menu1.png",text:"初诊记录",url:""},
+        {id:2,src:"../../static/home/menu2.png",text:"复诊配药",url:"../referral/index"},
+        {id:3,src:"../../static/home/menu3.png",text:"配药记录",url:"../referralFinished/index"},
+        {id:4,src:"../../static/home/menu4.png",text:"电子处方",url:""}
+>>>>>>> mcsapp_doctor
       ],
       answerList:[
         {id:1,src:"../../static/touxiang/touxiang1.jpg",text:"知名球员张恩华48岁心梗去世，运动员都难逃其手，还以为猝死离你很远吗？"},
@@ -128,6 +139,12 @@ export default {
   flex-direction: row;
   justify-content:space-around;
 }
+<<<<<<< HEAD
+=======
+//.list{
+//  height: 400rpx;
+//}
+>>>>>>> mcsapp_doctor
 .menu-item {
   display: flex;
   width: 150rpx;
@@ -170,9 +187,18 @@ export default {
   margin-top: 40rpx;
   margin-bottom: 20rpx;
 }
+<<<<<<< HEAD
 .answer{
   width: 750rpx;
   height: 480rpx;
+=======
+.total{
+  height: 1400rpx;
+}
+.answer{
+  width: 750rpx;
+  height: 800rpx;
+>>>>>>> mcsapp_doctor
   display: flex;
   flex-direction: column;
 }

@@ -4,6 +4,16 @@
 	},
 	"pages": [
 		{
+<<<<<<< HEAD
+=======
+			"path": "pages/login/index",
+			"style": {
+				"navigationStyle": "custom" ,
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+>>>>>>> mcsapp_doctor
 			"path": "pages/home/index",
 			"style": {
 				"navigationStyle": "custom" ,
@@ -44,6 +54,30 @@
 				"navigationStyle": "custom" ,
 				"navigationBarTextStyle": "white"
 			}
+<<<<<<< HEAD
+=======
+		},
+		{
+			"path": "pages/drugAdd/index",
+			"style": {
+				"navigationStyle": "custom" ,
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/check/index",
+			"style": {
+				"navigationStyle": "custom" ,
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/referralFinished/index",
+			"style": {
+				"navigationStyle": "custom" ,
+				"navigationBarTextStyle": "white"
+			}
+>>>>>>> mcsapp_doctor
 		}
 	],
 	"globalStyle": {

@@ -59,6 +59,10 @@ name: "referral",
   return{
     title: "复诊配药",
     screenHeight:null,
+    person_name:"",
+    person_gender_name:"",
+    person_age:"",
+    drug_names:"",
     status: {
       1:"待接诊",
       2:"进行中"
@@ -96,7 +100,7 @@ name: "referral",
   onShow(e){
     let pages = getCurrentPages();
     let currPage = pages[pages.length-1];
-    if (currPage.data.isDoRefresh == true){
+    if (currPage.data.isDoRefresh === true){
       currPage.data.isDoRefresh = false;
       this.getReferralList();
     }else{
@@ -143,16 +147,20 @@ name: "referral",
               console.log(res.data.data[0].consult_status)
               this.dataList=[]
               for(let item in res.data.data){
-                if((res.data.data[item].consult_status===1)||(res.data.data[item].consult_status===2)){
-                  res.data.data[item].consult_status=this.status[res.data.data[item].consult_status]
-                  console.log(res.data.data[item].create_time)
-                  let date = new Date(res.data.data[item].create_time).toJSON();
-                  res.data.data[item].create_time=new Date(+new Date(date)+8*3600*1000).toISOString().replace(/T/g,' ').replace(/\.[\d]{3}Z/,'');
-                  console.log(res.data.data[item])
-                  this.dataList.push(res.data.data[item])
-                  console.log(this.dataList)
+                if(res.data.data.hasOwnProperty(item)){
+                  if((res.data.data[item].consult_status===1)||(res.data.data[item].consult_status===2)){
+                    res.data.data[item].consult_status=this.status[res.data.data[item].consult_status]
+                    console.log(res.data.data[item].create_time)
+                    let date = new Date(res.data.data[item].create_time).toJSON();
+                    res.data.data[item].create_time=new Date(+new Date(date)+8*3600*1000).toISOString().replace(/T/g,' ').replace(/\.[\d]{3}Z/,'');
+                    console.log(res.data.data[item])
+                    this.dataList.push(res.data.data[item])
+                    console.log(this.dataList)
+                  }
+
                 }
               }
+              console.log(this.dataList)
             }
           })
           .catch(error=>{

@@ -240,7 +240,7 @@ name: "prescription",
       })
     },
     addPrescription(){
-      this.consult_id=uni.getStorageSync('consult_id');
+      this.addPrescriptionInfo.consult_id=uni.getStorageSync('consult_id');
       this.addPrescriptionInfo.doctor_id=this.receive.doctor_id;
       this.addPrescriptionInfo.doctor_name=this.receive.doctor_name;
       this.addPrescriptionInfo.org_id=this.receive.org_id;
